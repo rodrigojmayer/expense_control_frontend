@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useState } from "react"
 
 const AuthContext = createContext<object | any>(undefined)

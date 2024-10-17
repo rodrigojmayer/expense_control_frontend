@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unsafe-finally */
 import  { useCallback, useContext}  from 'react'
 import { UserContext } from '../context/UserContext';
 import { IsLoadingContext } from '../context/IsLoadingContext';
@@ -110,7 +113,6 @@ export default function useUser () {
       // console.log("useUser response: ", response)
       // console.log("useUser JSON.stringify(response): ", JSON.stringify(response))
       // console.log("useUser JSON.stringify(response?.data): ", JSON.stringify(response?.data))
-      // console.log(JSON.stringify(response))
       const accessToken = response?.data.accessToken
       const _id = response?.data._id
       // const id_client = response?.data._id
@@ -134,7 +136,7 @@ export default function useUser () {
       //       console.log("error email not found 2?: ", response)
       //     }
     } catch (err:any) {
-      // console.log("error email not found?: ", err)
+      console.log("error email not found: ", err)
       //   // setUser(INITIAL_USER);
       //   // Handle any network or fetch-related errors
       if (!err?.response) {

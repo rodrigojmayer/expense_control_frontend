@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import RequireAuth from './components/RequireAuth';
 // import PersistLogin from './components/PersistLogin';
 // import Redirect from './components/Redirect';
@@ -6,9 +7,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import RequireAuth from './components/RequireAuth';
+// import RequireAuth from './components/RequireAuth';
 import PersistLogin from './components/PersistLogin';
 import Redirect from './components/Redirect';// Import your AuthProvider
+import Layout from './components/Layout';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
@@ -17,18 +20,18 @@ function App() {
     <GoogleOAuthProvider clientId={CLIENT_ID}>
       {/* <Router> */}
         <Routes>
-          {/* <Route path="/" element={<Layout />} > */}
-            {/* <Route path="" element={<PersistLogin />} > */}
-              {/* <Route element={<RequireAuth />} > */}
+          <Route path="/" element={<Layout />} >
+            <Route path="" element={<PersistLogin />} >
+              <Route element={<RequireAuth />} >
                 <Route path="" element={<Home />} />
                 <Route path="*" element={<Home />} />
                 <Route path="/*" element={<Home />} />
-              {/* </Route> */}
-              {/* <Route element={<Redirect />} > */}
+              </Route>
+              <Route element={<Redirect />} >
                 <Route path="login" element={<Login />} />
-              {/* </Route> */}
-            {/* </Route> */}
-          {/* </Route> */}
+              </Route>
+            </Route>
+          </Route>
         </Routes>
       {/* </Router> */}
      </GoogleOAuthProvider> 
