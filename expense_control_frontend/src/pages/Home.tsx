@@ -73,7 +73,7 @@ function Home() {
       ...prevState,
       businessMenuSelected:business[option],
     }))
-    setRouteSelected(<p><Typography variant="body2"><a onClick={() =>selectHome()}>Home / </a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()}/></p>)
+    setRouteSelected(<p><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()}/></p>)
   })
   const selectPayment:any = ((option:number) => {
     
@@ -88,7 +88,7 @@ function Home() {
       ...prevState,
       paymentMethodMenuSelected:paymentMethods[option],
     }))
-    setRouteSelected(<p><Typography variant="body2"><a onClick={() =>selectHome()}>Home / </a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`} / </a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}/></p>)
+    setRouteSelected(<p><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}/></p>)
   })
   const selectArticles: any = (() => {
     alert("article asdf")
@@ -96,9 +96,10 @@ function Home() {
 
 
   return (
-          <div className="App">
-              {routeSelected}
-              
+          // <div className="App">
+          <div className={classes.AppDiv}>
+              <Box className={classes.route}>{routeSelected}
+              </Box>
             <BusinessMenuModal
               hiddenPanel={openOptionModal.businessMenuModal}
               selectBusiness={selectBusiness}

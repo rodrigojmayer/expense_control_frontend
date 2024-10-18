@@ -73,9 +73,9 @@ export default function ArticlesMenuModal(
         hidden= {hiddenPanel}
       >
         <Box className={classes.customBoxRow}>
-          <Typography variant="h5">
+          <h2>
             Artículos
-          </Typography>
+          </h2>
         </Box>
         <Box className={classes.customBoxRow}>
           <Button 

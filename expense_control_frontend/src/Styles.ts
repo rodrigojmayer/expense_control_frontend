@@ -97,8 +97,8 @@ export const useStylesGlobal = makeStyles()({
     },
     AppDiv: {
         height:"100vh",
-        margin: "0",
-        padding: "0",
+        // margin: "20px",
+        padding: "24px",
     },
     main_background_colorD: {
         backgroundColor: mainColorD,
@@ -314,6 +314,11 @@ export const useStylesGlobal = makeStyles()({
     font_business: {
         fontSize: "32px",
         fontWeight: "bold",
+    },
+    route: {
+        display: "block",
+      margin: "0 5px",
+    //   margin: "15px",
     },
     btn_add: {
       backgroundColor: neutralContrastText,
