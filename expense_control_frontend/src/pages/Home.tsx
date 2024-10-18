@@ -96,10 +96,8 @@ function Home() {
 
 
   return (
-          // <div className="App">
           <div className={classes.AppDiv}>
-              <Box className={classes.route}>{routeSelected}
-              </Box>
+              {routeSelected}
             <BusinessMenuModal
               hiddenPanel={openOptionModal.businessMenuModal}
               selectBusiness={selectBusiness}
