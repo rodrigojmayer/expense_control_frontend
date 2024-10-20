@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface UserData {
   _id: string;
   id: number;
@@ -20,4 +21,17 @@ export interface JwtPayload {
   given_name: string,
   family_name: string,
   email_verified: string,
+}
+
+export interface Data {
+  _id: string;
+  id?: number;
+  id_client: number;
+  product: string;
+  id_group: string;
+  [key?: string]: any;
+  price_primary?: number | string;
+  price_secondary?: number | string;
+  description?: string;
+  deleted?: boolean;
 }

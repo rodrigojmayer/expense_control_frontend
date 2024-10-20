@@ -38,7 +38,7 @@ function Home() {
   const navigate = useNavigate();
   const [openOptionModal, setOpenOptionModal] = useState<any>(INITIAL_MODAL_OPTIONS);
   const [optionSelected, setOptionSelected] = useState<any>(INITIAL_SELECTED_OPTIONS);
-  const [routeSelected, setRouteSelected] = useState<any>(<p>Home</p>);
+  const [routeSelected, setRouteSelected] = useState<any>(<a>Home</a>);
 
   const signOut = async() => {
 
@@ -55,7 +55,7 @@ function Home() {
   const selectHome:any = (() => {
     setOpenOptionModal(INITIAL_MODAL_OPTIONS)
     setOptionSelected(INITIAL_SELECTED_OPTIONS)
-    setRouteSelected(<p>Home</p>)
+    setRouteSelected(<a>Home</a>)
   })
 
 
@@ -73,7 +73,7 @@ function Home() {
       ...prevState,
       businessMenuSelected:business[option],
     }))
-    setRouteSelected(<p><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()}/></p>)
+    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()}/></>)
   })
   const selectPayment:any = ((option:number) => {
     
@@ -88,7 +88,7 @@ function Home() {
       ...prevState,
       paymentMethodMenuSelected:paymentMethods[option],
     }))
-    setRouteSelected(<p><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}/></p>)
+    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}/></>)
   })
   const selectArticles: any = (() => {
     alert("article asdf")

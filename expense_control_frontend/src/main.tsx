@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { IsLoadingProvider } from './context/IsLoadingContext';
 import { AuthProvider } from './context/AuthProvider';
 import { UserProvider } from './context/UserContext';
+// import { ProductsProvider } from './context/ProductsContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>
@@ -13,10 +14,12 @@ createRoot(document.getElementById('root')!).render(
         <IsLoadingProvider>
           <AuthProvider>
             <UserProvider>
-              {/* <App /> */}
-                <Routes>
-                  <Route path="/*" element={<App />} />
-                </Routes>
+            {/* <ProductsProvider> */}
+                {/* <App /> */}
+                  <Routes>
+                    <Route path="/*" element={<App />} />
+                  </Routes>
+                {/* </ProductsProvider> */}
             </UserProvider>
           </AuthProvider>
         </IsLoadingProvider>

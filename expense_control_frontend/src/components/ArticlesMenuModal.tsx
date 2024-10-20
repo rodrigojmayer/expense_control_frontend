@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import dayjs, { Dayjs } from 'dayjs';// Import dayjs
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -19,7 +20,7 @@ import { useStylesGlobal } from '../Styles'
 // import useMediaQuery from '@mui/material/useMediaQuery'
 // import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 // import Switch from '@mui/material/Switch';
-// import { UserContext } from '../context/UserContext';
+// import { ProductsContext } from '../context/ProductsContext';
 // import { LanguageLabelsContext } from '../context/LanguageLabelsContext';
 
 interface ChildProps {
@@ -35,7 +36,9 @@ export default function ArticlesMenuModal(
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     // const firstInputRef = useRef<HTMLInputElement>(null)
-    // const { user } = useContext<any>(UserContext); 
+    // const { products } = useContext<any>(ProductsContext); 
+    // console.log("products: ", products)
+    
     // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
 
     // const close = () => {}
