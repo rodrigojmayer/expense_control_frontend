@@ -96,7 +96,7 @@ export default function ArticlesMenuModal(
         {
           groups.map((element: GroupData) => {
             return(
-              <Box className={classes.customBoxRow}
+              <Box className={classes.customBoxGroup}
                 key={element._id}
               >
                 {element.name}

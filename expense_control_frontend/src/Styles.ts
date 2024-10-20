@@ -6,12 +6,13 @@ import {  createTheme } from '@mui/material/styles';
 // 2: Fresh blue
 // 3: White solid
 
-const linkColor = '#c1e8fb';  // Is used without a user so it should be only one
-const mainColor = 'rgb(127, 194, 213, 1)';
-const mainColorLighter = 'rgb(115, 142, 161, 1)';
-const mainColor3 = 'rgb(38,55, 66, 1)'; // is used just in the menu options with large screens
-const mainColorD = 'rgb(25, 54, 72)';
-const mainColorDD = 'rgb(18, 35, 46, 1)';
+const linkColor = '#c1e8fb';  // Is used w
+const firstColor = '#002830';
+const firstAlphaColor = '#0B4955';
+const secondColor = '#7FC2D5';
+const secondAlphaColor = '#CEE9F1';
+const thirdColor = '#EEAA46';
+const thirdAlphaColor = '#EEAA46';
 const tableHeaderColor = 'rgb(255, 255, 255, 1)';
 const tableAlertOnBackground = 'rgb(290, 10, 50, .6)';
 const tableAlertOnColor = 'rgb(255, 255, 255, 1)';
@@ -73,13 +74,11 @@ export const useStylesGlobal = makeStyles()({
         color: linkColor,
     },
     main_color: {
-        color: mainColor,
+        color: secondColor,
     },
     
     main_background_color: {
-        backgroundColor: mainColor,
-        // backgroundImage: `linear-gradient(45deg, ${mainColor} 50%, ${mainColorLighter})`,
-        // boxShadow: `-20px 20px 20px 2px ${shadowColor} `,
+        backgroundColor: secondColor,
     },
     warning_color: {
         color: warningMain,
@@ -99,9 +98,6 @@ export const useStylesGlobal = makeStyles()({
         height:"100vh",
         // margin: "20px",
         padding: "24px",
-    },
-    main_background_colorD: {
-        backgroundColor: mainColorD,
     },
     customBoxColumn: { 
         margin: "0 auto",
@@ -144,6 +140,15 @@ export const useStylesGlobal = makeStyles()({
         justifyContent:  "center",
         alignItems: "center",
         gap: 8,
+    },
+    customBoxGroup: {
+        display: "flex",
+        backgroundColor: firstColor,
+        height: "85px",
+        width: "85px",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "10px",
     },
     customBoxRowHideSpace: {
         height: "40px",
@@ -458,9 +463,6 @@ export const useStylesGlobal = makeStyles()({
         display: "flex",
         justifyContent: "center",
     },
-    main_background_colorDD: {
-        backgroundColor: mainColorDD,
-    },
     main_colorDD: {
         color: tableHeaderColor,
     },
@@ -515,9 +517,6 @@ export const useStylesGlobal = makeStyles()({
         borderRadius: "0 0 10px 10px",
     },
     
-    background_color3 : {
-        backgroundColor: mainColor3,
-    },
     table_header_color: {
         color: tableHeaderColor,
         '&.Mui-checked': {
@@ -573,22 +572,6 @@ export const useStylesGlobal = makeStyles()({
     },
     menu_item: {
         padding: '0 5px',
-    },
-    lang_menu_props_background_color: {
-        backgroundColor: mainColor,
-        color: "white",
-    },
-    lang_menu_item_background_color: {
-        '&:hover': {
-            backgroundColor: mainColorLighter,
-        },'&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: mainColorLighter,
-        },
-        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: mainColorLighter,
-        },'& .MuiSelect-icon': {
-            display: 'none', // This hides the default arrow icon
-          },
     },
     // menu_item: {
     menu_item_background_color: {
