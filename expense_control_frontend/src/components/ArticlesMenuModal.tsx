@@ -12,6 +12,7 @@ import { Box,
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
+import { Data } from '../types';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -20,25 +21,24 @@ import { useStylesGlobal } from '../Styles'
 // import useMediaQuery from '@mui/material/useMediaQuery'
 // import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 // import Switch from '@mui/material/Switch';
-// import { ProductsContext } from '../context/ProductsContext';
 // import { LanguageLabelsContext } from '../context/LanguageLabelsContext';
 
 interface ChildProps {
     hiddenPanel:  boolean
     selectArticles: (newData: number) => void
+    productsBusiness: Data[]
 }
 
 export default function ArticlesMenuModal(
     {   
         hiddenPanel, 
-        selectArticles
+        selectArticles,
+        productsBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     // const firstInputRef = useRef<HTMLInputElement>(null)
-    // const { products } = useContext<any>(ProductsContext); 
-    // console.log("products: ", products)
-    
+    console.log("productsBusiness: ", productsBusiness)
     // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
 
     // const close = () => {}
@@ -80,6 +80,17 @@ export default function ArticlesMenuModal(
             Artículos
           </h2>
         </Box>
+        {
+          productsBusiness.map((element: Data) => {
+            return(
+              <Box className={classes.customBoxRow}
+                key={element._id}
+              >
+                {element.product}
+              </Box>
+            )
+          })
+        }
         <Box className={classes.customBoxRow}>
           <Button 
             className={` ${classes.btn_business}`}

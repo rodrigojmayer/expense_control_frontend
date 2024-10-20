@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useState, useEffect } from "react";
+import { Data } from '../types';
 import useLogout from "../hooks/useLogout";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,7 @@ import BusinessMenuModal from "../components/BusinessMenuModal";
 import PaymentMethodMenuModal from "../components/PaymentMethodMenuModal";
 import ArticlesMenuModal from "../components/ArticlesMenuModal";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { ProductsContext } from '../context/ProductsContext';
 
 const business = [
   "Agustin", "Belen", "Cande", "Facha Gaucha"
@@ -33,13 +35,15 @@ const INITIAL_SELECTED_OPTIONS:any = {
 function Home() {
   const { classes } = useStylesGlobal();
   const { user, setUser, INITIAL_USER } = useContext<any>(UserContext)
-  
+  const { products } = useContext<any>(ProductsContext); 
+
   const logout = useLogout();
   const navigate = useNavigate();
   const [openOptionModal, setOpenOptionModal] = useState<any>(INITIAL_MODAL_OPTIONS);
   const [optionSelected, setOptionSelected] = useState<any>(INITIAL_SELECTED_OPTIONS);
   const [routeSelected, setRouteSelected] = useState<any>(<a>Home</a>);
-
+  const [productsBusiness, setProductsBusiness] = useState<Data[]>([]);
+  
   const signOut = async() => {
 
     try {
@@ -74,6 +78,11 @@ function Home() {
       businessMenuSelected:business[option],
     }))
     setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()}/></>)
+    const productsFiltered = products.filter((product: Data) => {
+      if(product.id_client === option) 
+        return product
+    })
+    setProductsBusiness(productsFiltered)
   })
   const selectPayment:any = ((option:number) => {
     
@@ -109,6 +118,7 @@ function Home() {
             <ArticlesMenuModal
               hiddenPanel={openOptionModal.articlesMenuModal}
               selectArticles={selectArticles}
+              productsBusiness={productsBusiness}
             />
             
             <Box className={classes.customBoxRow}>
