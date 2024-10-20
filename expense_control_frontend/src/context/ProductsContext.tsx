@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useState, useEffect, useContext } from 'react';
-import { Data } from '../types';
+import { ProductData } from '../types';
 import { IsLoadingContext } from './IsLoadingContext';
 import { UserContext } from './UserContext';
 // import { CategoriesContext } from './CategoriesContext';
@@ -18,7 +18,7 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
   const { user } = useContext<any>(UserContext);
   // const { categories } = useContext<any>(CategoriesContext);
   
-  const [products, setProducts] = useState<Data[]>([])
+  const [products, setProducts] = useState<ProductData[]>([])
 
   const fetchProducts = async () => {
       
@@ -26,14 +26,14 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
 
     try {
       // const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/products/client/${user.id_client}`)
-      const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/products/client/3`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/products/`)
       if (response.ok) {
         const json = await response.json()
         // console.log("-------------productsContext json: ", json)
         
         // if(json.lenght>0){
           // Map through the products array and edit the date format
-          const formattedProducts = json.map((product: Data) => {
+          const formattedProducts = json.map((product: ProductData) => {
             // const selectedCategorySub = categoriesSub.find((categorySub: any) => categorySub.id === product.id_sub_category);
             return {
               ...product,

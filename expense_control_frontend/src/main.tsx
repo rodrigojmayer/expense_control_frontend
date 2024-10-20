@@ -7,6 +7,7 @@ import { IsLoadingProvider } from './context/IsLoadingContext';
 import { AuthProvider } from './context/AuthProvider';
 import { UserProvider } from './context/UserContext';
 import { ProductsProvider } from './context/ProductsContext.tsx';
+import { GroupsProvider } from './context/GroupsContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>
@@ -15,10 +16,12 @@ createRoot(document.getElementById('root')!).render(
           <AuthProvider>
             <UserProvider>
             <ProductsProvider>
-                {/* <App /> */}
-                  <Routes>
-                    <Route path="/*" element={<App />} />
-                  </Routes>
+              <GroupsProvider>
+                  {/* <App /> */}
+                    <Routes>
+                      <Route path="/*" element={<App />} />
+                    </Routes>
+                  </GroupsProvider>
                 </ProductsProvider>
             </UserProvider>
           </AuthProvider>

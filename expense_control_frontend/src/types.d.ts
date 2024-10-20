@@ -23,7 +23,7 @@ export interface JwtPayload {
   email_verified: string,
 }
 
-export interface Data {
+export interface ProductData {
   _id: string;
   id?: number;
   id_client: number;
@@ -33,5 +33,11 @@ export interface Data {
   price_primary?: number | string;
   price_secondary?: number | string;
   description?: string;
+  deleted?: boolean;
+}
+export interface GroupData {
+  _id: string;
+  id?: number;
+  name: number;
   deleted?: boolean;
 }

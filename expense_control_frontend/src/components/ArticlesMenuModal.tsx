@@ -12,7 +12,7 @@ import { Box,
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
-import { Data } from '../types';
+import { ProductData, GroupData } from '../types';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -26,19 +26,21 @@ import { Data } from '../types';
 interface ChildProps {
     hiddenPanel:  boolean
     selectArticles: (newData: number) => void
-    productsBusiness: Data[]
+    productsBusiness: ProductData[]
+    groups: GroupData[]
 }
 
 export default function ArticlesMenuModal(
     {   
         hiddenPanel, 
         selectArticles,
-        productsBusiness
+        productsBusiness,
+        groups
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     // const firstInputRef = useRef<HTMLInputElement>(null)
-    console.log("productsBusiness: ", productsBusiness)
+    // console.log("productsBusiness: ", productsBusiness)
     // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
 
     // const close = () => {}
@@ -81,12 +83,23 @@ export default function ArticlesMenuModal(
           </h2>
         </Box>
         {
-          productsBusiness.map((element: Data) => {
+          productsBusiness.map((element: ProductData) => {
             return(
               <Box className={classes.customBoxRow}
                 key={element._id}
               >
                 {element.product}
+              </Box>
+            )
+          })
+        }
+        {
+          groups.map((element: GroupData) => {
+            return(
+              <Box className={classes.customBoxRow}
+                key={element._id}
+              >
+                {element.name}
               </Box>
             )
           })
