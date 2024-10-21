@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { makeStyles } from 'tss-react/mui';
 import {  createTheme } from '@mui/material/styles';
 
@@ -144,11 +145,15 @@ export const useStylesGlobal = makeStyles()({
     customBoxGroup: {
         display: "flex",
         backgroundColor: firstColor,
-        height: "85px",
-        width: "85px",
+        height: "100px",
+        width: "100px",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "10px",
+    },
+    fontGroup: {
+        display: "block",
+        color: tableHeaderColor,
     },
     customBoxRowHideSpace: {
         height: "40px",

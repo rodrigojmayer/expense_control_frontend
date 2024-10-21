@@ -73,6 +73,16 @@ export default function ArticlesMenuModal(
     //     openOptionsCreate(changeTo)
     // }
 
+    function splitTextOnSlash(text: string) {
+      const parts = text.split('/');
+      // const parts = text
+      console.log("parts", parts)
+      return parts.map((part, index) => (
+        index < parts.length - 1 ? `${part}/` : part // Append '/' except for the last part
+        // `${part}/` // Append '/' except for the last part
+      ));
+    }
+
     return (
       <div
         hidden= {hiddenPanel}
@@ -85,7 +95,8 @@ export default function ArticlesMenuModal(
         {
           productsBusiness.map((element: ProductData) => {
             return(
-              <Box className={classes.customBoxRow}
+              <Box 
+                className={classes.customBoxRow}
                 key={element._id}
               >
                 {element.product}
@@ -93,17 +104,42 @@ export default function ArticlesMenuModal(
             )
           })
         }
-        {
-          groups.map((element: GroupData) => {
-            return(
-              <Box className={classes.customBoxGroup}
-                key={element._id}
-              >
-                {element.name}
-              </Box>
-            )
-          })
-        }
+        <Box sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
+          gap: 2, // Equal gap horizontally and vertically
+          width: "100%",
+          // backgroundColor: "lightgrey",
+        }}>
+          {
+            groups.map((element: GroupData) => {
+              return(
+                <Box className={classes.customBoxGroup}
+                  key={element._id}
+                  sx={{
+                    // backgroundColor: "white",
+                    // width: "30%",
+                    // height: "100px",
+                    // display: "flex",
+                    // alignItems: "center", // Center vertically
+                    // justifyContent: "center", // Center horizontally
+                    fontSize: (element.name && element.name.length > 10) ? "15px" : "22px"
+                    // "clamp(12px, 2vw, 16px)", // Dynamic font size
+                    // textAlign: "center", // Center text if it wraps
+                    // padding: "8px", // Padding to prevent text from touching the edges
+                  }}
+                >
+                  {splitTextOnSlash(element.name).map((line, i) => (
+                  // {element.name}
+                  <>
+                    {line} <br/>
+                  </>
+                ))}
+                </Box>
+              )
+            })
+          }
+        </Box>
         <Box className={classes.customBoxRow}>
           <Button 
             className={` ${classes.btn_business}`}

@@ -38,6 +38,6 @@ export interface ProductData {
 export interface GroupData {
   _id: string;
   id?: number;
-  name: number;
+  name: string;
   deleted?: boolean;
 }
