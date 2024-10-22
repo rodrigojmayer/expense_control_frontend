@@ -13,6 +13,7 @@ import { Box,
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
 import { ProductData, GroupData } from '../types';
+import React from 'react';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -73,15 +74,24 @@ export default function ArticlesMenuModal(
     //     openOptionsCreate(changeTo)
     // }
 
-    function splitTextOnSlash(text: string) {
-      const parts = text.split('/');
-      // const parts = text
-      console.log("parts", parts)
-      return parts.map((part, index) => (
-        index < parts.length - 1 ? `${part}/` : part // Append '/' except for the last part
-        // `${part}/` // Append '/' except for the last part
-      ));
-    }
+    // function splitTextOnSlash(text: string) {
+    //   const parts = text.split('/');
+    //   // const parts = text
+    //   console.log("parts", parts)
+    //   return parts.map((part, index) => (
+    //     index < parts.length - 1 ? `${part}/` : part // Append '/' except for the last part
+    //     // `${part}/` // Append '/' except for the last part
+    //   ));
+    // }
+    // function splitTextOnSlash(text: string) {
+    //   const parts = text.split('/');
+    //   return parts.map((part, index) => (
+    //     <span key={index}>
+    //       {part}
+    //       {index < parts.length - 1 && <br />} {/* Add a <br /> except for the last part */}
+    //     </span>
+    //   ));
+    // }
 
     return (
       <div
@@ -92,7 +102,7 @@ export default function ArticlesMenuModal(
             Artículos
           </h2>
         </Box>
-        {
+        {/* {
           productsBusiness.map((element: ProductData) => {
             return(
               <Box 
@@ -103,7 +113,7 @@ export default function ArticlesMenuModal(
               </Box>
             )
           })
-        }
+        } */}
         <Box sx={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
@@ -112,69 +122,49 @@ export default function ArticlesMenuModal(
           // backgroundColor: "lightgrey",
         }}>
           {
-            groups.map((element: GroupData) => {
-              return(
+            groups.map((element: GroupData) => (
                 <Box className={classes.customBoxGroup}
                   key={element._id}
+                  onClick={() =>selectArticles(0)}
                   sx={{
-                    // backgroundColor: "white",
-                    // width: "30%",
-                    // height: "100px",
-                    // display: "flex",
-                    // alignItems: "center", // Center vertically
-                    // justifyContent: "center", // Center horizontally
-                    fontSize: (element.name && element.name.length > 10) ? "15px" : "22px"
-                    // "clamp(12px, 2vw, 16px)", // Dynamic font size
-                    // textAlign: "center", // Center text if it wraps
-                    // padding: "8px", // Padding to prevent text from touching the edges
+                    fontSize: (element.name && element.name.length > 9) ? "16px" : "22px",   
                   }}
                 >
-                  {splitTextOnSlash(element.name).map((line, i) => (
-                  // {element.name}
-                  <>
-                    {line} <br/>
-                  </>
-                ))}
+                  {element.name.split('/').map((part, index) => (
+                    <React.Fragment key={index}>
+                      {part}
+                      {index < element.name.split('/').length - 1 && '/'}
+                      {index < element.name.split('/').length - 1 && <br />}
+                      
+                    </React.Fragment>
+                  ))}
                 </Box>
               )
-            })
+            )
           }
-        </Box>
-        <Box className={classes.customBoxRow}>
-          <Button 
-            className={` ${classes.btn_business}`}
-            onClick={() =>selectArticles(0)}
-          > 
-          <Typography
-            className={` ${classes.font_business}`}
-          >
-            article 1
-          </Typography>
-          </Button>
-        </Box>
-        <Box className={classes.customBoxRow}>
-          <Button 
-            className={` ${classes.btn_business}`}
-            onClick={() =>selectArticles(1)}
-          >
-            <Typography
-              className={` ${classes.font_business}`}
-            >
-            article 2
-            </Typography>
-          </Button>
-        </Box>
-        <Box className={classes.customBoxRow}>
-          <Button 
-            className={` ${classes.btn_business}`}
-            onClick={() =>selectArticles(2)}
-          > 
-            <Typography 
-              className={` ${classes.font_business}`}
-            >
-            article 3
-            </Typography>
-          </Button>
+
+{
+            productsBusiness.map((element: ProductData) => (
+                <Box 
+                  className={classes.customBoxProduct}
+                  key={element._id}
+                  onClick={() =>selectArticles(0)}
+                  sx={{
+                    fontSize: (element.product && element.product.length > 9) ? "16px" : "22px",    
+                  }}
+                >
+                  {element.product.split('/').map((part, index) => (
+                    <React.Fragment key={index}>
+                      {part}
+                      {/* {index < element.product.split('/').length - 1 && '/'}
+                      {index < element.product.split('/').length - 1 && <br />} */}
+                      
+                    </React.Fragment>
+                  ))}
+                </Box>
+              )
+            )
+          }
         </Box>
       </div>
     )
