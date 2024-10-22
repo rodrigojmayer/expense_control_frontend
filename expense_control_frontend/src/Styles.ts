@@ -97,8 +97,11 @@ export const useStylesGlobal = makeStyles()({
     },
     AppDiv: {
         height:"100vh",
+        width: "100vw !important",
+        // minWidth: "100% !important",
+        // maxWidth: "100% !important",
         // margin: "20px",
-        padding: "24px",
+        padding: "24px !important",
     },
     customBoxColumn: { 
         margin: "0 auto",
@@ -164,6 +167,18 @@ export const useStylesGlobal = makeStyles()({
         borderRadius: "10px",
         textAlign: "center",
         padding: 1,
+    },
+    customBoxProducts: {
+        backgroundColor: firstColor,
+        borderRadius: "10px",
+        padding: 16,
+        width: "100%",
+
+    },
+    customBoxProductsHeader: {
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        marginBottom: 12,
     },
     fontGroup: {
         display: "block",
