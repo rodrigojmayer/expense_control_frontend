@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import dayjs, { Dayjs } from 'dayjs';// Import dayjs
@@ -40,58 +41,18 @@ export default function ArticlesMenuModal(
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
-    // const firstInputRef = useRef<HTMLInputElement>(null)
-    // console.log("productsBusiness: ", productsBusiness)
-    // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
-
-    // const close = () => {}
-    // const DatePickerComponent = breakpointLG ? DatePicker : MobileDatePicker;
-    // const [openDatePicker, setOpenDatePicker] = useState(false);  
-    // const [openSaveChanges, setOpenSaveChanges] = useState(false);  
-    // const handleCloseSaveChanges = (ans?:boolean) => {
-    //     if(ans){
-    //         close()
-    //     }
-    //     setOpenSaveChanges(false);
-    // }
-    // const handleOpenSaveChanges = () => setOpenSaveChanges(true);
+    const [productsBusinessShow, setProductsBusinessShow] = useState<ProductData[]>([]);
+    const [groupSelected, setGroupSelected] = useState<number>(0);
     
-    // const writeStockAlertAmount = (e:any) => {
-    //     let newValue = parseInt(e.target.value.replace(/[+\-e]/g, ''), 10);
-    //     const topValue = 999 
-    //     if (isNaN(newValue)) {
-    //         newValue = 0;
-    //     } else if (newValue > topValue) {
-    //         newValue = topValue;
-    //     }
-    //     onStockAlertAmountChange(newValue);
-    // }
-    // const handleDatePickerChange = (newDate:any) => { 
-    //     const adjustedDate = newDate.add(2, 'hour').toISOString(); // Adding 2 hours because the GMT comes in +0200 and returns the day before
-    //     onStockAlertDateChange(adjustedDate);
-    //   };
-    // const handleHiddenOptions = (changeTo:string) =>  {
-    //     openOptionsCreate(changeTo)
-    // }
-
-    // function splitTextOnSlash(text: string) {
-    //   const parts = text.split('/');
-    //   // const parts = text
-    //   console.log("parts", parts)
-    //   return parts.map((part, index) => (
-    //     index < parts.length - 1 ? `${part}/` : part // Append '/' except for the last part
-    //     // `${part}/` // Append '/' except for the last part
-    //   ));
-    // }
-    // function splitTextOnSlash(text: string) {
-    //   const parts = text.split('/');
-    //   return parts.map((part, index) => (
-    //     <span key={index}>
-    //       {part}
-    //       {index < parts.length - 1 && <br />} {/* Add a <br /> except for the last part */}
-    //     </span>
-    //   ));
-    // }
+    const selectGroup = (groupId:number) => {
+      setGroupSelected(groupId)
+      
+    } 
+    useEffect(() => {
+      const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected)
+      console.log("productsFilter: ", productsFilter)
+      setProductsBusinessShow(productsFilter)
+    }, [groupSelected])
 
     return (
       <div
@@ -102,39 +63,26 @@ export default function ArticlesMenuModal(
             Artículos
           </h2>
         </Box>
-        {/* {
-          productsBusiness.map((element: ProductData) => {
-            return(
-              <Box 
-                className={classes.customBoxRow}
-                key={element._id}
-              >
-                {element.product}
-              </Box>
-            )
-          })
-        } */}
         <Box sx={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
           gap: 2, // Equal gap horizontally and vertically
           width: "100%",
-          // backgroundColor: "lightgrey",
         }}>
-          {
-            groups.map((element: GroupData) => (
+          { groupSelected === 0 &&
+            groups.map((group: GroupData) => (
                 <Box className={classes.customBoxGroup}
-                  key={element._id}
-                  onClick={() =>selectArticles(0)}
+                  key={group._id}
+                  onClick={() =>selectGroup(group.id || 0)}
                   sx={{
-                    fontSize: (element.name && element.name.length > 9) ? "16px" : "22px",   
+                    fontSize: (group.name && group.name.length > 9) ? "16px" : "22px",   
                   }}
                 >
-                  {element.name.split('/').map((part, index) => (
+                  {group.name.split('/').map((part, index) => (
                     <React.Fragment key={index}>
                       {part}
-                      {index < element.name.split('/').length - 1 && '/'}
-                      {index < element.name.split('/').length - 1 && <br />}
+                      {index < group.name.split('/').length - 1 && '/'}
+                      {index < group.name.split('/').length - 1 && <br />}
                       
                     </React.Fragment>
                   ))}
@@ -142,22 +90,19 @@ export default function ArticlesMenuModal(
               )
             )
           }
-
-{
-            productsBusiness.map((element: ProductData) => (
+          {
+            productsBusinessShow.map((product: ProductData) => (
                 <Box 
                   className={classes.customBoxProduct}
-                  key={element._id}
+                  key={product._id}
                   onClick={() =>selectArticles(0)}
                   sx={{
-                    fontSize: (element.product && element.product.length > 9) ? "16px" : "22px",    
+                    fontSize: (product.product && product.product.length > 9) ? "16px" : "22px",    
                   }}
                 >
-                  {element.product.split('/').map((part, index) => (
+                  {product.product.split('/').map((part, index) => (
                     <React.Fragment key={index}>
                       {part}
-                      {/* {index < element.product.split('/').length - 1 && '/'}
-                      {index < element.product.split('/').length - 1 && <br />} */}
                       
                     </React.Fragment>
                   ))}

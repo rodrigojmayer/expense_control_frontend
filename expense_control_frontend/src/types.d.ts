@@ -28,7 +28,7 @@ export interface ProductData {
   id?: number;
   id_client: number;
   product: string;
-  id_group: string;
+  id_group: number;
   [key?: string]: any;
   price_primary?: number | string;
   price_secondary?: number | string;
