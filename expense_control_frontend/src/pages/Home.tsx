@@ -45,6 +45,7 @@ function Home() {
   const [optionSelected, setOptionSelected] = useState<any>(INITIAL_SELECTED_OPTIONS);
   const [routeSelected, setRouteSelected] = useState<any>(<a>Home</a>);
   const [productsBusiness, setProductsBusiness] = useState<ProductData[]>([]);
+  const [groupsBusiness, setGroupsBusiness] = useState<GroupData[]>([]);
   
   const signOut = async() => {
 
@@ -85,6 +86,11 @@ function Home() {
         return product
     })
     setProductsBusiness(productsFiltered)
+    const groupsFiltered = groups.filter((group: GroupData) => {
+      if(group.id_client === option) 
+        return group
+    })
+    setGroupsBusiness(groupsFiltered)
   })
   const selectPayment:any = ((option:number) => {
     
@@ -121,7 +127,7 @@ function Home() {
               hiddenPanel={openOptionModal.articlesMenuModal}
               selectArticles={selectArticles}
               productsBusiness={productsBusiness}
-              groups={groups}
+              groupsBusiness={groupsBusiness}
             />
             
             <Box className={classes.customBoxRow}>

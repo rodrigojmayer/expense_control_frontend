@@ -30,7 +30,7 @@ interface ChildProps {
   hiddenPanel:  boolean
   selectArticles: (newData: number) => void
   productsBusiness: ProductData[]
-  groups: GroupData[]
+  groupsBusiness: GroupData[]
 }
 interface GroupSelectedType {
     id:  number
@@ -42,7 +42,7 @@ export default function ArticlesMenuModal(
         hiddenPanel, 
         selectArticles,
         productsBusiness,
-        groups
+        groupsBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
@@ -70,12 +70,13 @@ export default function ArticlesMenuModal(
         </Box>
         <Box className={`${ groupSelected.id === 0 || classes.customBoxProducts}`}>
         <Box className={classes.customBoxProductsHeader} 
-        sx={{
+          sx={{
             display: (groupSelected.id === 0) ? "none !important" : "block",
             // gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
             // gap: 2, // Equal gap horizontally and vertically
             // width: "100%",
-          }}>
+          }} 
+        >
         <ArrowBackIcon 
           onClick={() =>selectGroup(0,"")}
           sx={{display: "block" }}/>
@@ -88,7 +89,7 @@ export default function ArticlesMenuModal(
             width: "100%",
           }}>
             { groupSelected.id === 0 &&
-              groups.map((group: GroupData) => (
+              groupsBusiness.map((group: GroupData) => (
                   <Box className={classes.customBoxGroup}
                     key={group._id}
                     onClick={() =>selectGroup(group.id || 0, group.name || "")}
