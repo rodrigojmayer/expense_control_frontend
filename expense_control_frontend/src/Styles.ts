@@ -103,6 +103,9 @@ export const useStylesGlobal = makeStyles()({
         // margin: "20px",
         padding: "24px !important",
     },
+    arrowHome: {
+        color: firstColor,
+    },
     customBoxColumn: { 
         margin: "0 auto",
         display: "flex",
