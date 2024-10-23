@@ -57,6 +57,10 @@ export default function ArticlesMenuModal(
       const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected.id)
       setProductsBusinessShow(productsFilter)
     }, [groupSelected, productsBusiness])
+    useEffect(() => {
+      // const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected.id)
+      setGroupSelected({id:0, name: ""})
+    }, [hiddenPanel])
 
     return (
       <div

@@ -170,6 +170,7 @@ export const useStylesGlobal = makeStyles()({
         borderRadius: "10px",
         textAlign: "center",
         padding: 1,
+        fontWeight: "bold"
     },
     customBoxProducts: {
         backgroundColor: firstColor,
