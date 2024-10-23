@@ -55,9 +55,8 @@ export default function ArticlesMenuModal(
     } 
     useEffect(() => {
       const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected.id)
-      console.log("productsFilter: ", productsFilter)
       setProductsBusinessShow(productsFilter)
-    }, [groupSelected])
+    }, [groupSelected, productsBusiness])
 
     return (
       <div
@@ -116,7 +115,7 @@ export default function ArticlesMenuModal(
                     key={product._id}
                     onClick={() =>selectArticles(0)}
                     sx={{
-                      fontSize: (product.product && product.product.length > 9) ? "16px" : "22px",    
+                      fontSize: (product.product && product.product.length > 15) ? "16px" : "22px",    
                     }}
                   >
                     {product.product.split('/').map((part, index) => (
