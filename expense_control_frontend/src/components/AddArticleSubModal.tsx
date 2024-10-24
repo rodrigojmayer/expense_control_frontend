@@ -33,7 +33,7 @@ interface ChildProps {
     // selectPayment: (newData: number) => void
 }
 
-export default function PaymentMethodMenuModal(
+export default function AddArticleSubModal(
     {   
         hiddenPanel, 
         close,
@@ -42,6 +42,7 @@ export default function PaymentMethodMenuModal(
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
+    const [multiplier, setMultiplier] = useState<number>(1)
     // const firstInputRef = useRef<HTMLInputElement>(null)
     // const { user } = useContext<any>(UserContext); 
     // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
@@ -75,6 +76,13 @@ export default function PaymentMethodMenuModal(
     // const handleHiddenOptions = (changeTo:string) =>  {
     //     openOptionsCreate(changeTo)
     // }
+    // const updateMultiplier = () => {
+    //   setMultiplier(multiplier < 9 ? multiplier+1 : 1)
+    // }
+
+    useEffect(() => {
+      setMultiplier(1)
+    }, [hiddenPanel])
 
     return (
       // <div
@@ -94,7 +102,12 @@ export default function PaymentMethodMenuModal(
           </Box>
           <Box className={classes.customBoxRow}>
             {selectedArticle.product}
-            <Button className={classes.buttonMultiplier}>x1</Button>
+            <Button 
+              className={classes.buttonMultiplier}
+              onClick={() => setMultiplier(multiplier < 99 ? multiplier+1 : 1)}  
+            >
+              x{multiplier}
+            </Button>
           </Box>
           <Box className={classes.customBoxRow}>
              {selectedArticle.price_primary} dkk
@@ -108,7 +121,7 @@ export default function PaymentMethodMenuModal(
             />
             <CancelButton
               // clicked={() => handleOpenEditStock()}
-              clicked={() => alert("pepi")}
+              clicked={close}
             />
             <OkButton
               // clicked={() => handleOpenEditStock()}
