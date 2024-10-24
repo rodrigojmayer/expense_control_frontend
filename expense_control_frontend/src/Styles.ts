@@ -146,6 +146,7 @@ export const useStylesGlobal = makeStyles()({
         display: "flex",
         justifyContent:  "center",
         alignItems: "center",
+        textAlign: "center",
         gap: 8,
     },
     customBoxGroup: {
@@ -187,6 +188,41 @@ export const useStylesGlobal = makeStyles()({
     fontGroup: {
         display: "block",
         color: tableHeaderColor,
+    },
+    subModalExternal: {
+        position: "absolute",
+        backgroundColor: 'rgba(0, 0, 0, .4)',
+        backdropFilter: "blur(1px)",
+        width: "100%",
+        height: "100%",
+        left: 0,
+        top: 0,
+    },
+    subModalInternal: {
+        maxWidth: "350px",
+        width: "calc(100% - 50px)",
+        backgroundColor: secondColor,
+        // maxHeight: "520px",
+        maxHeight: "85vh",
+        borderRadius: "10px",
+        padding: "5px",
+        // color: "white",
+        // overflow: "scroll",
+        overflowX: "hidden",
+        scrollbarWidth: "none",
+        // overflowX: "hidden",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+    },
+    buttonMultiplier: {
+        backgroundColor: firstColor,
+        color: neutralMain,
+        borderRadius: "30px",
+        minWidth: "45px",
+        height: "45px",
+
     },
     customBoxRowHideSpace: {
         height: "40px",
@@ -305,32 +341,40 @@ export const useStylesGlobal = makeStyles()({
         }
     },
     btn_cancel: {
-      backgroundColor: warningContrastText,
+      backgroundColor: warningMain,
+      borderColor: warningMain,
+      color: neutralMain,
+      stroke: neutralMain,
       '&:hover': {
-        borderColor: warningDark,
-        backgroundColor: warningContrastText,
+        borderColor: warningMain,
+        backgroundColor: warningMain,
         "& > *": {
-          stroke: warningDark
+        //   stroke: warningDark
         }
       }
     },
     btn_ok: {
-      backgroundColor: succesContrastText,
+      backgroundColor: succesMain,
+      borderColor: succesMain,
+      color: neutralMain,
+      stroke: neutralMain,
       '&:hover': {
-        borderColor: succesDark,
-        backgroundColor: succesContrastText,
+        borderColor: succesMain,
+        backgroundColor: succesMain,
         "& > *": {
-          stroke: succesDark
+    //   color: succesDark,
         }
       }
     },  
     btn_edit: {
-      backgroundColor: neutralContrastText,
+      backgroundColor: firstAlphaColor,
+      borderColor: firstAlphaColor,
+      color: neutralMain,
       '&:hover': {
-        borderColor: neutralDark,
-        backgroundColor: neutralContrastText,
+        borderColor: firstAlphaColor,
+        backgroundColor: firstAlphaColor,
         "& > *": {
-          color: neutralDark,
+        //   color: neutralDark,
         }
       },
     },

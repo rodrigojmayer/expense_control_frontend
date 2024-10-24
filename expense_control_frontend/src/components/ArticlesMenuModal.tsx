@@ -16,6 +16,7 @@ import { useStylesGlobal } from '../Styles'
 import { ProductData, GroupData } from '../types';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddArticleSubModal from "./AddArticleSubModal";
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -48,7 +49,10 @@ export default function ArticlesMenuModal(
     const { classes } = useStylesGlobal();
     const [productsBusinessShow, setProductsBusinessShow] = useState<ProductData[]>([]);
     const [groupSelected, setGroupSelected] = useState<GroupSelectedType>({id:0, name: ""});
+    const [openOptionSubModal, setOpenOptionSubModal] = useState<any>({addArticleSubModal:true});
+    const [selectedArticle, setSelectedArticle] = useState<any>({});
     
+
     const selectGroup = (groupId: number, groupName:string) => {
       setGroupSelected({id: groupId, name: groupName})
       
@@ -61,6 +65,14 @@ export default function ArticlesMenuModal(
       // const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected.id)
       setGroupSelected({id:0, name: ""})
     }, [hiddenPanel])
+
+    const close = () => {
+      setOpenOptionSubModal({addArticleSubModal:true})
+    }
+    const selectArticle = (prod: ProductData) => {
+      setOpenOptionSubModal({addArticleSubModal: false})
+      setSelectedArticle(prod)
+    }
 
     return (
       <div
@@ -117,7 +129,7 @@ export default function ArticlesMenuModal(
                   <Box 
                     className={classes.customBoxProduct}
                     key={product._id}
-                    onClick={() =>selectArticles(0)}
+                    onClick={() =>selectArticle(product)}
                     sx={{
                       fontSize: (product.product && product.product.length > 15) ? "16px" : "22px",    
                     }}
@@ -125,7 +137,6 @@ export default function ArticlesMenuModal(
                     {product.product.split('/').map((part, index) => (
                       <React.Fragment key={index}>
                         {part}
-                        
                       </React.Fragment>
                     ))}
                   </Box>
@@ -134,6 +145,13 @@ export default function ArticlesMenuModal(
             }
           </Box>
         </Box>
+            <AddArticleSubModal
+              hiddenPanel={openOptionSubModal.addArticleSubModal}
+              close={close}
+              selectedArticle={selectedArticle}
+              // productsBusiness={productsBusiness}
+              // groupsBusiness={groupsBusiness}
+            />
       </div>
     )
 }
