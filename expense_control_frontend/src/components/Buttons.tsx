@@ -279,17 +279,12 @@ export function DeleteButton({ sizeIco, roundedIco, cusField, clicked, submitOk 
 export function AddButton({ sizeIco, roundedIco, cusField, clicked, submitOk }: ButtonProps ) {
 
   const { classes } = useStylesGlobal();
-  const { user } = useContext<any>(UserContext)
 
-  let fontIco = 35, noPadding, bor = 5, borRad
+  let fontIco = 35, noPadding, bor = 4, borRad
   if(sizeIco) {
     fontIco = (parseInt(sizeIco) - 12)
-    bor = 3
+    bor = 1
   }
-  if(roundedIco){
-    noPadding=0
-    borRad="50px !important"
-  } 
   const handleClick:any = (() => {
     if(cusField)
       clicked(cusField.id, cusField.value)
@@ -299,30 +294,24 @@ export function AddButton({ sizeIco, roundedIco, cusField, clicked, submitOk }: 
 
 
   return (
-    // <ThemeProvider theme={useStylesGlobal}>
       <Button 
         variant="outlined"
-        color="neutral"
-        className={`${classes.btnCommonStyle} ${classes[`_${user.background_color}btn_add` as keyof typeof classes]}`}
+        className={`${classes.btnCommonStyle} ${classes.btn_add}`}
         sx={{  
           border: bor, 
-          padding:noPadding, 
+          marginTop:3,  
           paddingTop:0,  
           paddingBottom:0, 
-          width: 74.6, 
-          borderRadius: borRad,
+          width: 42, 
+          minWidth: 42, 
+          height: 42, 
+          borderRadius: "50px !important",
         }}
         onClick={handleClick}
         >
-          <AddRoundedIcon 
-          className={classes[`_${user.background_color}add_rounded_icon_stroke_color` as keyof typeof classes]}
-            sx={{ 
-              fontSize: fontIco, 
-              strokeWidth: 1.7,
-            }}>
+          <AddRoundedIcon >
           </AddRoundedIcon>
       </Button>
-    // </ThemeProvider>
   )
 }
 

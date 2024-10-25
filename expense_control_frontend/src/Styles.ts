@@ -149,6 +149,15 @@ export const useStylesGlobal = makeStyles()({
         textAlign: "center",
         gap: 8,
     },
+    customBoxRowArticlesHeader: {
+        gap: 38,
+        marginBottom: 20
+    },
+    customShoppingCartIcon: {
+        fontSize: 45, 
+        marginTop: 24,
+        color: firstColor,
+    },
     customBoxGroup: {
         display: "flex",
         backgroundColor: firstColor,
@@ -408,13 +417,14 @@ export const useStylesGlobal = makeStyles()({
     //   margin: "15px",
     },
     btn_add: {
-      backgroundColor: neutralContrastText,
+        color: firstColor,
+    //   backgroundColor: neutralContrastText,
       '&:hover': {
-        borderColor: neutralDark,
-        backgroundColor: neutralContrastText,
+        // borderColor: neutralDark,
+        // backgroundColor: neutralContrastText,
         "& > *": {
-          color: neutralDark,
-          stroke: neutralDark
+        //   color: neutralDark,
+        //   stroke: neutralDark
         }
       },
     },
@@ -452,7 +462,7 @@ export const useStylesGlobal = makeStyles()({
         stroke: warningMain,
     },
     add_rounded_icon_stroke_color: {
-        stroke: neutralMain,
+        // stroke: neutralMain,
     },
     page: {
         display: "inline-block",

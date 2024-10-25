@@ -97,7 +97,7 @@ export default function ManageArticleSubModal(
         <Box className={classes.subModalInternal}>
           <Box className={classes.customBoxRow}>
             <h3>
-            Crear editar
+            {selectedArticle ? "Editar" : "Crear" }
             </h3>
           </Box>
           <Box className={classes.customBoxRow}>

@@ -18,6 +18,8 @@ import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddArticleSubModal from "./AddArticleSubModal";
 import ManageArticleSubModal from './ManageArticleSubModal';
+import { AddButton } from './Buttons';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -72,6 +74,7 @@ export default function ArticlesMenuModal(
         ...prevOpenOptionSubModal,
         addArticleSubModal: true,
       }))
+      setSelectedArticle({})
     }
     const closeManageArticleSubModal = () => {
       setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
@@ -84,15 +87,25 @@ export default function ArticlesMenuModal(
       setSelectedArticle(prod)
     }
 
+    useEffect(() => {
+      console.log("selectedArticle: ", selectedArticle)
+    }, [selectedArticle])
+
     return (
       <div
         hidden= {hiddenPanel}
       >
-        <Box className={classes.customBoxRow}>
-          <h2>
-            Artículos
-          </h2>
-        </Box>
+      <Box className={`${classes.customBoxRow} ${classes.customBoxRowArticlesHeader}`}>
+        <AddButton
+          clicked={() => alert("id?: number, value?: string")}
+        />
+        <h2>
+          Artículos
+        </h2>
+        <ShoppingCartIcon
+        className={classes.customShoppingCartIcon}
+        />
+      </Box>
         <Box className={`${ groupSelected.id === 0 || classes.customBoxProducts}`}>
         <Box className={classes.customBoxProductsHeader} 
           sx={{
