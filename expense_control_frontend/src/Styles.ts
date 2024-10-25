@@ -191,8 +191,8 @@ export const useStylesGlobal = makeStyles()({
     },
     subModalExternal: {
         position: "absolute",
-        backgroundColor: 'rgba(0, 0, 0, .4)',
-        backdropFilter: "blur(1px)",
+        backgroundColor: 'rgba(0, 0, 0, .1)',
+        backdropFilter: "blur(2px)",
         width: "100%",
         height: "100%",
         left: 0,

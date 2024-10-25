@@ -30,16 +30,14 @@ interface ChildProps {
     hiddenPanel:  boolean
     close: any
     selectedArticle: ProductData
-    setOpenOptionSubModal: (newData: any) => void
     // selectPayment: (newData: number) => void
 }
 
-export default function AddArticleSubModal(
+export default function ManageArticleSubModal(
     {   
         hiddenPanel, 
         close,
-        selectedArticle,
-        setOpenOptionSubModal
+        selectedArticle
         // selectPayment
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
@@ -99,7 +97,7 @@ export default function AddArticleSubModal(
         <Box className={classes.subModalInternal}>
           <Box className={classes.customBoxRow}>
             <h3>
-            Agregar al carrito
+            Crear editar
             </h3>
           </Box>
           <Box className={classes.customBoxRow}>
@@ -117,10 +115,6 @@ export default function AddArticleSubModal(
           
          
           <Box className={classes.customBoxRow}>
-            <EditButton
-              // clicked={() => handleOpenEditStock()}
-              clicked={() => setOpenOptionSubModal({manageArticleSubModal: false})}
-            />
             <CancelButton
               // clicked={() => handleOpenEditStock()}
               clicked={close}
