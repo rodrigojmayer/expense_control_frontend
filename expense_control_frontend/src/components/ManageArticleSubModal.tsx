@@ -8,13 +8,14 @@ import { Box,
          Typography,
         //  InputAdornment,
          Button,
-         Modal, 
+         Modal,
+         TextField, 
         //  Modal 
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
 import { ProductData } from '../types';
-import { CancelButton, EditButton, OkButton } from './Buttons';
+import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -42,47 +43,29 @@ export default function ManageArticleSubModal(
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
-    const [multiplier, setMultiplier] = useState<number>(1)
-    // const firstInputRef = useRef<HTMLInputElement>(null)
-    // const { user } = useContext<any>(UserContext); 
-    // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
+    const [manageSelectedArticle, setManageSelectedArticle] = useState<ProductData>(selectedArticle)
 
-    // const close = () => {}
-    // const DatePickerComponent = breakpointLG ? DatePicker : MobileDatePicker;
-    // const [openDatePicker, setOpenDatePicker] = useState(false);  
-    // const [openSaveChanges, setOpenSaveChanges] = useState(false);  
-    // const handleCloseSaveChanges = (ans?:boolean) => {
-    //     if(ans){
-    //         close()
-    //     }
-    //     setOpenSaveChanges(false);
-    // }
-    // const handleOpenSaveChanges = () => setOpenSaveChanges(true);
-    
-    // const writeStockAlertAmount = (e:any) => {
-    //     let newValue = parseInt(e.target.value.replace(/[+\-e]/g, ''), 10);
-    //     const topValue = 999 
-    //     if (isNaN(newValue)) {
-    //         newValue = 0;
-    //     } else if (newValue > topValue) {
-    //         newValue = topValue;
-    //     }
-    //     onStockAlertAmountChange(newValue);
-    // }
-    // const handleDatePickerChange = (newDate:any) => { 
-    //     const adjustedDate = newDate.add(2, 'hour').toISOString(); // Adding 2 hours because the GMT comes in +0200 and returns the day before
-    //     onStockAlertDateChange(adjustedDate);
-    //   };
-    // const handleHiddenOptions = (changeTo:string) =>  {
-    //     openOptionsCreate(changeTo)
-    // }
-    // const updateMultiplier = () => {
-    //   setMultiplier(multiplier < 9 ? multiplier+1 : 1)
-    // }
-
+    const handleProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setManageSelectedArticle((prev:ProductData) => ({
+        ...prev,
+        product: event.target.value
+      }))
+    }
+    const handlePricePrimary = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setManageSelectedArticle((prev:ProductData) => ({
+        ...prev,
+        price_primary: event.target.value
+      }))      
+    }
+    const handlePriceSecondary = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setManageSelectedArticle((prev:ProductData) => ({
+        ...prev,
+        price_secondary: event.target.value
+      }))
+    }
     useEffect(() => {
-      setMultiplier(1)
-    }, [hiddenPanel])
+      setManageSelectedArticle(selectedArticle)
+    }, [selectedArticle, hiddenPanel])
 
     return (
       // <div
@@ -97,20 +80,57 @@ export default function ManageArticleSubModal(
         <Box className={classes.subModalInternal}>
           <Box className={classes.customBoxRow}>
             <h3>
-            {selectedArticle ? "Editar" : "Crear" }
+            {selectedArticle.product ? "Editar" : "Crear" }
             </h3>
           </Box>
-          <Box className={classes.customBoxRow}>
-            {selectedArticle.product}
-            <Button 
-              className={classes.buttonMultiplier}
-              onClick={() => setMultiplier(multiplier < 99 ? multiplier+1 : 1)}  
-            >
-              x{multiplier}
-            </Button>
-          </Box>
-          <Box className={classes.customBoxRow}>
-             {selectedArticle.price_primary} dkk
+          
+          <Box className={classes.customBoxColumn}>
+            <Box className={classes.customBoxRow}>
+              <TextField
+                id={String(manageSelectedArticle.id)}
+                label="Nombre"
+                // inputRef={lastInputRef}
+                value={manageSelectedArticle.product}
+                onChange={handleProduct}
+                maxRows={1}
+                size="small"
+                className={classes.inputMainData}
+              />
+            </Box>
+            <Box className={classes.customBoxRow}>
+              <TextField
+                  id={String(manageSelectedArticle.id)}
+                  label="Precio"
+                  // inputRef={lastInputRef}
+                  value={manageSelectedArticle.price_primary}
+                  onChange={handlePricePrimary}
+                  maxRows={1}
+                  size="small"
+                  className={classes.inputMainData}
+              />
+            </Box>
+            <Box className={classes.customBoxRow}>
+              <TextField
+                  id={String(manageSelectedArticle.id)}
+                  label="Precio MobilePay/Revolut"
+                  // inputRef={lastInputRef}
+                  value={manageSelectedArticle.price_secondary}
+                  onChange={handlePriceSecondary}
+                  maxRows={1}
+                  size="small"
+                  className={classes.inputMainData}
+                  InputProps={{
+                      className: classes.inputClassName,
+                      inputProps: {maxLength: 30}
+                  }}
+              />
+            </Box>
+            <Box className={classes.customBoxRow}>
+               grupo
+               <AddButton
+               clicked={() => alert("button")}
+               />
+            </Box>
           </Box>
           
          

@@ -97,7 +97,10 @@ export default function ArticlesMenuModal(
       >
       <Box className={`${classes.customBoxRow} ${classes.customBoxRowArticlesHeader}`}>
         <AddButton
-          clicked={() => alert("id?: number, value?: string")}
+          clicked={() => setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+            ...prevOpenOptionSubModal,
+            manageArticleSubModal: false,
+          }))}
         />
         <h2>
           Artículos
