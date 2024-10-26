@@ -47,6 +47,7 @@ interface ButtonProps {
   submitOk?: boolean
   disabled?: boolean
   widthIco?: number
+  cusMarginTop?: number
 }
 
 export function OkButton({ sizeIco, roundedIco, cusField, clicked, widthIco }: ButtonProps ) {
@@ -276,7 +277,7 @@ export function DeleteButton({ sizeIco, roundedIco, cusField, clicked, submitOk 
   )
 }
 
-export function AddButton({ sizeIco, roundedIco, cusField, clicked, submitOk }: ButtonProps ) {
+export function AddButton({ sizeIco, cusMarginTop, cusField, clicked, submitOk }: ButtonProps ) {
 
   const { classes } = useStylesGlobal();
 
@@ -299,7 +300,7 @@ export function AddButton({ sizeIco, roundedIco, cusField, clicked, submitOk }: 
         className={`${classes.btnCommonStyle} ${classes.btn_add}`}
         sx={{  
           border: bor, 
-          marginTop:3,  
+          marginTop:cusMarginTop || 0,  
           paddingTop:0,  
           paddingBottom:0, 
           width: 42, 

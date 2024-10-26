@@ -88,7 +88,7 @@ function Home() {
     console.log("productsFiltered: ", productsFiltered)
     setProductsBusiness(productsFiltered)
     const groupsFiltered = groups.filter((group: GroupData) => {
-      if(group.id_client === option) 
+      if(group.id_client === option || group.id === 0) 
         return group
     })
     setGroupsBusiness(groupsFiltered)

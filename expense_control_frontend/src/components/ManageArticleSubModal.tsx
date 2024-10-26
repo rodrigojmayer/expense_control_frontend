@@ -9,12 +9,14 @@ import { Box,
         //  InputAdornment,
          Button,
          Modal,
-         TextField, 
+         TextField,
+         Select,
+         MenuItem, 
         //  Modal 
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
-import { ProductData } from '../types';
+import { GroupData, ProductData } from '../types';
 import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -32,19 +34,22 @@ interface ChildProps {
     close: any
     selectedArticle: ProductData
     // selectPayment: (newData: number) => void
+    groupsBusiness: GroupData[]
 }
 
 export default function ManageArticleSubModal(
     {   
         hiddenPanel, 
         close,
-        selectedArticle
+        selectedArticle,
         // selectPayment
+        groupsBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     const [manageSelectedArticle, setManageSelectedArticle] = useState<ProductData>(selectedArticle)
-
+    const [manageSelectedGroup, setManageSelectedGroup] = useState<GroupData>(groupsBusiness[selectedArticle.id_group-1])
+    
     const handleProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
       setManageSelectedArticle((prev:ProductData) => ({
         ...prev,
@@ -65,6 +70,7 @@ export default function ManageArticleSubModal(
     }
     useEffect(() => {
       setManageSelectedArticle(selectedArticle)
+      setManageSelectedGroup(groupsBusiness[selectedArticle.id_group-1])
     }, [selectedArticle, hiddenPanel])
 
     return (
@@ -126,7 +132,21 @@ export default function ManageArticleSubModal(
               />
             </Box>
             <Box className={classes.customBoxRow}>
-               grupo
+               <Select
+                  labelId="group-selector-label"
+                  value={manageSelectedGroup?.name}
+                >
+                  {groupsBusiness.map((group: GroupData, index: number) => (
+                    <MenuItem
+                      key={index}
+                      value={group.name}
+                    >
+                      {group.name}
+                    </MenuItem>
+
+                  ))}
+
+                </Select>
                <AddButton
                clicked={() => alert("button")}
                />

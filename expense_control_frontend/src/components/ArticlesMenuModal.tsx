@@ -101,6 +101,7 @@ export default function ArticlesMenuModal(
             ...prevOpenOptionSubModal,
             manageArticleSubModal: false,
           }))}
+          cusMarginTop={3}
         />
         <h2>
           Artículos
@@ -129,8 +130,10 @@ export default function ArticlesMenuModal(
             gap: 2, // Equal gap horizontally and vertically
             width: "100%",
           }}>
-            { groupSelected.id === 0 &&
-              groupsBusiness.map((group: GroupData) => (
+            { groupSelected.id === 0 && 
+              groupsBusiness
+              .filter((group: GroupData) => group.name !== "-")
+              .map((group: GroupData) => (
                   <Box className={classes.customBoxGroup}
                     key={group._id}
                     onClick={() =>selectGroup(group.id || 0, group.name || "")}
@@ -183,7 +186,7 @@ export default function ArticlesMenuModal(
           close={closeManageArticleSubModal}
           selectedArticle={selectedArticle}
           // productsBusiness={productsBusiness}
-          // groupsBusiness={groupsBusiness}
+          groupsBusiness={groupsBusiness}
         />
       </div>
     )
