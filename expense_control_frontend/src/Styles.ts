@@ -280,6 +280,9 @@ export const useStylesGlobal = makeStyles()({
         backgroundColor: "white",
         borderRadius: 10,
         width: "100%",
+        alignContent: "start",
+        // alignItems: "start",
+        justifyContent: "end !important"
     },
     inputMainDataMargin: {
         margin: "0 16px",
@@ -318,6 +321,7 @@ export const useStylesGlobal = makeStyles()({
     inputClassName: {
         borderRadius: 10,
         // autoComplete: 'new-password',
+        textAlign: "left"
     },
     buttonsGroup: {
         width: "100%",

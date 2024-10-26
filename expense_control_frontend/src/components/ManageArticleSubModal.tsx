@@ -10,7 +10,6 @@ import { Box,
          Button,
          Modal,
          TextField,
-         Select,
          MenuItem, 
         //  Modal 
         } from "@mui/material";
@@ -132,24 +131,29 @@ export default function ManageArticleSubModal(
               />
             </Box>
             <Box className={classes.customBoxRow}>
-               <Select
-                  labelId="group-selector-label"
-                  value={manageSelectedGroup?.name}
-                >
-                  {groupsBusiness.map((group: GroupData, index: number) => (
-                    <MenuItem
-                      key={index}
-                      value={group.name}
+              <TextField 
+                label="Grupo"
+                size="small"
+                select
+                className={classes.inputMainData}
+                InputProps={{className: classes.inputClassName}}
+                value={manageSelectedGroup?.name || "-"}
+                
+                // onChange={ (event:any) => onStockMeasureChange(event.target.value) }
+              >
+                {groupsBusiness.map((group: GroupData, index: number) => (
+                    <MenuItem 
+                        key={group.id} 
+                        value={group.name}
+                        sx={{ justifyContent: "space-between" }}
                     >
-                      {group.name}
+                        {group.name}
                     </MenuItem>
-
-                  ))}
-
-                </Select>
-               <AddButton
-               clicked={() => alert("button")}
-               />
+                ))}
+              </TextField>
+              <AddButton
+                clicked={() => alert("button")}
+              />
             </Box>
           </Box>
           
