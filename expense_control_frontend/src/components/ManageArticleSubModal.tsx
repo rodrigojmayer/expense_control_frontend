@@ -32,6 +32,7 @@ interface ChildProps {
     hiddenPanel:  boolean
     close: any
     selectedArticle: ProductData
+    setOpenOptionSubModal: (newData: any) => void
     // selectPayment: (newData: number) => void
     groupsBusiness: GroupData[]
 }
@@ -42,6 +43,7 @@ export default function ManageArticleSubModal(
         hiddenPanel, 
         close,
         selectedArticle,
+        setOpenOptionSubModal,
         // selectPayment
         groupsBusiness
     }: ChildProps )  {
@@ -165,12 +167,15 @@ export default function ManageArticleSubModal(
                 ))}
               </TextField>
               <AddButton
-                clicked={() => alert("button")}
+              // clicked={() => setOpenOptionSubModal({manageGroupSubModal: false})}
+              // clicked={() => alert("button")}
+                clicked={() => setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+                  ...prevOpenOptionSubModal,
+                  manageGroupSubModal: false,
+                }))}
               />
             </Box>
           </Box>
-          
-         
           <Box className={classes.customBoxRow}>
             <CancelButton
               // clicked={() => handleOpenEditStock()}

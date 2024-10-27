@@ -118,8 +118,13 @@ export default function AddArticleSubModal(
          
           <Box className={classes.customBoxRow}>
             <EditButton
-              // clicked={() => handleOpenEditStock()}
-              clicked={() => setOpenOptionSubModal({manageArticleSubModal: false})}
+              // clicked={() => alert("qsy")}
+              // clicked={() => setOpenOptionSubModal({manageArticleSubModal: false})}
+              
+              clicked={() => setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+                ...prevOpenOptionSubModal,
+                manageArticleSubModal: false,
+              }))}
             />
             <CancelButton
               // clicked={() => handleOpenEditStock()}

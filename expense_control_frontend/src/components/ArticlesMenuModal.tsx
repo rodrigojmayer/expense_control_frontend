@@ -20,6 +20,7 @@ import AddArticleSubModal from "./AddArticleSubModal";
 import ManageArticleSubModal from './ManageArticleSubModal';
 import { AddButton } from './Buttons';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ManageGroupSubModal from './ManageGroupSubModal';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -52,7 +53,7 @@ export default function ArticlesMenuModal(
     const { classes } = useStylesGlobal();
     const [productsBusinessShow, setProductsBusinessShow] = useState<ProductData[]>([]);
     const [groupSelected, setGroupSelected] = useState<GroupSelectedType>({id:0, name: ""});
-    const [openOptionSubModal, setOpenOptionSubModal] = useState<any>({addArticleSubModal:true, manageArticleSubModal:true});
+    const [openOptionSubModal, setOpenOptionSubModal] = useState<any>({addArticleSubModal:true, manageArticleSubModal:true, manageGroupSubModal: true});
     const [selectedArticle, setSelectedArticle] = useState<any>({});
     
 
@@ -82,8 +83,17 @@ export default function ArticlesMenuModal(
         manageArticleSubModal: true,
       }))
     }
+    const closeManageGroupSubModal = () => {
+      setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+        ...prevOpenOptionSubModal,
+        manageGroupSubModal: true,
+      }))
+    }
     const selectArticle = (prod: ProductData) => {
-      setOpenOptionSubModal({addArticleSubModal:false,manageArticleSubModal:true})
+      setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+        ...prevOpenOptionSubModal,
+        addArticleSubModal: false,
+      }))
       setSelectedArticle(prod)
     }
 
@@ -185,6 +195,14 @@ export default function ArticlesMenuModal(
           hiddenPanel={openOptionSubModal.manageArticleSubModal}
           close={closeManageArticleSubModal}
           selectedArticle={selectedArticle}
+          setOpenOptionSubModal={setOpenOptionSubModal}
+          // productsBusiness={productsBusiness}
+          groupsBusiness={groupsBusiness}
+        />
+        <ManageGroupSubModal
+          hiddenPanel={openOptionSubModal.manageGroupSubModal}
+          close={closeManageGroupSubModal}
+          // selectedArticle={selectedArticle}
           // productsBusiness={productsBusiness}
           groupsBusiness={groupsBusiness}
         />
