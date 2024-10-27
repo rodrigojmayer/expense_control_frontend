@@ -36,6 +36,7 @@ interface ChildProps {
     groupsBusiness: GroupData[]
 }
 
+
 export default function ManageArticleSubModal(
     {   
         hiddenPanel, 
@@ -47,7 +48,7 @@ export default function ManageArticleSubModal(
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     const [manageSelectedArticle, setManageSelectedArticle] = useState<ProductData>(selectedArticle)
-    const [manageSelectedGroup, setManageSelectedGroup] = useState<GroupData>(groupsBusiness[selectedArticle.id_group-1])
+    const [manageSelectedGroup, setManageSelectedGroup] = useState<GroupData | any>({})
     
     const handleProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
       setManageSelectedArticle((prev:ProductData) => ({
@@ -67,9 +68,19 @@ export default function ManageArticleSubModal(
         price_secondary: event.target.value
       }))
     }
+    const handleGroup = (event:string) => {
+      const filteredGroupSelected = groupsBusiness.filter((val) => {
+        if(val.name === event) return val
+      })[0]
+      console.log("filteredGroupSelected: ", filteredGroupSelected)
+      setManageSelectedGroup(filteredGroupSelected)
+    }
     useEffect(() => {
       setManageSelectedArticle(selectedArticle)
-      setManageSelectedGroup(groupsBusiness[selectedArticle.id_group-1])
+      const filteredGroupInitial = groupsBusiness.filter((val) => {
+        if(val.id === selectedArticle.id_group) return val
+      })[0]
+      setManageSelectedGroup(filteredGroupInitial)
     }, [selectedArticle, hiddenPanel])
 
     return (
@@ -119,7 +130,7 @@ export default function ManageArticleSubModal(
                   id={String(manageSelectedArticle.id)}
                   label="Precio MobilePay/Revolut"
                   // inputRef={lastInputRef}
-                  value={manageSelectedArticle.price_secondary}
+                  value={manageSelectedArticle.price_secondary || ""} 
                   onChange={handlePriceSecondary}
                   maxRows={1}
                   size="small"
@@ -137,15 +148,17 @@ export default function ManageArticleSubModal(
                 select
                 className={classes.inputMainData}
                 InputProps={{className: classes.inputClassName}}
+                // value={manageSelectedGroup?.name || "-"}
                 value={manageSelectedGroup?.name || "-"}
                 
-                // onChange={ (event:any) => onStockMeasureChange(event.target.value) }
+                onChange={ (event:any) => handleGroup(event.target.value) }
+                // onChange={ (handleGroup}
               >
                 {groupsBusiness.map((group: GroupData, index: number) => (
                     <MenuItem 
-                        key={group.id} 
-                        value={group.name}
-                        sx={{ justifyContent: "space-between" }}
+                      key={group.id} 
+                      value={group.name}
+                      sx={{ justifyContent: "space-between" }}
                     >
                         {group.name}
                     </MenuItem>

@@ -90,7 +90,7 @@ function Home() {
     const groupsFiltered = groups.filter((group: GroupData) => {
       if(group.id_client === option || group.id === 0) 
         return group
-    })
+    }).sort((a: GroupData,b: GroupData) => a.name.localeCompare(b.name))
     setGroupsBusiness(groupsFiltered)
   })
   const selectPayment:any = ((option:number) => {
