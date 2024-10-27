@@ -17,6 +17,9 @@ import { Box,
 import { useStylesGlobal } from '../Styles'
 import { GroupData, ProductData } from '../types';
 import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
+import ErrorModal from './ErrorModal';
+import SaveChanges from './SaveChanges';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -31,10 +34,11 @@ import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
 interface ChildProps {
     hiddenPanel:  boolean
     close: any
+    optionSelected: any
     selectedArticle: ProductData
     setOpenOptionSubModal: (newData: any) => void
     // selectPayment: (newData: number) => void
-    groupsBusiness: GroupData[]
+    groupsByBusiness: GroupData[]
 }
 
 
@@ -42,16 +46,104 @@ export default function ManageArticleSubModal(
     {   
         hiddenPanel, 
         close,
+        optionSelected,
         selectedArticle,
         setOpenOptionSubModal,
         // selectPayment
-        groupsBusiness
+        groupsByBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     const [manageSelectedArticle, setManageSelectedArticle] = useState<ProductData>(selectedArticle)
     const [manageSelectedGroup, setManageSelectedGroup] = useState<GroupData | any>({})
     
+    const [openSaveChanges, setOpenSaveChanges] = useState(false); 
+    const [openErrorModal, setOpenErrorModal] = useState(false);  
+    const [messageBeforeSave, setMessageBeforeSave] = useState("");  
+    const [errorData, setErrorData] = useState("");  
+    const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);  
+    
+    const handleCloseSaveChanges = (ans?:boolean) => {
+      if(ans){
+        const bodyUpdate: ProductData|any = {}
+        if(!selectedArticle._id)
+          bodyUpdate.id_client = optionSelected.idBusinessMenuSelected
+        if(!selectedArticle._id || selectedArticle.product != manageSelectedArticle.product)
+            bodyUpdate.product= manageSelectedArticle.product
+        if(!selectedArticle._id || selectedArticle.id_group != manageSelectedArticle.id_group)
+            bodyUpdate.id_group= manageSelectedArticle.id_group
+        if(!selectedArticle._id || selectedArticle.price_primary != manageSelectedArticle.price_primary)
+            bodyUpdate.price_primary= manageSelectedArticle.price_primary
+        if(!selectedArticle._id || selectedArticle.price_secondary != manageSelectedArticle.price_secondary)
+            bodyUpdate.price_secondary= manageSelectedArticle.price_secondary
+        if(!selectedArticle._id || selectedArticle.id_group != manageSelectedArticle.id_group)
+            bodyUpdate.id_group= manageSelectedArticle.id_group
+        console.log("bodyUpdate: ", bodyUpdate)
+        // const fetchManageStockProduct = async () => {
+            
+        //   let loadingSuccess: boolean = false
+        //   try {
+        //     const manage_stock = (selectedArticle._id ? data._id : "")
+        //     const manage_method = (selectedArticle._id ? 'PATCH' : 'POST')
+        //     const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/products/${manage_stock}`, {
+        //       method: manage_method,
+        //       headers: {
+        //           'Content-Type': 'application/json', // Set the appropriate content-type for my API
+        //           // Add any other requires headers here
+        //       },
+        //       body:JSON.stringify(bodyUpdate)
+        //     })
+        //     // Check if the response status is successful
+        //     if (response.ok) {
+        //       const responseData = await response.json() // parse the response data
+        //       loadingSuccess = true
+        //     } else {
+        //       // Handle non-successful responses
+        //       console.error('Request failed: ', response.status, response.statusText)
+        //       // Handle the error here
+        //     }
+        //   } catch (error: unknown) {
+        //     if (typeof error === 'string') {
+        //       // 'error' is now narrowed down to type 'string'
+        //       console.error('Error:', error)
+        //     } else if (error instanceof Error) {
+        //       // 'error' is now narrowed down to type 'Error'
+        //       console.error('Error object:', error.message)
+        //     } else {
+        //       // Handle other cases as needed
+        //     }
+        //   } finally {
+        //     setIsLoading((prevLoading: any) => ({
+        //       ...prevLoading,
+        //       fieldsFetchCreateStock: loadingSuccess,
+        //     }));
+            
+        //     setCheckListStock([])
+        //   }
+        // } 
+        // fetchManageStockProduct()
+        close()
+      }
+      setOpenSaveChanges(false);
+    }
+    
+    const handleCloseErrorModal = () => {
+        setOpenErrorModal(false)
+    }
+
+    const handleOpenSaveChanges = () => {
+
+      if(manageSelectedArticle.product===""){
+        setOpenErrorModal(true)
+        setErrorData("missing_data")
+    }else if(!manageSelectedArticle.price_primary){
+        setOpenErrorModal(true)
+        setErrorData("missing_data")
+    }
+      else{
+          setOpenSaveChanges(true);
+      }
+    }
     const handleProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
       setManageSelectedArticle((prev:ProductData) => ({
         ...prev,
@@ -71,7 +163,7 @@ export default function ManageArticleSubModal(
       }))
     }
     const handleGroup = (event:string) => {
-      const filteredGroupSelected = groupsBusiness.filter((val) => {
+      const filteredGroupSelected = groupsByBusiness.filter((val) => {
         if(val.name === event) return val
       })[0]
       console.log("filteredGroupSelected: ", filteredGroupSelected)
@@ -79,7 +171,7 @@ export default function ManageArticleSubModal(
     }
     useEffect(() => {
       setManageSelectedArticle(selectedArticle)
-      const filteredGroupInitial = groupsBusiness.filter((val) => {
+      const filteredGroupInitial = groupsByBusiness.filter((val) => {
         if(val.id === selectedArticle.id_group) return val
       })[0]
       setManageSelectedGroup(filteredGroupInitial)
@@ -96,9 +188,27 @@ export default function ManageArticleSubModal(
           onClose={close} 
       >
         <Box className={classes.subModalInternal}>
+        <SaveChanges
+              openSaveChanges={openSaveChanges}
+              closeSaveChanges={handleCloseSaveChanges} 
+              messageBeforeSave={messageBeforeSave}
+          />
+          <ErrorModal
+              openErrorModal={openErrorModal}
+              closeErrorModal={handleCloseErrorModal}
+              errorData={errorData} 
+          />
+          {/* <ConfirmDeleteModal
+              openConfirmDeleteModal={openConfirmDeleteModal}
+              closeConfirmDeleteModal={handleCloseConfirmDeleteModal}
+              source={"stock"}
+              data={stockNameTemp} 
+              confirmDelete={handleConfirmDelete}
+              
+          /> */}
           <Box className={classes.customBoxRow}>
             <h3>
-            {selectedArticle.product ? "Editar" : "Crear" }
+            {selectedArticle._id ? "Editar" : "Crear" }
             </h3>
           </Box>
           
@@ -156,7 +266,7 @@ export default function ManageArticleSubModal(
                 onChange={ (event:any) => handleGroup(event.target.value) }
                 // onChange={ (handleGroup}
               >
-                {groupsBusiness.map((group: GroupData, index: number) => (
+                {groupsByBusiness.map((group: GroupData, index: number) => (
                     <MenuItem 
                       key={group.id} 
                       value={group.name}
@@ -183,7 +293,7 @@ export default function ManageArticleSubModal(
             />
             <OkButton
               // clicked={() => handleOpenEditStock()}
-              clicked={() => alert("pepi")}
+              clicked={() => handleOpenSaveChanges()}
             />
           </Box>
 

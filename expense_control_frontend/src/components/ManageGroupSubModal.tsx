@@ -33,7 +33,7 @@ interface ChildProps {
     close: any
     // selectedArticle: ProductData
     // selectPayment: (newData: number) => void
-    groupsBusiness: GroupData[]
+    groupsByBusiness: GroupData[]
 }
 
 
@@ -43,7 +43,7 @@ export default function ManageGroupSubModal(
         close,
         // selectedArticle,
         // selectPayment
-        groupsBusiness
+        groupsByBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();

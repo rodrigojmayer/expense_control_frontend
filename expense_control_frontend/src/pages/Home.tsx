@@ -27,6 +27,7 @@ const INITIAL_MODAL_OPTIONS:any = {
   cartMenuModal: true,
 }
 const INITIAL_SELECTED_OPTIONS:any = {
+  idBusinessMenuSelected: NaN,
   businessMenuSelected: "",  
   paymentMethodMenuSelected: "",
   articlesMenuSelected: [],    
@@ -45,7 +46,7 @@ function Home() {
   const [optionSelected, setOptionSelected] = useState<any>(INITIAL_SELECTED_OPTIONS);
   const [routeSelected, setRouteSelected] = useState<any>(<a>Home</a>);
   const [productsBusiness, setProductsBusiness] = useState<ProductData[]>([]);
-  const [groupsBusiness, setGroupsBusiness] = useState<GroupData[]>([]);
+  const [groupsByBusiness, setGroupsByBusiness] = useState<GroupData[]>([]);
   
   const signOut = async() => {
 
@@ -78,6 +79,7 @@ function Home() {
     }))
     setOptionSelected((prevState:any) => ({
       ...prevState,
+      idBusinessMenuSelected: option,
       businessMenuSelected:business[option],
     }))
     setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()} className={classes.arrowHome}/></>)
@@ -91,7 +93,7 @@ function Home() {
       if(group.id_client === option || group.id === 0) 
         return group
     }).sort((a: GroupData,b: GroupData) => a.name.localeCompare(b.name))
-    setGroupsBusiness(groupsFiltered)
+    setGroupsByBusiness(groupsFiltered)
   })
   const selectPayment:any = ((option:number) => {
     
@@ -122,13 +124,15 @@ function Home() {
             />
             <PaymentMethodMenuModal
               hiddenPanel={openOptionModal.paymentMethodMenuModal}
+
               selectPayment={selectPayment}
             />
             <ArticlesMenuModal
               hiddenPanel={openOptionModal.articlesMenuModal}
+              optionSelected={optionSelected}
               selectArticles={selectArticles}
               productsBusiness={productsBusiness}
-              groupsBusiness={groupsBusiness}
+              groupsByBusiness={groupsByBusiness}
             />
             
             <Box className={classes.customBoxRow}>

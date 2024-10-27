@@ -45,7 +45,8 @@ export default function AddArticleSubModal(
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     const [multiplier, setMultiplier] = useState<number>(1)
-    // const firstInputRef = useRef<HTMLInputElement>(null)
+
+  // const firstInputRef = useRef<HTMLInputElement>(null)
     // const { user } = useContext<any>(UserContext); 
     // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
 
@@ -92,9 +93,9 @@ export default function AddArticleSubModal(
       //   className={classes.subModalExternal}
       // >
       <Modal
-      className={classes.subModalExternal}
-          open={!hiddenPanel} 
-          onClose={close} 
+        className={classes.subModalExternal}
+        open={!hiddenPanel} 
+        onClose={close} 
       >
         <Box className={classes.subModalInternal}>
           <Box className={classes.customBoxRow}>
@@ -135,7 +136,6 @@ export default function AddArticleSubModal(
               clicked={() => alert("pepi")}
             />
           </Box>
-
         </Box>
       </Modal>
       // </div>

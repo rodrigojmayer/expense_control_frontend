@@ -33,9 +33,10 @@ import ManageGroupSubModal from './ManageGroupSubModal';
 
 interface ChildProps {
   hiddenPanel:  boolean
+  optionSelected: any 
   selectArticles: (newData: number) => void
   productsBusiness: ProductData[]
-  groupsBusiness: GroupData[]
+  groupsByBusiness: GroupData[]
 }
 interface GroupSelectedType {
     id:  number
@@ -45,9 +46,10 @@ interface GroupSelectedType {
 export default function ArticlesMenuModal(
     {   
         hiddenPanel, 
+        optionSelected,
         selectArticles,
         productsBusiness,
-        groupsBusiness
+        groupsByBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
@@ -141,7 +143,7 @@ export default function ArticlesMenuModal(
             width: "100%",
           }}>
             { groupSelected.id === 0 && 
-              groupsBusiness
+              groupsByBusiness
               .filter((group: GroupData) => group.name !== "-")
               .map((group: GroupData) => (
                   <Box className={classes.customBoxGroup}
@@ -189,22 +191,22 @@ export default function ArticlesMenuModal(
           close={closeAddArticleSubModal}
           selectedArticle={selectedArticle}
           setOpenOptionSubModal={setOpenOptionSubModal}
-          // groupsBusiness={groupsBusiness}
+          // groupsByBusiness={groupsByBusiness}
         />
         <ManageArticleSubModal
           hiddenPanel={openOptionSubModal.manageArticleSubModal}
           close={closeManageArticleSubModal}
+          optionSelected={optionSelected}
           selectedArticle={selectedArticle}
           setOpenOptionSubModal={setOpenOptionSubModal}
-          // productsBusiness={productsBusiness}
-          groupsBusiness={groupsBusiness}
+          groupsByBusiness={groupsByBusiness}
         />
         <ManageGroupSubModal
           hiddenPanel={openOptionSubModal.manageGroupSubModal}
           close={closeManageGroupSubModal}
           // selectedArticle={selectedArticle}
           // productsBusiness={productsBusiness}
-          groupsBusiness={groupsBusiness}
+          groupsByBusiness={groupsByBusiness}
         />
       </div>
     )
