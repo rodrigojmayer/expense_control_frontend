@@ -76,52 +76,57 @@ export default function ManageArticleSubModal(
             bodyUpdate.price_primary= manageSelectedArticle.price_primary
         if(!selectedArticle._id || selectedArticle.price_secondary != manageSelectedArticle.price_secondary)
             bodyUpdate.price_secondary= manageSelectedArticle.price_secondary
-        if(!selectedArticle._id || selectedArticle.id_group != manageSelectedArticle.id_group)
-            bodyUpdate.id_group= manageSelectedArticle.id_group
-        console.log("bodyUpdate: ", bodyUpdate)
-        // const fetchManageStockProduct = async () => {
+        if(!selectedArticle._id || selectedArticle.id_group != manageSelectedGroup.id)
+          bodyUpdate.id_group= manageSelectedGroup.id
+          
+          console.log("manageSelectedGroup:", manageSelectedGroup)
+          console.log("bodyUpdate:", bodyUpdate)
+        const fetchManageArticle = async () => {
             
-        //   let loadingSuccess: boolean = false
-        //   try {
-        //     const manage_stock = (selectedArticle._id ? data._id : "")
-        //     const manage_method = (selectedArticle._id ? 'PATCH' : 'POST')
-        //     const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/products/${manage_stock}`, {
-        //       method: manage_method,
-        //       headers: {
-        //           'Content-Type': 'application/json', // Set the appropriate content-type for my API
-        //           // Add any other requires headers here
-        //       },
-        //       body:JSON.stringify(bodyUpdate)
-        //     })
-        //     // Check if the response status is successful
-        //     if (response.ok) {
-        //       const responseData = await response.json() // parse the response data
-        //       loadingSuccess = true
-        //     } else {
-        //       // Handle non-successful responses
-        //       console.error('Request failed: ', response.status, response.statusText)
-        //       // Handle the error here
-        //     }
-        //   } catch (error: unknown) {
-        //     if (typeof error === 'string') {
-        //       // 'error' is now narrowed down to type 'string'
-        //       console.error('Error:', error)
-        //     } else if (error instanceof Error) {
-        //       // 'error' is now narrowed down to type 'Error'
-        //       console.error('Error object:', error.message)
-        //     } else {
-        //       // Handle other cases as needed
-        //     }
-        //   } finally {
-        //     setIsLoading((prevLoading: any) => ({
-        //       ...prevLoading,
-        //       fieldsFetchCreateStock: loadingSuccess,
-        //     }));
+          let loadingSuccess: boolean = false
+          try {
+            const manage_article = (selectedArticle._id ? selectedArticle._id : "")
+            const manage_method = (selectedArticle._id ? 'PATCH' : 'POST')
+            const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/products/${manage_article}`, {
+              method: manage_method,
+              headers: {
+                  'Content-Type': 'application/json', // Set the appropriate content-type for my API
+                  // Add any other requires headers here
+              },
+              body:JSON.stringify(bodyUpdate)
+            })
+            // Check if the response status is successful
+            if (response.ok) {
+              const responseData = await response.json() // parse the response data
+              loadingSuccess = true
+            } else {
+              // Handle non-successful responses
+              console.error('Request failed: ', response.status, response.statusText)
+              console.error('response: ', response)
+              // Handle the error here
+            }
+          } catch (error: unknown) {
+            if (typeof error === 'string') {
+              // 'error' is now narrowed down to type 'string'
+              console.error('Error:', error)
+            } else if (error instanceof Error) {
+              // 'error' is now narrowed down to type 'Error'
+              console.error('Error object:', error.message)
+            } else {
+              // Handle other cases as needed
+            }
+          // } finally {
+            // setIsLoading((prevLoading: any) => ({
+            //   ...prevLoading,
+            //   fieldsFetchCreateStock: loadingSuccess,
+            // }));
             
-        //     setCheckListStock([])
-        //   }
-        // } 
-        // fetchManageStockProduct()
+            // setCheckListStock([])
+          }
+        } 
+        const changeDetected = (obj:object) => Object.keys(obj).length > 0
+        if(changeDetected(bodyUpdate))
+          fetchManageArticle()
         close()
       }
       setOpenSaveChanges(false);
@@ -138,7 +143,7 @@ export default function ManageArticleSubModal(
         setErrorData("missing_data")
     }else if(!manageSelectedArticle.price_primary){
         setOpenErrorModal(true)
-        setErrorData("missing_data")
+        setErrorData("missing_data_price_primary")
     }
       else{
           setOpenSaveChanges(true);

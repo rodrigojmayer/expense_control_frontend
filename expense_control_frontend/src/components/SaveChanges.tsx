@@ -6,7 +6,7 @@ import { Box,
 import { OkButton,
          CancelButton, 
         } from './Buttons';
-import { useStylesGlobal, modalStyleSaveExternal, modalStyleSaveInternal } from '../Styles'
+import { useStylesGlobal } from '../Styles'
 // import { UserContext } from '../context/UserContext';
 // import { LanguageLabelsContext } from '../context/LanguageLabelsContext';
 
