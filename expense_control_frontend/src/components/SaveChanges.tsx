@@ -25,7 +25,9 @@ export default function SaveChanges( props: SaveChangesProps) {
 
     return (
         <Modal
-        className={classes.modal_external_background}
+        // className={classes.modal_external_background}
+        className={classes.subModalExternal}
+
         open={openSaveChanges} 
         onClose={() => closeSaveChanges()}
         > 
@@ -39,14 +41,15 @@ export default function SaveChanges( props: SaveChangesProps) {
                     }
                 }}
             >
-                <Box sx={modalStyleSaveExternal}>
-                    <Box 
+                <Box className={classes.subModalInternal}>
+                {/* <Box sx={modalStyleSaveExternal}> */}
+                    {/* <Box 
                         sx={{ ...modalStyleSaveInternal }}
                         // className={`${classes[`_${user.background_color}main_background_color` as keyof typeof classes]} ${classes[`_${user.background_color}modal_color` as keyof typeof classes]}`}
-                    >
+                    > */}
                         <Typography align="center" variant="h6" className={classes.title}>
                             {/* {labelsSaveChanges.save_changes}? */}
-                            save changes
+                            Guardar cambios?
                         </Typography>
                         <Typography align="center" >
                             {messageBeforeSave}
@@ -59,7 +62,7 @@ export default function SaveChanges( props: SaveChangesProps) {
                             clicked={() => closeSaveChanges(true)}
                             />
                         </Box> 
-                    </Box>
+                    {/* </Box> */}
                 </Box>
             </form>
         </Modal>
