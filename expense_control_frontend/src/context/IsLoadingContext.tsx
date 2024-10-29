@@ -9,6 +9,7 @@ type IsLoadingProviderProps = {
 export const IsLoadingProvider: React.FC<IsLoadingProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState({
     user: true,
+    products: true
   }); // New state for loading status
   
   // console.log("realoading isLoadingContext???")

@@ -20,6 +20,7 @@ import { AddButton, CancelButton, DeleteButton, EditButton, OkButton } from './B
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import ErrorModal from './ErrorModal';
 import SaveChanges from './SaveChanges';
+import { IsLoadingContext } from '../context/IsLoadingContext';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -54,6 +55,7 @@ export default function ManageArticleSubModal(
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
+    const { setIsLoading } = useContext<any>(IsLoadingContext) 
     const [manageSelectedArticle, setManageSelectedArticle] = useState<ProductData>(selectedArticle)
     const [manageSelectedGroup, setManageSelectedGroup] = useState<GroupData | any>({})
     
@@ -113,11 +115,11 @@ export default function ManageArticleSubModal(
             } else {
               // Handle other cases as needed
             }
-          // } finally {
-            // setIsLoading((prevLoading: any) => ({
-            //   ...prevLoading,
-            //   fieldsFetchCreateStock: loadingSuccess,
-            // }));
+          } finally {
+            setIsLoading((prevLoading: any) => ({
+              ...prevLoading,
+              products: loadingSuccess,
+            }));
             
             // setCheckListStock([])
           }

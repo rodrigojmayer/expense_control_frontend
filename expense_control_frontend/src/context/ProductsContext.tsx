@@ -76,15 +76,16 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
     }
   }, [user])
   
-  // useEffect(() => {
-  //   if (isLoading.fieldsFetchCreateStock) {
-  //     fetchProducts();
-  //     setIsLoading((prevLoading: any) => ({
-  //         ...prevLoading,
-  //         fieldsFetchCreateStock: false,
-  //     }));
-  //   }
-  // }, [isLoading.fieldsFetchCreateStock, user ])
+  useEffect(() => {
+    console.log("isLoading.products: ", isLoading.products)
+    if (isLoading.products) {
+      fetchProducts();
+      setIsLoading((prevLoading: any) => ({
+          ...prevLoading,
+          products: false,
+      }));
+    }
+  }, [isLoading.products, user ])
   
 
   return (
