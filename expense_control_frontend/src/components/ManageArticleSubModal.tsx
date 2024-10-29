@@ -79,8 +79,6 @@ export default function ManageArticleSubModal(
         if(!selectedArticle._id || selectedArticle.id_group != manageSelectedGroup.id)
           bodyUpdate.id_group= manageSelectedGroup.id
           
-          console.log("manageSelectedGroup:", manageSelectedGroup)
-          console.log("bodyUpdate:", bodyUpdate)
         const fetchManageArticle = async () => {
             
           let loadingSuccess: boolean = false
@@ -178,7 +176,7 @@ export default function ManageArticleSubModal(
       setManageSelectedArticle(selectedArticle)
       const filteredGroupInitial = groupsByBusiness.filter((val) => {
         if(val.id === selectedArticle.id_group) return val
-      })[0]
+      })[0] || {id:0}
       setManageSelectedGroup(filteredGroupInitial)
     }, [selectedArticle, hiddenPanel])
 
