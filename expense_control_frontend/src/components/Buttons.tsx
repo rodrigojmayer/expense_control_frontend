@@ -53,7 +53,7 @@ interface ButtonProps {
 export function OkButton({ sizeIco, roundedIco, cusField, clicked, widthIco }: ButtonProps ) {
 
   const { classes } = useStylesGlobal();
-  const { user } = useContext<any>(UserContext)
+  // const { user } = useContext<any>(UserContext)
   
   let fontIco = 35, noPadding, bor = 5, borRad
   if(sizeIco) {
@@ -205,20 +205,20 @@ export function EditButton({ sizeIco, roundedIco, cusField, clicked, submitOk }:
 }
 
 
-export function DeleteButton({ sizeIco, roundedIco, cusField, clicked, submitOk }: ButtonProps ) {
+export function DeleteButton({ sizeIco, roundedIco, cusField, clicked, widthIco }: ButtonProps ) {
 
   const { classes } = useStylesGlobal();
-  const { user } = useContext<any>(UserContext)
+  // const { user } = useContext<any>(UserContext)
   
-  let fontIco = 28, noPadding, bor = 5, borRad
+  let fontIco = 35, noPadding, bor = 5, borRad
   if(sizeIco) {
     fontIco = (parseInt(sizeIco) - 12)
     bor = 3
   }
-  if(roundedIco){
+  // if(roundedIco){
     noPadding=0
     borRad="50px !important"
-  } 
+  // } 
   const handleClick:any = (() => {
     if(cusField)
       clicked(cusField.id, cusField.value)
@@ -242,13 +242,17 @@ export function DeleteButton({ sizeIco, roundedIco, cusField, clicked, submitOk 
       <Button 
         variant="outlined"
         color="neutral"
-        className={`${classes.btnCommonStyle} ${classes[`_${user.background_color}btn_edit` as keyof typeof classes]}`}
+        className={`${classes.btnCommonStyle} ${classes.btn_delete}`}
         sx={{  
           border: bor, 
+          margin: 1,
           padding:noPadding, 
           paddingTop:0,  
           paddingBottom:0, 
-          width: 74.6, 
+          minWidth: 67, 
+          // width: 74.6,  
+          width: widthIco || 45, 
+          height: 45,
           borderRadius: borRad,
         }}
         onClick={handleClick}

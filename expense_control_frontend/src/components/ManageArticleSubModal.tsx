@@ -16,7 +16,7 @@ import { Box,
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
 import { GroupData, ProductData } from '../types';
-import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
+import { AddButton, CancelButton, DeleteButton, EditButton, OkButton } from './Buttons';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import ErrorModal from './ErrorModal';
 import SaveChanges from './SaveChanges';
@@ -139,10 +139,10 @@ export default function ManageArticleSubModal(
       if(manageSelectedArticle.product===""){
         setOpenErrorModal(true)
         setErrorData("missing_data")
-    }else if(!manageSelectedArticle.price_primary){
+      }else if(!manageSelectedArticle.price_primary){
         setOpenErrorModal(true)
         setErrorData("missing_data_price_primary")
-    }
+      }
       else{
           setOpenSaveChanges(true);
       }
@@ -169,7 +169,6 @@ export default function ManageArticleSubModal(
       const filteredGroupSelected = groupsByBusiness.filter((val) => {
         if(val.name === event) return val
       })[0]
-      console.log("filteredGroupSelected: ", filteredGroupSelected)
       setManageSelectedGroup(filteredGroupSelected)
     }
     useEffect(() => {
@@ -186,9 +185,9 @@ export default function ManageArticleSubModal(
       //   className={classes.subModalExternal}
       // >
       <Modal
-      className={classes.subModalExternal}
-          open={!hiddenPanel} 
-          onClose={close} 
+        className={classes.subModalExternal}
+        open={!hiddenPanel} 
+        onClose={close} 
       >
         <Box className={classes.subModalInternal}>
         <SaveChanges
@@ -219,7 +218,7 @@ export default function ManageArticleSubModal(
             <Box className={classes.customBoxRow}>
               <TextField
                 id={String(manageSelectedArticle.id)}
-                label="Nombre"
+                label="Nombre*"
                 // inputRef={lastInputRef}
                 value={manageSelectedArticle.product}
                 onChange={handleProduct}
@@ -231,7 +230,7 @@ export default function ManageArticleSubModal(
             <Box className={classes.customBoxRow}>
               <TextField
                   id={String(manageSelectedArticle.id)}
-                  label="Precio"
+                  label="Precio*"
                   // inputRef={lastInputRef}
                   value={manageSelectedArticle.price_primary}
                   onChange={handlePricePrimary}
@@ -289,7 +288,14 @@ export default function ManageArticleSubModal(
               />
             </Box>
           </Box>
-          <Box className={classes.customBoxRow}>
+          <Box className={`${classes.customBoxRow} ${classes.customBoxRowButtons}`}>
+            {
+              (selectedArticle._id) &&
+                <DeleteButton
+                  clicked={() => alert("testingdeletebutton")}
+                />
+            }
+            
             <CancelButton
               // clicked={() => handleOpenEditStock()}
               clicked={close}

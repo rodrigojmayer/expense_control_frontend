@@ -143,6 +143,7 @@ export const useStylesGlobal = makeStyles()({
         minHeight: "330px",
     },
     customBoxRow: {
+        // padding: 3,
         display: "flex",
         justifyContent:  "center",
         alignItems: "center",
@@ -152,6 +153,9 @@ export const useStylesGlobal = makeStyles()({
     customBoxRowArticlesHeader: {
         gap: 38,
         marginBottom: 20
+    },
+    customBoxRowButtons: {
+        margin: 10
     },
     customShoppingCartIcon: {
         fontSize: 45, 
@@ -390,6 +394,19 @@ export const useStylesGlobal = makeStyles()({
         //   color: neutralDark,
         }
       },
+    },
+    btn_delete: {
+        backgroundColor: thirdColor,
+        borderColor: thirdColor,
+        color: firstColor,
+        // stroke: thirdColor,
+        '&:hover': {
+            borderColor: thirdColor,
+            backgroundColor: thirdColor,
+            "& > *": {
+            //   color: neutralDark,
+            }
+        },
     },
     btn_business: {
       backgroundColor: neutralMain,
