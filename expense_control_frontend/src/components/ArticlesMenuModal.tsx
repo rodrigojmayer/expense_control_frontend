@@ -172,7 +172,9 @@ export default function ArticlesMenuModal(
                     key={product._id}
                     onClick={() =>selectArticle(product)}
                     sx={{
-                      fontSize: (product.product && product.product.length > 15) ? "16px" : "22px",    
+                      fontSize: (product.product && product.product.length > 15) ? "16px" : "22px",   
+                      height: (product.id_group === 0) ? "100px" : "85px", 
+                      width: (product.id_group === 0) ? "100px" : "85px", 
                     }}
                   >
                     {product.product.split('/').map((part, index) => (
