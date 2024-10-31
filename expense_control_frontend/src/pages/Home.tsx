@@ -119,14 +119,18 @@ function Home() {
     //   if(product._id === productsBusiness._id) 
     //     return product
     // })
-    // console.log("productsFiltered: ", productsFiltered)
+    // console.log("home useEffect products: ", products)
     // setProductsBusiness(productsFiltered)
     if(products){
       const updatedProducts = productsBusiness.map((businessProduct) => {
         // Find the corresponding product in the `products` list
-        const matchingProduct = products.find((product:ProductData) => product._id === businessProduct._id);
+        const matchingProduct = products.find((product:ProductData) => product?._id === businessProduct._id);
         // If a matching product is found, use it; otherwise, keep the original
-        return matchingProduct || businessProduct;
+        
+        // console.log("home useEffect matchingProduct: ", matchingProduct)
+        // console.log("home useEffect businessProduct: ", businessProduct)
+        // return matchingProduct || businessProduct;
+        return matchingProduct ;
       });
       
       setProductsBusiness(updatedProducts);

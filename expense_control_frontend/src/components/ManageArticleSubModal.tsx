@@ -65,22 +65,27 @@ export default function ManageArticleSubModal(
     const [errorData, setErrorData] = useState("");  
     const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);  
     
-    const handleCloseSaveChanges = (ans?:boolean) => {
+    const handleCloseSaveChanges = (ans?:boolean, deletion?:boolean) => {
       if(ans){
         const bodyUpdate: ProductData|any = {}
-        if(!selectedArticle._id)
-          bodyUpdate.id_client = optionSelected.idBusinessMenuSelected
-        if(!selectedArticle._id || selectedArticle.product != manageSelectedArticle.product)
-            bodyUpdate.product= manageSelectedArticle.product
-        if(!selectedArticle._id || selectedArticle.id_group != manageSelectedArticle.id_group)
-            bodyUpdate.id_group= manageSelectedArticle.id_group
-        if(!selectedArticle._id || selectedArticle.price_primary != manageSelectedArticle.price_primary)
-            bodyUpdate.price_primary= manageSelectedArticle.price_primary
-        if(!selectedArticle._id || selectedArticle.price_secondary != manageSelectedArticle.price_secondary)
-            bodyUpdate.price_secondary= manageSelectedArticle.price_secondary
-        if(!selectedArticle._id || selectedArticle.id_group != manageSelectedGroup.id)
-          bodyUpdate.id_group= manageSelectedGroup.id
-          
+        if(deletion){
+          bodyUpdate.deleted = true
+        } 
+        else {
+          if(!selectedArticle._id)
+            bodyUpdate.id_client = optionSelected.idBusinessMenuSelected
+          if(!selectedArticle._id || selectedArticle.product != manageSelectedArticle.product)
+              bodyUpdate.product = manageSelectedArticle.product
+          if(!selectedArticle._id || selectedArticle.id_group != manageSelectedArticle.id_group)
+              bodyUpdate.id_group = manageSelectedArticle.id_group
+          if(!selectedArticle._id || selectedArticle.price_primary != manageSelectedArticle.price_primary)
+              bodyUpdate.price_primary = manageSelectedArticle.price_primary
+          if(!selectedArticle._id || selectedArticle.price_secondary != manageSelectedArticle.price_secondary)
+              bodyUpdate.price_secondary = manageSelectedArticle.price_secondary
+          if(!selectedArticle._id || selectedArticle.id_group != manageSelectedGroup.id)
+            bodyUpdate.id_group = manageSelectedGroup.id
+        }
+
         const fetchManageArticle = async () => {
             
           let loadingSuccess: boolean = false
@@ -125,6 +130,7 @@ export default function ManageArticleSubModal(
           }
         } 
         const changeDetected = (obj:object) => Object.keys(obj).length > 0
+        console.log("changeDetected(bodyUpdate: ", changeDetected(bodyUpdate))
         if(changeDetected(bodyUpdate))
           fetchManageArticle()
         close()
@@ -155,6 +161,13 @@ export default function ManageArticleSubModal(
     
     const handleCloseConfirmDeleteModal = (ans?:boolean) => {
       console.log("handleCloseConfirmDeleteModal ans: ", ans)
+      if(ans){
+        setManageSelectedArticle((prev: ProductData) => ({
+          ...prev,
+          deleted: true
+        }))
+        handleCloseSaveChanges(true, true)
+      }
       setOpenConfirmDeleteModal(false)
     }
 
@@ -189,6 +202,7 @@ export default function ManageArticleSubModal(
       })[0] || {id:0}
       setManageSelectedGroup(filteredGroupInitial)
     }, [selectedArticle, hiddenPanel])
+
 
     return (
       // <div

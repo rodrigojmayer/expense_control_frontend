@@ -33,12 +33,15 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
         
         // if(json.lenght>0){
           // Map through the products array and edit the date format
-          const formattedProducts = json.map((product: ProductData) => {
+          const formattedProducts = json
+          .filter((product: ProductData) => !product.deleted)
+          .map((product: ProductData) => {
             // const selectedCategorySub = categoriesSub.find((categorySub: any) => categorySub.id === product.id_sub_category);
-            return {
-              ...product,
-              // category_obj: selectedCategory,
-            };
+
+              return {
+                ...product,
+                // category_obj: selectedCategory,
+              };
           });
 
           // // Sort the products array by the 'alert_on' field

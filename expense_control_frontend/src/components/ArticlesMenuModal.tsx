@@ -64,7 +64,8 @@ export default function ArticlesMenuModal(
       
     } 
     useEffect(() => {
-      const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected.id)
+      // console.log("ArticlesMenuModal useEffect productsBusiness: ", productsBusiness)
+      const productsFilter = productsBusiness.filter((product:ProductData) => product?.id_group === groupSelected.id)
       setProductsBusinessShow(productsFilter)
     }, [groupSelected, productsBusiness])
     useEffect(() => {
@@ -77,7 +78,7 @@ export default function ArticlesMenuModal(
         ...prevOpenOptionSubModal,
         addArticleSubModal: true,
       }))
-      setSelectedArticle({})
+      // setSelectedArticle({})
     }
     const closeManageArticleSubModal = () => {
       setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
@@ -101,7 +102,9 @@ export default function ArticlesMenuModal(
 
     useEffect(() => {
       console.log("selectedArticle: ", selectedArticle)
-    }, [selectedArticle])
+      if(openOptionSubModal.addArticleSubModal)
+        setSelectedArticle({})
+    }, [openOptionSubModal.addArticleSubModal])
 
     return (
       <div
