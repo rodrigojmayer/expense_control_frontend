@@ -124,7 +124,7 @@ function Home() {
     if(products){
       const updatedProducts = productsBusiness.map((businessProduct) => {
         // Find the corresponding product in the `products` list
-        const matchingProduct = products.find((product:ProductData) => product?._id === businessProduct._id);
+        const matchingProduct = products.find((product:ProductData) => product?._id === businessProduct?._id);
         // If a matching product is found, use it; otherwise, keep the original
         
         // console.log("home useEffect matchingProduct: ", matchingProduct)
