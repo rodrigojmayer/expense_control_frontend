@@ -27,7 +27,6 @@ export default function SaveChanges( props: SaveChangesProps) {
         <Modal
         // className={classes.modal_external_background}
         className={classes.subModalExternal}
-
         open={openSaveChanges} 
         onClose={() => closeSaveChanges()}
         > 

@@ -4,7 +4,7 @@ import { Box,
          Typography, 
         } from '@mui/material';
 import { CancelButton } from './Buttons';
-import { useStylesGlobal, modalStyleSaveExternal, modalStyleErrorInternal } from '../Styles'
+import { useStylesGlobal } from '../Styles'
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 // import { UserContext } from '../context/UserContext';
@@ -42,9 +42,9 @@ const PrettoSlider = styled(Slider)({
 type ConfirmDeleteModalProps = {
     openConfirmDeleteModal: boolean;
     closeConfirmDeleteModal: (newData?: boolean) => void;
-    source: string
-    data: string
-    confirmDelete: (newData?: boolean) => void
+    // source: string
+    // data: string
+    // confirmDelete: (newData?: boolean) => void
 }
 export default function ConfirmDeleteModal( props: ConfirmDeleteModalProps) {
     const { openConfirmDeleteModal, closeConfirmDeleteModal } = props;
@@ -62,7 +62,7 @@ export default function ConfirmDeleteModal( props: ConfirmDeleteModalProps) {
     };
   
     const handleThumbMouseUp = () => {
-        console.log("handleThumbMouseUp")
+        // console.log("handleThumbMouseUp")
         if(valueSlider<100)
             setValueSlider(0)
         setIsThumbPressed(false);
@@ -81,9 +81,10 @@ export default function ConfirmDeleteModal( props: ConfirmDeleteModalProps) {
     };
 
     useEffect(() => {
-        console.log("valueSlider: ", valueSlider)
+        // console.log("valueSlider: ", valueSlider)
         if(valueSlider===100 && !isThumbPressed){
-            props.confirmDelete(true)
+            // props.confirmDelete(true)
+            closeConfirmDeleteModal(true)
         }
     }, [valueSlider, isThumbPressed])
 
@@ -94,7 +95,9 @@ export default function ConfirmDeleteModal( props: ConfirmDeleteModalProps) {
                 setValueSlider(0);
                 setIsThumbPressed(false);
             } else if(valueSlider===100){
-                props.confirmDelete(true)
+                // props.confirmDelete(true)
+                closeConfirmDeleteModal(true)
+                setValueSlider(0);
             }
         };
 
@@ -106,17 +109,14 @@ export default function ConfirmDeleteModal( props: ConfirmDeleteModalProps) {
     
     return (
         <Modal
-        className={classes.modal_external_background}
-        open={openConfirmDeleteModal} 
-        onClose={() => closeConfirmDeleteModal()}
+            // className={classes.modal_external_background}
+            className={classes.subModalExternal}
+            open={openConfirmDeleteModal} 
+            onClose={() => closeConfirmDeleteModal()}
         > 
-            <Box sx={modalStyleSaveExternal}>
-                <Box 
-                    sx={{ ...modalStyleErrorInternal }}
-                    // className={`${classes[`_${user.background_color}main_background_color` as keyof typeof classes]} ${classes[`_${user.background_color}modal_color` as keyof typeof classes]}`}
-                >
-                    <Typography className={classes.finishButtons} align="center" >
-                        {/* {subTitle} */}
+            <Box className={`${classes.subModalInternal} ${classes.subModalDelete}`}>
+                    <Typography   sx={{ marginTop: 2 }} align="center" >
+                        Eliminar
                     </Typography> 
                     <Box 
                         margin="auto"
@@ -134,12 +134,12 @@ export default function ConfirmDeleteModal( props: ConfirmDeleteModalProps) {
                             onChange={handleSliderChange}
                         />
                     </Box>
-                    <Box className={classes.finishButtons}>
+                    <Box className={classes.deleteButtons}>
                         <CancelButton
                         clicked={() => closeConfirmDeleteModal(false)}
                         />
                     </Box> 
-                </Box>
+                {/* </Box> */}
             </Box>
         </Modal>
     )

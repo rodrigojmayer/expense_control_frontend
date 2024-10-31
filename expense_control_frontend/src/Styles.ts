@@ -71,6 +71,10 @@ export const useStylesGlobal = makeStyles()({
         gap: 20,
         margin: "20px",
     },
+    deleteButtons: {
+        display: "flex",
+        justifyContent:  "center",
+    },
     link_color: {
         color: linkColor,
     },
@@ -229,6 +233,12 @@ export const useStylesGlobal = makeStyles()({
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
+    },
+    subModalDelete: {
+        width: "calc(100% - 50px)",
+        maxWidth: "250px",
+        height: "30vh",
+        maxHeight: "30vh",
     },
     buttonMultiplier: {
         backgroundColor: firstColor,

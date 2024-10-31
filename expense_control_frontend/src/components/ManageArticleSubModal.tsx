@@ -130,6 +130,10 @@ export default function ManageArticleSubModal(
         close()
       }
       setOpenSaveChanges(false);
+      setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+        ...prevOpenOptionSubModal,
+        addArticleSubModal: true,
+      }))
     }
     
     const handleCloseErrorModal = () => {
@@ -137,7 +141,6 @@ export default function ManageArticleSubModal(
     }
 
     const handleOpenSaveChanges = () => {
-
       if(manageSelectedArticle.product===""){
         setOpenErrorModal(true)
         setErrorData("missing_data")
@@ -149,6 +152,12 @@ export default function ManageArticleSubModal(
           setOpenSaveChanges(true);
       }
     }
+    
+    const handleCloseConfirmDeleteModal = (ans?:boolean) => {
+      console.log("handleCloseConfirmDeleteModal ans: ", ans)
+      setOpenConfirmDeleteModal(false)
+    }
+
     const handleProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
       setManageSelectedArticle((prev:ProductData) => ({
         ...prev,
@@ -202,14 +211,14 @@ export default function ManageArticleSubModal(
               closeErrorModal={handleCloseErrorModal}
               errorData={errorData} 
           />
-          {/* <ConfirmDeleteModal
+          <ConfirmDeleteModal
               openConfirmDeleteModal={openConfirmDeleteModal}
               closeConfirmDeleteModal={handleCloseConfirmDeleteModal}
-              source={"stock"}
-              data={stockNameTemp} 
-              confirmDelete={handleConfirmDelete}
+              // source={"stock"}
+              // data={stockNameTemp} 
+              // confirmDelete={handleConfirmDelete}
               
-          /> */}
+          />
           <Box className={classes.customBoxRow}>
             <h3>
             {selectedArticle._id ? "Editar" : "Crear" }
@@ -294,7 +303,7 @@ export default function ManageArticleSubModal(
             {
               (selectedArticle._id) &&
                 <DeleteButton
-                  clicked={() => alert("testingdeletebutton")}
+                  clicked={() => setOpenConfirmDeleteModal(true)}
                 />
             }
             
