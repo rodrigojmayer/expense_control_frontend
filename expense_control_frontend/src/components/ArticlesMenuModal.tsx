@@ -78,7 +78,6 @@ export default function ArticlesMenuModal(
         ...prevOpenOptionSubModal,
         addArticleSubModal: true,
       }))
-      // setSelectedArticle({})
     }
     const closeManageArticleSubModal = () => {
       setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
@@ -209,7 +208,7 @@ export default function ArticlesMenuModal(
         <ManageGroupSubModal
           hiddenPanel={openOptionSubModal.manageGroupSubModal}
           close={closeManageGroupSubModal}
-          // selectedArticle={selectedArticle}
+          optionSelected={optionSelected}
           // productsBusiness={productsBusiness}
           groupsByBusiness={groupsByBusiness}
         />

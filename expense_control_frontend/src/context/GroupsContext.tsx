@@ -42,6 +42,16 @@ export const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
   useEffect(() => {
     fetchGroups();
   }, []);
+
+  useEffect(() => {
+    if (isLoading.groups) {
+      fetchGroups();
+      setIsLoading((prevLoading: any) => ({
+          ...prevLoading,
+          groups: false,
+      }));
+    }
+  }, [isLoading.groups ])
   
 
   return (

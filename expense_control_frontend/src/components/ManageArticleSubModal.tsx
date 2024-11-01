@@ -215,7 +215,7 @@ export default function ManageArticleSubModal(
         onClose={close} 
       >
         <Box className={classes.subModalInternal}>
-        <SaveChanges
+          <SaveChanges
               openSaveChanges={openSaveChanges}
               closeSaveChanges={handleCloseSaveChanges} 
               messageBeforeSave={messageBeforeSave}

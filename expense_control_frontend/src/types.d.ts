@@ -38,7 +38,7 @@ export interface ProductData {
 export interface GroupData {
   _id: string;
   id?: number;
-  id_client: number;
+  id_client?: number;
   name: string;
   deleted?: boolean;
 }

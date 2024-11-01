@@ -17,6 +17,10 @@ import { Box,
 import { useStylesGlobal } from '../Styles'
 import { GroupData, ProductData } from '../types';
 import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
+import SaveChanges from './SaveChanges';
+import ErrorModal from './ErrorModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
+import { IsLoadingContext } from '../context/IsLoadingContext';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -31,7 +35,8 @@ import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
 interface ChildProps {
     hiddenPanel:  boolean
     close: any
-    // selectedArticle: ProductData
+    optionSelected: any
+    selectedGroup?: ProductData
     // selectPayment: (newData: number) => void
     groupsByBusiness: GroupData[]
 }
@@ -41,16 +46,126 @@ export default function ManageGroupSubModal(
     {   
         hiddenPanel, 
         close,
-        // selectedArticle,
+        optionSelected,
+        selectedGroup,
         // selectPayment
         groupsByBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
-    const [newGroup, setNewGroup] = useState<string>("")
+    const { setIsLoading } = useContext<any>(IsLoadingContext) 
+    const [manageGroup, setManageGroup] = useState<any>({})
+    const [openSaveChanges, setOpenSaveChanges] = useState(false); 
+    const [openErrorModal, setOpenErrorModal] = useState(false);  
+    const [messageBeforeSave, setMessageBeforeSave] = useState("");  
+    const [errorData, setErrorData] = useState("");  
+    const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);  
     
+    const handleCloseSaveChanges = (ans?:boolean, deletion?:boolean) => {
+      if(ans){
+        const bodyUpdate: ProductData|any = {}
+        if(deletion){
+          bodyUpdate.deleted = true
+        } 
+        else {
+          if(!selectedGroup?._id)
+            bodyUpdate.id_client = optionSelected.idBusinessMenuSelected
+          if(!selectedGroup?._id || selectedGroup?.name != manageGroup.name)
+            bodyUpdate.name = manageGroup.name
+        }
+
+        const fetchManageArticle = async () => {
+            
+          let loadingSuccess: boolean = false
+          try {
+/////////////// const manage_group = (selectedArticle._id ? selectedArticle._id : "")
+            const manage_group = ("")
+/////////////// const manage_method = (selectedArticle._id ? 'PATCH' : 'POST')
+            const manage_method = ('POST')
+            const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/groups/${manage_group}`, {
+              method: manage_method,
+              headers: {
+                  'Content-Type': 'application/json', // Set the appropriate content-type for my API
+                  // Add any other requires headers here
+              },
+              body:JSON.stringify(bodyUpdate)
+            })
+            // Check if the response status is successful
+            if (response.ok) {
+              const responseData = await response.json() // parse the response data
+              loadingSuccess = true
+            } else {
+              // Handle non-successful responses
+              console.error('Request failed: ', response.status, response.statusText)
+              console.error('response: ', response)
+              // Handle the error here
+            }
+          } catch (error: unknown) {
+            if (typeof error === 'string') {
+              // 'error' is now narrowed down to type 'string'
+              console.error('Error:', error)
+            } else if (error instanceof Error) {
+              // 'error' is now narrowed down to type 'Error'
+              console.error('Error object:', error.message)
+            } else {
+              // Handle other cases as needed
+            }
+          } finally {
+            setIsLoading((prevLoading: any) => ({
+              ...prevLoading,
+              groups: loadingSuccess,
+            }));
+            
+            // setCheckListStock([])
+          }
+        } 
+        const changeDetected = (obj:object) => Object.keys(obj).length > 0
+        console.log("changeDetected(bodyUpdate: ", changeDetected(bodyUpdate))
+        if(changeDetected(bodyUpdate))
+          fetchManageArticle()
+        close()
+      }
+      setOpenSaveChanges(false);
+/////// setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+///////   ...prevOpenOptionSubModal,
+///////   addArticleSubModal: true,
+/////// }))
+    }
+
+    const handleCloseErrorModal = () => {
+      setOpenErrorModal(false)
+    }
+
+    const handleOpenSaveChanges = () => {
+      console.log("handleOpenSaveChanges manageGroup.name: ", manageGroup.name)
+      if(manageGroup.name===""){
+        setOpenErrorModal(true)
+        setErrorData("missing_data")
+      }
+      else{
+          setOpenSaveChanges(true);
+      }
+    }
+    
+    const handleCloseConfirmDeleteModal = (ans?:boolean) => {
+      console.log("handleCloseConfirmDeleteModal ans: ", ans)
+      if(ans){
+        setManageGroup((prev: ProductData) => ({
+          ...prev,
+          deleted: true
+        }))
+        handleCloseSaveChanges(true, true)
+      }
+      setOpenConfirmDeleteModal(false)
+    }
+
     useEffect(() => {
-      setNewGroup("")
+      if(!selectedGroup?._id){
+        setManageGroup((prev: any) => ({
+          ...prev,
+          name: "",
+        }))
+      }
     }, [hiddenPanel])
     
     return (
@@ -64,6 +179,23 @@ export default function ManageGroupSubModal(
           onClose={close} 
       >
         <Box className={classes.subModalInternal}>
+          <SaveChanges
+              openSaveChanges={openSaveChanges}
+              closeSaveChanges={handleCloseSaveChanges} 
+              messageBeforeSave={messageBeforeSave}
+          />
+          <ErrorModal
+              openErrorModal={openErrorModal}
+              closeErrorModal={handleCloseErrorModal}
+              errorData={errorData} 
+          />
+          <ConfirmDeleteModal
+              openConfirmDeleteModal={openConfirmDeleteModal}
+              closeConfirmDeleteModal={handleCloseConfirmDeleteModal}
+              // source={"stock"}
+              // data={stockNameTemp} 
+              // confirmDelete={handleConfirmDelete} 
+          />
           <Box className={classes.customBoxRow}>
             <h3>
               Crear grupo
@@ -76,8 +208,11 @@ export default function ManageGroupSubModal(
                 // id={String(manageSelectedArticle.id)}
                 label="Nombre"
                 // inputRef={lastInputRef}
-                value={newGroup}
-                onChange={(event) => setNewGroup(event?.target.value)}
+                value={manageGroup.name}
+                onChange={(event) => setManageGroup((prev: any) => ({
+                                    ...prev,
+                                    name: event?.target.value,
+                                  }))}
                 maxRows={1}
                 size="small"
                 className={classes.inputMainData}
@@ -93,7 +228,8 @@ export default function ManageGroupSubModal(
             />
             <OkButton
               // clicked={() => handleOpenEditStock()}
-              clicked={() => console.log("nuewvo grupo: ", newGroup)}
+              // clicked={() => console.log("nuevo grupo: ", manageGroup.name)}
+              clicked={() => handleOpenSaveChanges()}
             />
           </Box>
 

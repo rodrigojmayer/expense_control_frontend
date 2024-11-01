@@ -122,20 +122,44 @@ function Home() {
     // console.log("home useEffect products: ", products)
     // setProductsBusiness(productsFiltered)
     if(products){
-      const updatedProducts = productsBusiness.map((businessProduct) => {
-        // Find the corresponding product in the `products` list
-        const matchingProduct = products.find((product:ProductData) => product?._id === businessProduct?._id);
-        // If a matching product is found, use it; otherwise, keep the original
+      // console.log("home useEffect products: ", products)
+      // const updatedProducts = productsBusiness.map((businessProduct) => {
+      //   // Find the corresponding product in the `products` list
+      //   const matchingProduct = products.find((product:ProductData) => product?._id === businessProduct?._id);
+      //   // If a matching product is found, use it; otherwise, keep the original
         
-        // console.log("home useEffect matchingProduct: ", matchingProduct)
-        // console.log("home useEffect businessProduct: ", businessProduct)
-        // return matchingProduct || businessProduct;
-        return matchingProduct ;
-      });
+      //   console.log("home useEffect matchingProduct: ", matchingProduct)
+      //   console.log("home useEffect businessProduct: ", businessProduct)
+      //   // return matchingProduct || businessProduct;
+      //   return matchingProduct ;
+      // });
+      // console.log("home useEffect productsBusiness: ", productsBusiness)
+      // console.log("home useEffect updatedProducts: ", updatedProducts)
       
-      setProductsBusiness(updatedProducts);
+      // setProductsBusiness(updatedProducts);
+      
+      const productsFiltered = products.filter((product: ProductData) => {
+        if(product.id_client === optionSelected.idBusinessMenuSelected) 
+          return product
+      })
+      setProductsBusiness(productsFiltered);
     }
   }, [products])
+
+  useEffect(() => {
+    if(groups){
+      // const updatedGroups = groupsByBusiness.map((businessGroup) => {
+      //   const matchingGroup = groups.find((group:GroupData) => group?._id === businessGroup?._id);
+      //   return matchingGroup ;
+      // });
+      // setGroupsByBusiness(updatedGroups)
+      const groupsFiltered = groups.filter((group: ProductData) => {
+        if(group.id_client === optionSelected.idBusinessMenuSelected || group.id === 0) 
+          return group
+      }).sort((a: GroupData,b: GroupData) => a.name.localeCompare(b.name))
+      setGroupsByBusiness(groupsFiltered)
+    }
+  }, [groups])
 
   return (
           <div className={classes.AppDiv}>
