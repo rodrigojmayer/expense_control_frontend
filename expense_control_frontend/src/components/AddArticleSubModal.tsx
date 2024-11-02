@@ -31,7 +31,7 @@ interface ChildProps {
     close: any
     selectedArticle: ProductData
     setOpenOptionSubModal: (newData: any) => void
-    // selectPayment: (newData: number) => void
+    setArticlesCart: (newData: any) => void
 }
 
 export default function AddArticleSubModal(
@@ -39,13 +39,21 @@ export default function AddArticleSubModal(
         hiddenPanel, 
         close,
         selectedArticle,
-        setOpenOptionSubModal
-        // selectPayment
+        setOpenOptionSubModal,
+        setArticlesCart
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     const [multiplier, setMultiplier] = useState<number>(1)
 
+    const handleAddArticleToCart = () => {
+      // alert("#pepo")
+      console.log("selectedArticle: ", selectedArticle)
+      console.log("multiplier: ", multiplier)
+      // setArticlesCart()
+      setArticlesCart((prevItems: any) => [...prevItems, {selectedArticle, multiplier}]);
+      close()
+    }
   // const firstInputRef = useRef<HTMLInputElement>(null)
     // const { user } = useContext<any>(UserContext); 
     // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
@@ -133,7 +141,7 @@ export default function AddArticleSubModal(
             />
             <OkButton
               // clicked={() => handleOpenEditStock()}
-              clicked={() => alert("pepi")}
+              clicked={() => handleAddArticleToCart()}
             />
           </Box>
         </Box>

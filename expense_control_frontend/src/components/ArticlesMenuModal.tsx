@@ -34,7 +34,7 @@ import ManageGroupSubModal from './ManageGroupSubModal';
 interface ChildProps {
   hiddenPanel:  boolean
   optionSelected: any 
-  selectArticles: (newData: number) => void
+  setArticlesCart: (newData: number) => void
   productsBusiness: ProductData[]
   groupsByBusiness: GroupData[]
 }
@@ -47,7 +47,7 @@ export default function ArticlesMenuModal(
     {   
         hiddenPanel, 
         optionSelected,
-        selectArticles,
+        setArticlesCart,
         productsBusiness,
         groupsByBusiness
     }: ChildProps )  {
@@ -195,7 +195,7 @@ export default function ArticlesMenuModal(
           close={closeAddArticleSubModal}
           selectedArticle={selectedArticle}
           setOpenOptionSubModal={setOpenOptionSubModal}
-          // groupsByBusiness={groupsByBusiness}
+          setArticlesCart={setArticlesCart}
         />
         <ManageArticleSubModal
           hiddenPanel={openOptionSubModal.manageArticleSubModal}

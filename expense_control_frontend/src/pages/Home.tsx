@@ -47,6 +47,7 @@ function Home() {
   const [routeSelected, setRouteSelected] = useState<any>(<a>Home</a>);
   const [productsBusiness, setProductsBusiness] = useState<ProductData[]>([]);
   const [groupsByBusiness, setGroupsByBusiness] = useState<GroupData[]>([]);
+  const [articlesCart, setArticlesCart] = useState<any>([]);
   
   const signOut = async() => {
 
@@ -110,9 +111,9 @@ function Home() {
     }))
     setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowHome}/></>)
   })
-  const selectArticles: any = (() => {
-    alert("article asdf")
-  })
+  // const selectArticles: any = (() => {
+  //   alert("article asdf")
+  // })
 
   useEffect(() => {
     // const productsFiltered = products.filter((product: ProductData) => {
@@ -161,6 +162,12 @@ function Home() {
     }
   }, [groups])
 
+  useEffect(() => {
+    if(articlesCart){
+      console.log("articlesCart: ", articlesCart)
+    }
+  }, [articlesCart])
+
   return (
           <div className={classes.AppDiv}>
               {routeSelected}
@@ -176,7 +183,7 @@ function Home() {
             <ArticlesMenuModal
               hiddenPanel={openOptionModal.articlesMenuModal}
               optionSelected={optionSelected}
-              selectArticles={selectArticles}
+              setArticlesCart={setArticlesCart}
               productsBusiness={productsBusiness}
               groupsByBusiness={groupsByBusiness}
             />
