@@ -46,7 +46,9 @@ interface ButtonProps {
   direction?: string
   submitOk?: boolean
   disabled?: boolean
+  backgroundColor?: string
   widthIco?: number
+  cusBorder?: number
   cusMarginTop?: number
 }
 
@@ -155,19 +157,23 @@ export function CancelButton({ sizeIco, roundedIco, clicked }: ButtonProps) {
 }
 
 
-export function EditButton({ sizeIco, roundedIco, cusField, clicked, submitOk }: ButtonProps ) {
+export function EditButton({ sizeIco, roundedIco, cusField, clicked, cusBorder, backgroundColor, submitOk }: ButtonProps ) {
 
   const { classes } = useStylesGlobal();
   
-  let fontIco = 35, noPadding, bor = 5, borRad
+  let fontIco = 35, noPadding=0, bor = 5, borRad="50px !important"
+  
   if(sizeIco) {
     fontIco = (parseInt(sizeIco) - 12)
     bor = 3
   }
-  // if(roundedIco){
+  if(roundedIco){
     noPadding=0
-    borRad="50px !important"
-  // } 
+    borRad="100px !important"
+  } 
+  if(typeof cusBorder !== "undefined"){
+    bor=cusBorder
+  } 
   const handleClick:any = (() => {
     if(cusField)
       clicked(cusField.id, cusField.value)
@@ -189,6 +195,7 @@ export function EditButton({ sizeIco, roundedIco, cusField, clicked, submitOk }:
           paddingBottom:0, 
           minWidth: sizeIco, 
           width: sizeIco, 
+          backgroundColor: backgroundColor,
           height: sizeIco,
           borderRadius: borRad,
         }}

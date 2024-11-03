@@ -18,7 +18,7 @@ import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddArticleSubModal from "./AddArticleSubModal";
 import ManageArticleSubModal from './ManageArticleSubModal';
-import { AddButton } from './Buttons';
+import { AddButton, EditButton } from './Buttons';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ManageGroupSubModal from './ManageGroupSubModal';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -121,22 +121,29 @@ export default function ArticlesMenuModal(
           Artículos
         </h2>
         <ShoppingCartIcon
-        className={classes.customShoppingCartIcon}
+          className={classes.customShoppingCartIcon}
+          onClick={() =>alert("Cart modal")}
         />
       </Box>
         <Box className={`${ groupSelected.id === 0 || classes.customBoxProducts}`}>
-        <Box className={classes.customBoxProductsHeader} 
-          sx={{
-            display: (groupSelected.id === 0) ? "none !important" : "block",
-            // gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
-            // gap: 2, // Equal gap horizontally and vertically
-            // width: "100%",
-          }} 
-        >
-        <ArrowBackIcon 
-          onClick={() =>selectGroup(0,"")}
-          sx={{display: "block" }}/>
-          <Typography align="center"  sx={{color: "white"}}>{groupSelected.name}</Typography>
+          <Box className={classes.customBoxProductsHeader} 
+            sx={{
+              display: (groupSelected.id === 0) ? "none !important" : "block",
+              // gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
+              // gap: 2, // Equal gap horizontally and vertically
+              // width: "100%",
+            }} 
+          >
+            <ArrowBackIcon 
+              onClick={() =>selectGroup(0,"")}
+              sx={{display: "block" }}
+            />
+            <Typography align="center"  sx={{color: "white"}}>{groupSelected.name}</Typography>
+            <EditButton
+              clicked =  {() => alert("edit group") }
+              cusBorder = {0}
+              backgroundColor = {"transparent !important"}
+            />
           </Box>
           <Box sx={{
             display: "grid",
