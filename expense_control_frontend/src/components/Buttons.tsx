@@ -157,11 +157,11 @@ export function CancelButton({ sizeIco, roundedIco, clicked }: ButtonProps) {
 }
 
 
-export function EditButton({ sizeIco, roundedIco, cusField, clicked, cusBorder, backgroundColor, submitOk }: ButtonProps ) {
+export function EditButton({ sizeIco, roundedIco, cusField, clicked, cusBorder, cusMarginTop, backgroundColor, submitOk }: ButtonProps ) {
 
   const { classes } = useStylesGlobal();
   
-  let fontIco = 35, noPadding=0, bor = 5, borRad="50px !important"
+  let fontIco = 35, noPadding=0, bor = 5, mar=1, borRad="50px !important"
   
   if(sizeIco) {
     fontIco = (parseInt(sizeIco) - 12)
@@ -173,6 +173,9 @@ export function EditButton({ sizeIco, roundedIco, cusField, clicked, cusBorder, 
   } 
   if(typeof cusBorder !== "undefined"){
     bor=cusBorder
+  } 
+  if(typeof cusMarginTop !== "undefined"){
+    mar = cusMarginTop
   } 
   const handleClick:any = (() => {
     if(cusField)
@@ -187,9 +190,11 @@ export function EditButton({ sizeIco, roundedIco, cusField, clicked, cusBorder, 
         variant="outlined"
         color="neutral"
         className={`${classes.btn_edit}`}
+        
         sx={{  
           border: bor,
           margin: 1, 
+          marginTop: mar, 
           padding:noPadding, 
           paddingTop:0,  
           paddingBottom:0, 

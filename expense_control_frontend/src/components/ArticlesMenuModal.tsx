@@ -138,13 +138,22 @@ export default function ArticlesMenuModal(
               onClick={() =>selectGroup(0,"")}
               sx={{display: "block" }}
             />
-            <Typography align="center"  sx={{color: "white"}}>{groupSelected.name}</Typography>
+            <Typography align="center" 
+            alignItems="center"
+             sx={{color: "white", marginTop: 1}}>{groupSelected.name}</Typography>
+            <Typography
+            align="right"
+            >
+
             <EditButton
               clicked =  {() => console.log() }
               cusBorder = {0}
               backgroundColor = {"transparent !important"}
               sizeIco = {"45px"}
-            />
+              cusMarginTop = {0}
+              
+              />
+              </Typography>
           </Box>
           <Box sx={{
             display: "grid",
