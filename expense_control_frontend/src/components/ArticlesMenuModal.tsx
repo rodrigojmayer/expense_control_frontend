@@ -140,9 +140,10 @@ export default function ArticlesMenuModal(
             />
             <Typography align="center"  sx={{color: "white"}}>{groupSelected.name}</Typography>
             <EditButton
-              clicked =  {() => alert("edit group") }
+              clicked =  {() => console.log() }
               cusBorder = {0}
               backgroundColor = {"transparent !important"}
+              sizeIco = {"45px"}
             />
           </Box>
           <Box sx={{

@@ -186,7 +186,7 @@ export function EditButton({ sizeIco, roundedIco, cusField, clicked, cusBorder, 
       <Button 
         variant="outlined"
         color="neutral"
-        className={`${classes.btnCommonStyle} ${classes.btn_edit}`}
+        className={`${classes.btn_edit}`}
         sx={{  
           border: bor,
           margin: 1, 
