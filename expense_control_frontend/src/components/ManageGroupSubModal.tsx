@@ -45,6 +45,7 @@ interface ChildProps {
     // selectedGroup?: ProductData
     groupSelected: GroupSelectedType
     groupsByBusiness: GroupData[]
+    openOptionSubModal: any
 }
 
 
@@ -55,7 +56,8 @@ export default function ManageGroupSubModal(
         optionSelected,
         // selectedGroup,
         groupSelected,
-        groupsByBusiness
+        groupsByBusiness,
+        openOptionSubModal
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
@@ -66,9 +68,9 @@ export default function ManageGroupSubModal(
     const [messageBeforeSave, setMessageBeforeSave] = useState("");  
     const [errorData, setErrorData] = useState("");  
     const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);  
-    console.log("optionSelectedoptionSelected: ", optionSelected)
+    // console.log("optionSelectedoptionSelected: ", optionSelected)
     // console.log("selectedGroup: ", selectedGroup)
-    console.log("groupSelected: ", groupSelected)
+    // console.log("groupSelected: ", groupSelected)
     const handleCloseSaveChanges = (ans?:boolean, deletion?:boolean) => {
       if(ans){
         const bodyUpdate: ProductData|any = {}
@@ -76,20 +78,22 @@ export default function ManageGroupSubModal(
           bodyUpdate.deleted = true
         } 
         else {
-          if(!groupSelected?._id)
+          if(groupSelected?._id)
             bodyUpdate.id_client = optionSelected.idBusinessMenuSelected
           if(!groupSelected?._id || groupSelected?.name != manageGroup.name)
             bodyUpdate.name = manageGroup.name
         }
-
+        console.log("groupSelected: ", groupSelected)
+        console.log("manageGroup: ", manageGroup)
         const fetchManageArticle = async () => {
             
           let loadingSuccess: boolean = false
           try {
-/////////////// const manage_group = (selectedArticle._id ? selectedArticle._id : "")
-            const manage_group = ("")
-/////////////// const manage_method = (selectedArticle._id ? 'PATCH' : 'POST')
-            const manage_method = ('POST')
+            // const manage_group = (manageGroup._id ? manageGroup._id : "")
+            const manage_group = manageGroup._id
+            // const manage_group = ("")
+            const manage_method = (manageGroup._id ? 'PATCH' : 'POST')
+            // const manage_method = ('POST')
             const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/groups/${manage_group}`, {
               method: manage_method,
               headers: {
@@ -168,11 +172,12 @@ export default function ManageGroupSubModal(
     }
 
     useEffect(() => {
-      if(!groupSelected?._id){
-        setManageGroup((prev: any) => ({
-          ...prev,
-          name: "",
-        }))
+      if(openOptionSubModal.manageArticleSubModal){
+        console.log("edit")
+        setManageGroup(groupSelected)
+      } else {
+        console.log("create")
+        setManageGroup({_id: "", id:0, name: ""})
       }
     }, [hiddenPanel])
     
@@ -206,7 +211,7 @@ export default function ManageGroupSubModal(
           />
           <Box className={classes.customBoxRow}>
             <h3>
-              {groupSelected?.id ? "Editar" : "Crear" } grupo
+              {manageGroup._id ? "Editar" : "Crear" } grupo
             </h3>
           </Box>
           

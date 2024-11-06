@@ -55,13 +55,13 @@ export default function ArticlesMenuModal(
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     const [productsBusinessShow, setProductsBusinessShow] = useState<ProductData[]>([]);
-    const [groupSelected, setGroupSelected] = useState<GroupSelectedType>({id:0, name: ""});
+    const [groupSelected, setGroupSelected] = useState<GroupSelectedType>({_id: "", id:0, name: ""});
     const [openOptionSubModal, setOpenOptionSubModal] = useState<any>({addArticleSubModal:true, manageArticleSubModal:true, manageGroupSubModal: true});
     const [selectedArticle, setSelectedArticle] = useState<any>({});
     
 
-    const selectGroup = (groupId: number, groupName:string) => {
-      setGroupSelected({id: groupId, name: groupName})
+    const selectGroup = (group_id: string, groupId: number, groupName:string) => {
+      setGroupSelected({_id: group_id, id: groupId, name: groupName})
       
     } 
     useEffect(() => {
@@ -136,7 +136,7 @@ export default function ArticlesMenuModal(
             }} 
           >
             <ArrowBackIcon 
-              onClick={() =>selectGroup(0,"")}
+              onClick={() =>selectGroup("", 0, "")}
               sx={{display: "block" }}
             />
             <Typography align="center" 
@@ -171,7 +171,7 @@ export default function ArticlesMenuModal(
               .map((group: GroupData) => (
                   <Box className={classes.customBoxGroup}
                     key={group._id}
-                    onClick={() =>selectGroup(group.id || 0, group.name || "")}
+                    onClick={() =>selectGroup(group._id || "", group.id || 0, group.name || "")}
                     sx={{
                       fontSize: (group.name && group.name.length > 9) ? "16px" : "22px",   
                     }}
@@ -232,6 +232,7 @@ export default function ArticlesMenuModal(
           optionSelected={optionSelected}
           groupSelected={groupSelected}
           groupsByBusiness={groupsByBusiness}
+          openOptionSubModal={openOptionSubModal}
         />
       </div>
     )
