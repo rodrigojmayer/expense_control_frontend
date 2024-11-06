@@ -32,12 +32,18 @@ import { IsLoadingContext } from '../context/IsLoadingContext';
 // import { UserContext } from '../context/UserContext';
 // import { LanguageLabelsContext } from '../context/LanguageLabelsContext';
 
+interface GroupSelectedType {
+  _id?:string
+  id:  number
+  name: string
+}
+
 interface ChildProps {
     hiddenPanel:  boolean
     close: any
     optionSelected: any
-    selectedGroup?: ProductData
-    // selectPayment: (newData: number) => void
+    // selectedGroup?: ProductData
+    groupSelected: GroupSelectedType
     groupsByBusiness: GroupData[]
 }
 
@@ -47,8 +53,8 @@ export default function ManageGroupSubModal(
         hiddenPanel, 
         close,
         optionSelected,
-        selectedGroup,
-        // selectPayment
+        // selectedGroup,
+        groupSelected,
         groupsByBusiness
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
@@ -60,7 +66,9 @@ export default function ManageGroupSubModal(
     const [messageBeforeSave, setMessageBeforeSave] = useState("");  
     const [errorData, setErrorData] = useState("");  
     const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);  
-    
+    console.log("optionSelectedoptionSelected: ", optionSelected)
+    // console.log("selectedGroup: ", selectedGroup)
+    console.log("groupSelected: ", groupSelected)
     const handleCloseSaveChanges = (ans?:boolean, deletion?:boolean) => {
       if(ans){
         const bodyUpdate: ProductData|any = {}
@@ -68,9 +76,9 @@ export default function ManageGroupSubModal(
           bodyUpdate.deleted = true
         } 
         else {
-          if(!selectedGroup?._id)
+          if(!groupSelected?._id)
             bodyUpdate.id_client = optionSelected.idBusinessMenuSelected
-          if(!selectedGroup?._id || selectedGroup?.name != manageGroup.name)
+          if(!groupSelected?._id || groupSelected?.name != manageGroup.name)
             bodyUpdate.name = manageGroup.name
         }
 
@@ -160,7 +168,7 @@ export default function ManageGroupSubModal(
     }
 
     useEffect(() => {
-      if(!selectedGroup?._id){
+      if(!groupSelected?._id){
         setManageGroup((prev: any) => ({
           ...prev,
           name: "",
@@ -198,7 +206,7 @@ export default function ManageGroupSubModal(
           />
           <Box className={classes.customBoxRow}>
             <h3>
-              Crear grupo
+              {groupSelected?.id ? "Editar" : "Crear" } grupo
             </h3>
           </Box>
           

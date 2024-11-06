@@ -39,6 +39,7 @@ interface ChildProps {
   groupsByBusiness: GroupData[]
 }
 interface GroupSelectedType {
+    _id?:string
     id:  number
     name: string
 }
@@ -146,7 +147,10 @@ export default function ArticlesMenuModal(
             >
 
             <EditButton
-              clicked =  {() => console.log() }
+              clicked={() => setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+                ...prevOpenOptionSubModal,
+                manageGroupSubModal: false,
+              }))}
               cusBorder = {0}
               backgroundColor = {"transparent !important"}
               sizeIco = {"45px"}
@@ -226,7 +230,7 @@ export default function ArticlesMenuModal(
           hiddenPanel={openOptionSubModal.manageGroupSubModal}
           close={closeManageGroupSubModal}
           optionSelected={optionSelected}
-          // productsBusiness={productsBusiness}
+          groupSelected={groupSelected}
           groupsByBusiness={groupsByBusiness}
         />
       </div>

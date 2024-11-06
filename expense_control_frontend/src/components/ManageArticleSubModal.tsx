@@ -235,7 +235,7 @@ export default function ManageArticleSubModal(
           />
           <Box className={classes.customBoxRow}>
             <h3>
-            {selectedArticle._id ? "Editar" : "Crear" }
+            {selectedArticle._id ? "Editar" : "Crear" } artículo
             </h3>
           </Box>
           
