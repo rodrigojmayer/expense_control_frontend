@@ -65,13 +65,13 @@ export default function ArticlesMenuModal(
       
     } 
     useEffect(() => {
-      // console.log("ArticlesMenuModal useEffect productsBusiness: ", productsBusiness)
+      console.log("ArticlesMenuModal useEffect productsBusiness: ", productsBusiness)
       const productsFilter = productsBusiness.filter((product:ProductData) => product?.id_group === groupSelected.id)
       setProductsBusinessShow(productsFilter)
     }, [groupSelected, productsBusiness])
     useEffect(() => {
       // const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected.id)
-      setGroupSelected({id:0, name: ""})
+      setGroupSelected({_id:"", id:0, name: ""})
     }, [hiddenPanel])
 
     const closeAddArticleSubModal = () => {
@@ -101,7 +101,7 @@ export default function ArticlesMenuModal(
     }
 
     useEffect(() => {
-      console.log("selectedArticle: ", selectedArticle)
+      // console.log("selectedArticle: ", selectedArticle)
       if(openOptionSubModal.addArticleSubModal)
         setSelectedArticle({})
     }, [openOptionSubModal.addArticleSubModal])

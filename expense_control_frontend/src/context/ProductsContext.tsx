@@ -80,7 +80,7 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
   }, [user])
   
   useEffect(() => {
-    console.log("isLoading.products: ", isLoading.products)
+    // console.log("isLoading.products: ", isLoading.products)
     if (isLoading.products) {
       fetchProducts();
       setIsLoading((prevLoading: any) => ({

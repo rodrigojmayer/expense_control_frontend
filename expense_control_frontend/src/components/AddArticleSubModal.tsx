@@ -48,8 +48,8 @@ export default function AddArticleSubModal(
 
     const handleAddArticleToCart = () => {
       // alert("#pepo")
-      console.log("selectedArticle: ", selectedArticle)
-      console.log("multiplier: ", multiplier)
+      // console.log("selectedArticle: ", selectedArticle)
+      // console.log("multiplier: ", multiplier)
       // setArticlesCart()
       setArticlesCart((prevItems: any) => [...prevItems, {selectedArticle, multiplier}]);
       close()

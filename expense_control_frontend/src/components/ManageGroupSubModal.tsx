@@ -149,7 +149,7 @@ export default function ManageGroupSubModal(
     }
 
     const handleOpenSaveChanges = () => {
-      console.log("handleOpenSaveChanges manageGroup.name: ", manageGroup.name)
+      // console.log("handleOpenSaveChanges manageGroup.name: ", manageGroup.name)
       if(manageGroup.name===""){
         setOpenErrorModal(true)
         setErrorData("missing_data")
@@ -160,7 +160,7 @@ export default function ManageGroupSubModal(
     }
     
     const handleCloseConfirmDeleteModal = (ans?:boolean) => {
-      console.log("handleCloseConfirmDeleteModal ans: ", ans)
+      // console.log("handleCloseConfirmDeleteModal ans: ", ans)
       if(ans){
         setManageGroup((prev: ProductData) => ({
           ...prev,
@@ -173,10 +173,10 @@ export default function ManageGroupSubModal(
 
     useEffect(() => {
       if(openOptionSubModal.manageArticleSubModal){
-        console.log("edit")
+        // console.log("edit")
         setManageGroup(groupSelected)
       } else {
-        console.log("create")
+        // console.log("create")
         setManageGroup({_id: "", id:0, name: ""})
       }
     }, [hiddenPanel])

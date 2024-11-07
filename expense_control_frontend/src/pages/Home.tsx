@@ -149,6 +149,7 @@ function Home() {
 
   useEffect(() => {
     if(groups){
+      console.log("Home useEffect groups")
       // const updatedGroups = groupsByBusiness.map((businessGroup) => {
       //   const matchingGroup = groups.find((group:GroupData) => group?._id === businessGroup?._id);
       //   return matchingGroup ;
@@ -162,11 +163,15 @@ function Home() {
     }
   }, [groups])
 
+  // useEffect(() => {
+  //   if(articlesCart){
+  //     console.log("articlesCart: ", articlesCart)
+  //   }
+  // }, [articlesCart])
+  
   useEffect(() => {
-    if(articlesCart){
-      console.log("articlesCart: ", articlesCart)
-    }
-  }, [articlesCart])
+      console.log("groupsByBusiness: ", groupsByBusiness)
+  }, [groupsByBusiness])
 
   return (
           <div className={classes.AppDiv}>
