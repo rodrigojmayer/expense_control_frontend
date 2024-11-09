@@ -66,9 +66,22 @@ export default function ArticlesMenuModal(
     } 
     useEffect(() => {
       console.log("ArticlesMenuModal useEffect productsBusiness: ", productsBusiness)
-      const productsFilter = productsBusiness.filter((product:ProductData) => product?.id_group === groupSelected.id)
+      const productsFilter = productsBusiness.filter((product:ProductData) => product?.id_group === groupSelected?.id)
       setProductsBusinessShow(productsFilter)
     }, [groupSelected, productsBusiness])
+    useEffect(() => {
+      if(groupSelected?._id){
+        console.log("ArticlesMenuModal useEffect groupsByBusiness: ", groupsByBusiness)
+        const groupFilter = groupsByBusiness
+          .filter((group) => group._id === groupSelected?._id)
+          .map((group) => ({
+            _id: group._id,
+            id: group.id || 0,
+            name: group.name
+          }))[0]
+        setGroupSelected(groupFilter)
+      }
+    }, [groupsByBusiness])
     useEffect(() => {
       // const productsFilter = productsBusiness.filter((product:ProductData) => product.id_group === groupSelected.id)
       setGroupSelected({_id:"", id:0, name: ""})
@@ -126,10 +139,10 @@ export default function ArticlesMenuModal(
           onClick={() =>alert("Cart modal")}
         />
       </Box>
-        <Box className={`${ groupSelected.id === 0 || classes.customBoxProducts}`}>
+        <Box className={`${ groupSelected?.id === 0 || classes.customBoxProducts}`}>
           <Box className={classes.customBoxProductsHeader} 
             sx={{
-              display: (groupSelected.id === 0) ? "none !important" : "block",
+              display: (groupSelected?.id === 0) ? "none !important" : "block",
               // gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
               // gap: 2, // Equal gap horizontally and vertically
               // width: "100%",
@@ -141,7 +154,7 @@ export default function ArticlesMenuModal(
             />
             <Typography align="center" 
             alignItems="center"
-             sx={{color: "white", marginTop: 1}}>{groupSelected.name}</Typography>
+             sx={{color: "white", marginTop: 1}}>{groupSelected?.name}</Typography>
             <Typography
             align="right"
             >
@@ -165,7 +178,7 @@ export default function ArticlesMenuModal(
             gap: 2, // Equal gap horizontally and vertically
             width: "100%",
           }}>
-            { groupSelected.id === 0 && 
+            { groupSelected?.id === 0 && 
               groupsByBusiness
               .filter((group: GroupData) => group.name !== "-")
               .map((group: GroupData) => (

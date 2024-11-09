@@ -154,7 +154,7 @@ function Home() {
       //   const matchingGroup = groups.find((group:GroupData) => group?._id === businessGroup?._id);
       //   return matchingGroup ;
       // });
-      // setGroupsByBusiness(updatedGroups)
+      setGroupsByBusiness([])
       const groupsFiltered = groups.filter((group: ProductData) => {
         if(group.id_client === optionSelected.idBusinessMenuSelected || group.id === 0) 
           return group

@@ -16,7 +16,7 @@ import { Box,
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
 import { GroupData, ProductData } from '../types';
-import { AddButton, CancelButton, EditButton, OkButton } from './Buttons';
+import { AddButton, CancelButton, DeleteButton, EditButton, OkButton } from './Buttons';
 import SaveChanges from './SaveChanges';
 import ErrorModal from './ErrorModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
@@ -235,6 +235,12 @@ export default function ManageGroupSubModal(
           
          
           <Box className={classes.customBoxRow}>
+            {
+              (manageGroup._id) &&
+                <DeleteButton
+                  clicked={() => setOpenConfirmDeleteModal(true)}
+                />
+            }
             <CancelButton
               // clicked={() => handleOpenEditStock()}
               clicked={close}

@@ -23,7 +23,14 @@ export const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
       const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/groups/`)
       if (response.ok) {
         const json = await response.json()
-        setGroups(json)
+        const formattedGroups = json
+        .filter((group: GroupData) => !group.deleted)
+        .map((group: GroupData) => {
+            return {
+              ...group,
+            };
+        });
+        setGroups(formattedGroups)
       } else {
         // Handle the case where the response is not OK (e.g., show an error message)
       }
