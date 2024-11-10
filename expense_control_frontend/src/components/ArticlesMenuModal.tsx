@@ -244,6 +244,7 @@ export default function ArticlesMenuModal(
           close={closeManageGroupSubModal}
           optionSelected={optionSelected}
           groupSelected={groupSelected}
+          setGroupSelected = {setGroupSelected}
           groupsByBusiness={groupsByBusiness}
           openOptionSubModal={openOptionSubModal}
         />

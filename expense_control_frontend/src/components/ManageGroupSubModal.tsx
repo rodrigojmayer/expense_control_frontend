@@ -44,6 +44,7 @@ interface ChildProps {
     optionSelected: any
     // selectedGroup?: ProductData
     groupSelected: GroupSelectedType
+    setGroupSelected: (newData: any) => void
     groupsByBusiness: GroupData[]
     openOptionSubModal: any
 }
@@ -56,6 +57,7 @@ export default function ManageGroupSubModal(
         optionSelected,
         // selectedGroup,
         groupSelected,
+        setGroupSelected,
         groupsByBusiness,
         openOptionSubModal
     }: ChildProps )  {
@@ -167,6 +169,7 @@ export default function ManageGroupSubModal(
           deleted: true
         }))
         handleCloseSaveChanges(true, true)
+        setGroupSelected({_id: "", id:0, name: ""})
       }
       setOpenConfirmDeleteModal(false)
     }
