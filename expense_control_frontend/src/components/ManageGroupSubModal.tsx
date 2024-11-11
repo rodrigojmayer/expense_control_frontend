@@ -80,7 +80,7 @@ export default function ManageGroupSubModal(
           bodyUpdate.deleted = true
         } 
         else {
-          if(groupSelected?._id)
+          if(!groupSelected?._id)
             bodyUpdate.id_client = optionSelected.idBusinessMenuSelected
           if(!groupSelected?._id || groupSelected?.name != manageGroup.name)
             bodyUpdate.name = manageGroup.name
@@ -190,9 +190,9 @@ export default function ManageGroupSubModal(
       //   className={classes.subModalExternal}
       // >
       <Modal
-      className={classes.subModalExternal}
-          open={!hiddenPanel} 
-          onClose={close} 
+        className={classes.subModalExternal}
+        open={!hiddenPanel} 
+        onClose={close} 
       >
         <Box className={classes.subModalInternal}>
           <SaveChanges

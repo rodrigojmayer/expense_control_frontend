@@ -119,6 +119,23 @@ export default function ArticlesMenuModal(
         setSelectedArticle({})
     }, [openOptionSubModal.addArticleSubModal])
 
+    const shortName = ((name: string, maxChar: number) => {
+      const parts = name.split(/[/\s]+/)
+      const limitedParts = parts.slice(0, 3)
+      return(
+        <>
+          {limitedParts.map((part, index) => (
+            <React.Fragment key={index}>
+              {part.length > maxChar ? part.slice(0, maxChar) + "..." : part}
+              {index < parts.length - 1 }
+              {index < parts.length - 1 && index < 2 && <br />}
+            </React.Fragment>
+          ))}
+          {parts.length > 3 && " ..."}
+        </>
+      )  
+    })
+
     return (
       <div
         hidden= {hiddenPanel}
@@ -153,24 +170,25 @@ export default function ArticlesMenuModal(
               sx={{display: "block" }}
             />
             <Typography align="center" 
-            alignItems="center"
-             sx={{color: "white", marginTop: 1}}>{groupSelected?.name}</Typography>
-            <Typography
-            align="right"
+              alignItems="center"
+              sx={{color: "white", marginTop: 1}}
             >
-
-            <EditButton
-              clicked={() => setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
-                ...prevOpenOptionSubModal,
-                manageGroupSubModal: false,
-              }))}
-              cusBorder = {0}
-              backgroundColor = {"transparent !important"}
-              sizeIco = {"45px"}
-              cusMarginTop = {0}
-              
+                {shortName(groupSelected?.name, 15)}
+            </Typography>
+            <Typography
+              align="right"
+            >
+              <EditButton
+                clicked={() => setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+                  ...prevOpenOptionSubModal,
+                  manageGroupSubModal: false,
+                }))}
+                cusBorder = {0}
+                backgroundColor = {"transparent !important"}
+                sizeIco = {"45px"}
+                cusMarginTop = {0}
               />
-              </Typography>
+            </Typography>
           </Box>
           <Box sx={{
             display: "grid",
@@ -186,17 +204,19 @@ export default function ArticlesMenuModal(
                     key={group._id}
                     onClick={() =>selectGroup(group._id || "", group.id || 0, group.name || "")}
                     sx={{
-                      fontSize: (group.name && group.name.length > 9) ? "16px" : "22px",   
+                      fontSize: (group.name && group.name.length > 8) ? "16px" : "22px",   
                     }}
                   >
-                    {group.name.split('/').map((part, index) => (
+                    {/* {group.name.split('/').map((part, index) => (
                       <React.Fragment key={index}>
                         {part}
                         {index < group.name.split('/').length - 1 && '/'}
                         {index < group.name.split('/').length - 1 && <br />}
                         
                       </React.Fragment>
-                    ))}
+                    ))} */}
+                    
+                    {shortName(group.name, 11)}
                   </Box>
                 )
               )
@@ -208,16 +228,12 @@ export default function ArticlesMenuModal(
                     key={product._id}
                     onClick={() =>selectArticle(product)}
                     sx={{
-                      fontSize: (product.product && product.product.length > 15) ? "16px" : "22px",   
+                      fontSize: (product.product && product.product.length > 8) ? "16px" : "22px",   
                       height: (product.id_group === 0) ? "100px" : "85px", 
                       width: (product.id_group === 0) ? "100px" : "85px", 
                     }}
                   >
-                    {product.product.split('/').map((part, index) => (
-                      <React.Fragment key={index}>
-                        {part}
-                      </React.Fragment>
-                    ))}
+                    {shortName(product.product, 8)}
                   </Box>
                 )
               )
