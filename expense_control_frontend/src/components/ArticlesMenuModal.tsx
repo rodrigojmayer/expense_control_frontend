@@ -65,13 +65,13 @@ export default function ArticlesMenuModal(
       
     } 
     useEffect(() => {
-      console.log("ArticlesMenuModal useEffect productsBusiness: ", productsBusiness)
+      // console.log("ArticlesMenuModal useEffect productsBusiness: ", productsBusiness)
       const productsFilter = productsBusiness.filter((product:ProductData) => product?.id_group === groupSelected?.id)
       setProductsBusinessShow(productsFilter)
     }, [groupSelected, productsBusiness])
     useEffect(() => {
       if(groupSelected?._id){
-        console.log("ArticlesMenuModal useEffect groupsByBusiness: ", groupsByBusiness)
+        // console.log("ArticlesMenuModal useEffect groupsByBusiness: ", groupsByBusiness)
         const groupFilter = groupsByBusiness
           .filter((group) => group._id === groupSelected?._id)
           .map((group) => ({

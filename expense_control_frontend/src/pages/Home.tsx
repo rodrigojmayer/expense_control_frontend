@@ -88,7 +88,7 @@ function Home() {
       if(product.id_client === option) 
         return product
     })
-    console.log("productsFiltered: ", productsFiltered)
+    // console.log("productsFiltered: ", productsFiltered)
     setProductsBusiness(productsFiltered)
     const groupsFiltered = groups.filter((group: GroupData) => {
       if(group.id_client === option || group.id === 0) 
@@ -149,7 +149,7 @@ function Home() {
 
   useEffect(() => {
     if(groups){
-      console.log("Home useEffect groups")
+      // console.log("Home useEffect groups")
       // const updatedGroups = groupsByBusiness.map((businessGroup) => {
       //   const matchingGroup = groups.find((group:GroupData) => group?._id === businessGroup?._id);
       //   return matchingGroup ;
@@ -170,7 +170,7 @@ function Home() {
   // }, [articlesCart])
   
   useEffect(() => {
-      console.log("groupsByBusiness: ", groupsByBusiness)
+      // console.log("groupsByBusiness: ", groupsByBusiness)
   }, [groupsByBusiness])
 
   return (

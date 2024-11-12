@@ -58,6 +58,7 @@ export default function ManageArticleSubModal(
     const { setIsLoading } = useContext<any>(IsLoadingContext) 
     const [manageSelectedArticle, setManageSelectedArticle] = useState<ProductData>(selectedArticle)
     const [manageSelectedGroup, setManageSelectedGroup] = useState<GroupData | any>({})
+    const [stateNewGroup, setStateNewGroup] = useState<boolean>(false)
     
     const [openSaveChanges, setOpenSaveChanges] = useState(false); 
     const [openErrorModal, setOpenErrorModal] = useState(false);  
@@ -203,6 +204,17 @@ export default function ManageArticleSubModal(
       setManageSelectedGroup(filteredGroupInitial)
     }, [selectedArticle, hiddenPanel])
 
+    useEffect(() => {
+      if(stateNewGroup){
+        const maxIdGroup = groupsByBusiness.reduce((max: number, obj: any) => (obj.id > max ? obj.id : max), 0)
+        const lastGroupCreated = groupsByBusiness.filter((group: GroupData) => group.id === maxIdGroup)[0]
+        // console.log("groupsByBusiness.max changeeeee: ", groupsByBusiness.length)
+        console.log("lastGroupCreated changeeeee: ", lastGroupCreated)
+        setManageSelectedGroup(lastGroupCreated)
+      }
+      
+      setStateNewGroup(false)
+    }, [groupsByBusiness])
 
     return (
       // <div
@@ -306,10 +318,13 @@ export default function ManageArticleSubModal(
               <AddButton
               // clicked={() => setOpenOptionSubModal({manageGroupSubModal: false})}
               // clicked={() => alert("button")}
-                clicked={() => setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
-                  ...prevOpenOptionSubModal,
-                  manageGroupSubModal: false,
-                }))}
+                clicked={() => {
+                  setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+                    ...prevOpenOptionSubModal,
+                    manageGroupSubModal: false,
+                  }))
+                  setStateNewGroup(true)
+                }}
               />
             </Box>
           </Box>
