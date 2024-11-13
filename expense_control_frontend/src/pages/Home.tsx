@@ -13,6 +13,7 @@ import ArticlesMenuModal from "../components/ArticlesMenuModal";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ProductsContext } from '../context/ProductsContext';
 import { GroupsContext } from "../context/GroupsContext";
+import CartMenuModal from "../components/CartMenuModal";
 
 const business = [
   "Agustin", "Belen", "Cande", "Facha Gaucha"
@@ -191,6 +192,15 @@ function Home() {
               setArticlesCart={setArticlesCart}
               productsBusiness={productsBusiness}
               groupsByBusiness={groupsByBusiness}
+              setOpenOptionModal={setOpenOptionModal}
+            />
+            <CartMenuModal
+              hiddenPanel={openOptionModal.cartMenuModal}
+              // optionSelected={optionSelected}
+              articlesCart={articlesCart}
+              // setArticlesCart={setArticlesCart}
+              // productsBusiness={productsBusiness}
+              // groupsByBusiness={groupsByBusiness}
             />
             
             <Box className={classes.customBoxRow}>

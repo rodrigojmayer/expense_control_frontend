@@ -37,6 +37,7 @@ interface ChildProps {
   setArticlesCart: (newData: number) => void
   productsBusiness: ProductData[]
   groupsByBusiness: GroupData[]
+  setOpenOptionModal: (newData: any) => void
 }
 interface GroupSelectedType {
     _id?:string
@@ -50,7 +51,8 @@ export default function ArticlesMenuModal(
         optionSelected,
         setArticlesCart,
         productsBusiness,
-        groupsByBusiness
+        groupsByBusiness,
+        setOpenOptionModal
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
@@ -153,7 +155,13 @@ export default function ArticlesMenuModal(
         </h2>
         <ShoppingCartIcon
           className={classes.customShoppingCartIcon}
-          onClick={() =>alert("Cart modal")}
+          onClick={() => setOpenOptionModal((prevState:any) => ({
+            ...prevState,
+            paymentMethodMenuModal:true,
+            articlesMenuModal:true,
+            businessMenuModal:true,    
+            cartMenuModal: false,
+          }))}
         />
       </Box>
         <Box className={`${ groupSelected?.id === 0 || classes.customBoxProducts}`}>
