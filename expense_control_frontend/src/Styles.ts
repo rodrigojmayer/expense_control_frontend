@@ -176,6 +176,16 @@ export const useStylesGlobal = makeStyles()({
         top: 15,
         height: 12, 
     },
+    buttonRemoveCartArticle: {
+        backgroundColor: "red",
+        color: neutralMain,
+        borderRadius: "25px",
+        minWidth: "25px",
+        height: "25px",
+        lineHeight: "27px",
+        margin: "auto 5px auto 0",
+        textAlign: "center",
+    },
     customBoxGroup: {
         display: "flex",
         backgroundColor: firstColor,

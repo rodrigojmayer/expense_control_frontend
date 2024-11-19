@@ -26,12 +26,14 @@ import { ArticleCartData } from '../types';
 interface ChildProps {
     hiddenPanel:  boolean
     articlesCart: ArticleCartData[]
+    setArticlesCart: React.Dispatch<React.SetStateAction<ArticleCartData[]>>
 }
 
 export default function CartMenuModal(
     {   
         hiddenPanel, 
-        articlesCart
+        articlesCart,
+        setArticlesCart
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
@@ -69,7 +71,11 @@ export default function CartMenuModal(
     // const handleHiddenOptions = (changeTo:string) =>  {
     //     openOptionsCreate(changeTo)
     // }
-
+    const handleRemoveArticleFromCart = (artIndex: number) => {
+      console.log("artIndex: ", artIndex)
+      const newArticlesCart = articlesCart.filter((articleCart: ArticleCartData, index: number) => (index !== artIndex))
+      setArticlesCart(newArticlesCart)
+    }
     return (
       <div  hidden= {hiddenPanel}>
         <Box className={`${classes.customBoxRow} ${classes.customBoxRowArticlesHeader}`}>
@@ -78,7 +84,7 @@ export default function CartMenuModal(
           </h2>
         </Box>
         <Box className={`${classes.customBoxRow} ${classes.customBoxCartArticles}`}>
-          {articlesCart.map((articleCart: ArticleCartData) => (
+          {articlesCart.map((articleCart: ArticleCartData, index: number) => (
             Array.from({ length: articleCart.multiplier ?? 0 }).map((_, i) => (
               
               <Box 
@@ -86,9 +92,17 @@ export default function CartMenuModal(
                 key={`${articleCart.selectedArticle._id}-${i}`}
                 className={classes.customBoxCartArticle}
               >
-                <div> {articleCart.selectedArticle.product} </div>
-                <span className={classes.underscore}></span>
-                <div> {articleCart.selectedArticle.price_primary} </div>
+                <Box
+                  className={classes.buttonRemoveCartArticle}
+                  onClick={() => handleRemoveArticleFromCart(index)}
+                > 
+                  X 
+                </Box>
+                <Box> 
+                  { articleCart.selectedArticle.product.length > 17 ? articleCart.selectedArticle.product.slice(0, 17) + "..." : articleCart.selectedArticle.product } 
+                </Box>
+                <Box className={classes.underscore}></Box>
+                <Box> {articleCart.selectedArticle.price_primary} </Box>
               </Box>
             ))
           ))}

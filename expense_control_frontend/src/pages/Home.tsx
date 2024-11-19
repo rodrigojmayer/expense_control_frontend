@@ -215,6 +215,7 @@ function Home() {
               hiddenPanel={openOptionModal.cartMenuModal}
               // optionSelected={optionSelected}
               articlesCart={articlesCart}
+              setArticlesCart={setArticlesCart}
               // setArticlesCart={setArticlesCart}
               // productsBusiness={productsBusiness}
               // groupsByBusiness={groupsByBusiness}
