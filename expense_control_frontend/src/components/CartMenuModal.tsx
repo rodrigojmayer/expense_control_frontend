@@ -72,8 +72,17 @@ export default function CartMenuModal(
     //     openOptionsCreate(changeTo)
     // }
     const handleRemoveArticleFromCart = (artIndex: number) => {
-      console.log("artIndex: ", artIndex)
-      const newArticlesCart = articlesCart.filter((articleCart: ArticleCartData, index: number) => (index !== artIndex))
+      // const newArticlesCart = articlesCart.filter((articleCart: ArticleCartData, index: number) => (index !== artIndex))
+      const newArticlesCart = articlesCart.map((articleCart: ArticleCartData, index: number) => {
+        if(index === artIndex){
+          return {
+            ...articleCart,
+            multiplier: (articleCart.multiplier ?? 1) - 1,
+          }
+        }
+        return articleCart;
+      }).filter((articleCart: ArticleCartData) => articleCart.multiplier ?? 0 > 0);
+
       setArticlesCart(newArticlesCart)
     }
     return (
