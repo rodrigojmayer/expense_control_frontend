@@ -13,7 +13,7 @@ import { Box,
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
-import { ProductData, GroupData } from '../types';
+import { ProductData, GroupData, ArticleCartData } from '../types';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddArticleSubModal from "./AddArticleSubModal";
@@ -34,10 +34,12 @@ import ManageGroupSubModal from './ManageGroupSubModal';
 interface ChildProps {
   hiddenPanel:  boolean
   optionSelected: any 
-  setArticlesCart: (newData: number) => void
+  // setArticlesCart: (newData: number) => void
+  articlesCart:  ArticleCartData[]
+  setArticlesCart: React.Dispatch<React.SetStateAction<ArticleCartData[]>>
   productsBusiness: ProductData[]
   groupsByBusiness: GroupData[]
-  setOpenOptionModal: (newData: any) => void
+  selectCart: () => void
 }
 interface GroupSelectedType {
     _id?:string
@@ -49,10 +51,11 @@ export default function ArticlesMenuModal(
     {   
         hiddenPanel, 
         optionSelected,
+        articlesCart,
         setArticlesCart,
         productsBusiness,
         groupsByBusiness,
-        setOpenOptionModal
+        selectCart
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
@@ -153,16 +156,15 @@ export default function ArticlesMenuModal(
         <h2>
           Artículos
         </h2>
-        <ShoppingCartIcon
-          className={classes.customShoppingCartIcon}
-          onClick={() => setOpenOptionModal((prevState:any) => ({
-            ...prevState,
-            paymentMethodMenuModal:true,
-            articlesMenuModal:true,
-            businessMenuModal:true,    
-            cartMenuModal: false,
-          }))}
-        />
+        <Box className={classes.customShoppingCar} onClick={() => selectCart()}>
+          <Box  className={classes.cartNumberArticles}>
+            {articlesCart.reduce((acu: number, obj: ArticleCartData) => (obj.multiplier? obj.multiplier + acu: 0 ), 0) || ""}
+          </Box>
+          <ShoppingCartIcon
+            className={classes.customShoppingCartIcon}
+            
+          />
+        </Box>
       </Box>
         <Box className={`${ groupSelected?.id === 0 || classes.customBoxProducts}`}>
           <Box className={classes.customBoxProductsHeader} 

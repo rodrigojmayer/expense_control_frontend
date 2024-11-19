@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useState, useEffect } from "react";
-import { ProductData, GroupData } from '../types';
+import { ProductData, GroupData, ArticleCartData } from '../types';
 import useLogout from "../hooks/useLogout";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +48,7 @@ function Home() {
   const [routeSelected, setRouteSelected] = useState<any>(<a>Home</a>);
   const [productsBusiness, setProductsBusiness] = useState<ProductData[]>([]);
   const [groupsByBusiness, setGroupsByBusiness] = useState<GroupData[]>([]);
-  const [articlesCart, setArticlesCart] = useState<any>([]);
+  const [articlesCart, setArticlesCart] = useState<ArticleCartData[]>([]);
   
   const signOut = async() => {
 
@@ -112,6 +112,22 @@ function Home() {
     }))
     setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowHome}/></>)
   })
+
+  const selectCart:any = (() => {
+    if(articlesCart.length > 0){
+
+      setOpenOptionModal((prevState:any) => ({
+        ...prevState,
+        paymentMethodMenuModal:true,
+        articlesMenuModal:true,
+        businessMenuModal:true,    
+        cartMenuModal: false,
+      }))
+      setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a><a onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))}>{optionSelected.paymentMethodMenuSelected}/</a> </Typography><ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowHome}/></>)
+    }
+  })
+
+
   // const selectArticles: any = (() => {
   //   alert("article asdf")
   // })
@@ -189,10 +205,11 @@ function Home() {
             <ArticlesMenuModal
               hiddenPanel={openOptionModal.articlesMenuModal}
               optionSelected={optionSelected}
+              articlesCart={articlesCart}
               setArticlesCart={setArticlesCart}
               productsBusiness={productsBusiness}
               groupsByBusiness={groupsByBusiness}
-              setOpenOptionModal={setOpenOptionModal}
+              selectCart={selectCart}
             />
             <CartMenuModal
               hiddenPanel={openOptionModal.cartMenuModal}

@@ -161,10 +161,20 @@ export const useStylesGlobal = makeStyles()({
     customBoxRowButtons: {
         margin: 10
     },
+    customShoppingCar: {
+
+        // position: "fixed",
+    },
     customShoppingCartIcon: {
         fontSize: 45, 
         marginTop: 24,
         color: firstColor,
+    },
+    cartNumberArticles: {
+        position: "relative",
+        color: firstColor,
+        top: 15,
+        height: 12, 
     },
     customBoxGroup: {
         display: "flex",
@@ -196,13 +206,62 @@ export const useStylesGlobal = makeStyles()({
         borderRadius: "10px",
         padding: 16,
         width: "100%",
-
     },
     customBoxProductsHeader: {
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         marginBottom: 12,
     },
+    customBoxCartArticles: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "start",
+        backgroundColor: "white",
+        borderRadius: "10px",
+        color: firstColor,
+        padding: "6px 12px",
+        // minHeight: "330px",
+    },
+    customBoxCartArticle: {
+        display: "flex",
+        // justifyContent: "center",
+        justifyContent:  "space-between",
+        // alignItems: "center",
+        // textAlign: "start",
+        // minHeight: "330px",
+        width: "100%",
+    },
+    customBoxCartArticleData: {
+        // display: "flex",
+        // justifyContent:  "space-between",
+        // alignItems: "center",
+        // textAlign: "start",
+        // minHeight: "330px",
+    },
+    underscore: {
+        flexGrow: 1,
+        color: firstColor,
+        whiteSpace: "nowrap", /* Prevent wrapping */
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        textAlign: "center",
+        position: "relative",
+        margin:"0 5px",
+        "&::before": {
+            content: '"________________________________________________________________________________________________________________________________________________________________"', // Add underscores
+            display: "block",
+            fontSize: "1em",
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+        },
+    },
+    // underscore::before {
+    //     content: "________________________________", /* Add many underscores */
+    //     display: block,
+    //     font-size: 1em,
+    //     color: black,
+    // },
     fontGroup: {
         display: "block",
         color: tableHeaderColor,

@@ -11,6 +11,7 @@ import { Box,
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
+import { ArticleCartData } from '../types';
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -24,7 +25,7 @@ import { useStylesGlobal } from '../Styles'
 
 interface ChildProps {
     hiddenPanel:  boolean
-    articlesCart: unknown
+    articlesCart: ArticleCartData[]
 }
 
 export default function CartMenuModal(
@@ -75,6 +76,22 @@ export default function CartMenuModal(
           <h2>
             Carrito
           </h2>
+        </Box>
+        <Box className={`${classes.customBoxRow} ${classes.customBoxCartArticles}`}>
+          {articlesCart.map((articleCart: ArticleCartData) => (
+            Array.from({ length: articleCart.multiplier ?? 0 }).map((_, i) => (
+              
+              <Box 
+                // key={articleCart.selectedArticle._id}
+                key={`${articleCart.selectedArticle._id}-${i}`}
+                className={classes.customBoxCartArticle}
+              >
+                <div> {articleCart.selectedArticle.product} </div>
+                <span className={classes.underscore}></span>
+                <div> {articleCart.selectedArticle.price_primary} </div>
+              </Box>
+            ))
+          ))}
         </Box>
       </div>
     )

@@ -22,7 +22,6 @@ export interface JwtPayload {
   family_name: string,
   email_verified: string,
 }
-
 export interface ProductData {
   _id: string;
   id?: number;
@@ -34,6 +33,11 @@ export interface ProductData {
   price_secondary?: number | string;
   description?: string;
   deleted?: boolean;
+  multiplier?: number;
+}
+export interface ArticleCartData {
+  multiplier?: number;
+  selectedArticle: ProductData;
 }
 export interface GroupData {
   _id: string;
