@@ -180,11 +180,21 @@ function Home() {
     }
   }, [groups])
 
-  // useEffect(() => {
-  //   if(articlesCart){
-  //     console.log("articlesCart: ", articlesCart)
-  //   }
-  // }, [articlesCart])
+  useEffect(() => {
+    if(articlesCart.length === 0 && !openOptionModal.cartMenuModal){
+      console.log("articlesCart 0: ", articlesCart)
+      setOpenOptionModal((prevState:any) => ({
+        ...prevState,
+        paymentMethodMenuModal:true,
+        articlesMenuModal:false,
+        businessMenuModal:true,    
+        cartMenuModal: true,
+      }))
+    // setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowHome}/></>)
+    
+    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{optionSelected.paymentMethodMenuSelected} </Typography><ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowHome}/></>)
+    }
+  }, [articlesCart])
   
   useEffect(() => {
       // console.log("groupsByBusiness: ", groupsByBusiness)
