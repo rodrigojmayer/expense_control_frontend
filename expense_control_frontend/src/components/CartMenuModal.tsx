@@ -111,7 +111,7 @@ export default function CartMenuModal(
                   { articleCart.selectedArticle.product.length > 17 ? articleCart.selectedArticle.product.slice(0, 17) + "..." : articleCart.selectedArticle.product } 
                 </Box>
                 <Box className={classes.underscore}></Box>
-                <Box> {articleCart.selectedArticle.price_primary} </Box>
+                <Box> {articleCart.price} </Box>
               </Box>
             ))
           ))}
@@ -125,7 +125,7 @@ export default function CartMenuModal(
             </Box>
             <Box className={classes.underscore}></Box>
             <Box> 
-              {articlesCart.reduce((acu: number, obj: ArticleCartData) => (obj.selectedArticle.price_primary ? obj.selectedArticle.price_primary + acu : 0), 0)} 
+              {articlesCart.reduce((acu: number, obj: ArticleCartData) => (obj.price ? obj.price + acu : 0), 0)} 
             </Box>
           </Box>
         </Box>

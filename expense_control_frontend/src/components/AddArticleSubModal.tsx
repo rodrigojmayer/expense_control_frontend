@@ -129,7 +129,7 @@ export default function AddArticleSubModal(
             </Button>
           </Box>
           <Box className={classes.customBoxRow}>
-             {selectedArticle.price_primary} dkk
+             {price} dkk
           </Box>
           
          
