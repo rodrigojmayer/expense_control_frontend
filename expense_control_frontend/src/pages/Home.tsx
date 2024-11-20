@@ -19,12 +19,12 @@ const business = [
   "Agustin", "Belen", "Cande", "Facha Gaucha"
 ]
 const paymentMethods = [
-  "MobilePay", "Cash", "Revolut", "Facha Gaucha"
+  "MobilePay", "Cash", "Revolut"
 ]
 const INITIAL_MODAL_OPTIONS:any = {
   businessMenuModal: false,  
   paymentMethodMenuModal: true,
-  articlesMenuModal: true,    
+  articlesMenuModal: true,
   cartMenuModal: true,
 }
 const INITIAL_SELECTED_OPTIONS:any = {
@@ -181,7 +181,7 @@ function Home() {
   }, [groups])
 
   useEffect(() => {
-    
+
     if(articlesCart.length === 0 && !openOptionModal.cartMenuModal){
       setOpenOptionModal((prevState:any) => ({
         ...prevState,

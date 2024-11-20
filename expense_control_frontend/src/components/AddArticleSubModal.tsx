@@ -32,6 +32,7 @@ interface ChildProps {
     selectedArticle: ProductData
     setOpenOptionSubModal: (newData: any) => void
     setArticlesCart: (newData: any) => void
+    optionSelected: any 
 }
 
 export default function AddArticleSubModal(
@@ -40,18 +41,20 @@ export default function AddArticleSubModal(
         close,
         selectedArticle,
         setOpenOptionSubModal,
-        setArticlesCart
+        setArticlesCart,
+        optionSelected
     }: ChildProps )  {
     // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
     const [multiplier, setMultiplier] = useState<number>(1)
+    const [price, setPrice] = useState<number>(0)
 
     const handleAddArticleToCart = () => {
       // alert("#pepo")
       // console.log("selectedArticle: ", selectedArticle)
       // console.log("multiplier: ", multiplier)
       // setArticlesCart()
-      setArticlesCart((prevItems: any) => [...prevItems, {selectedArticle, multiplier}]);
+      setArticlesCart((prevItems: any) => [...prevItems, {selectedArticle, multiplier, price}]);
       close()
     }
   // const firstInputRef = useRef<HTMLInputElement>(null)
@@ -91,8 +94,13 @@ export default function AddArticleSubModal(
     //   setMultiplier(multiplier < 9 ? multiplier+1 : 1)
     // }
 
+    
     useEffect(() => {
       setMultiplier(1)
+      if(selectedArticle.price_secondary && (optionSelected.paymentMethodMenuSelected === "MobilePay" || optionSelected.paymentMethodMenuSelected === "Revolut"))
+        setPrice(selectedArticle.price_secondary)
+      else 
+        setPrice(selectedArticle.price_primary)
     }, [hiddenPanel])
 
     return (

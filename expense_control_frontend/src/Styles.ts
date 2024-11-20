@@ -232,6 +232,9 @@ export const useStylesGlobal = makeStyles()({
         padding: "6px 12px",
         // minHeight: "330px",
     },
+    customBoxCartTotal: {
+        marginTop: 16,
+    },
     customBoxCartArticle: {
         display: "flex",
         // justifyContent: "center",

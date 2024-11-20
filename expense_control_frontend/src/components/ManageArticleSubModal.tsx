@@ -179,15 +179,16 @@ export default function ManageArticleSubModal(
       }))
     }
     const handlePricePrimary = (event: React.ChangeEvent<HTMLInputElement>) => {
+      console.log("type of event.target.value: ", typeof event.target.value)
       setManageSelectedArticle((prev:ProductData) => ({
         ...prev,
-        price_primary: event.target.value
+        price_primary: Number(event.target.value)
       }))      
     }
     const handlePriceSecondary = (event: React.ChangeEvent<HTMLInputElement>) => {
       setManageSelectedArticle((prev:ProductData) => ({
         ...prev,
-        price_secondary: event.target.value
+        price_secondary: Number(event.target.value)
       }))
     }
     const handleGroup = (event:string) => {
@@ -269,7 +270,8 @@ export default function ManageArticleSubModal(
                   id={String(manageSelectedArticle.id)}
                   label="Precio*"
                   // inputRef={lastInputRef}
-                  value={manageSelectedArticle.price_primary}
+                  type='number'
+                  value={manageSelectedArticle.price_primary || ""}
                   onChange={handlePricePrimary}
                   maxRows={1}
                   size="small"
@@ -281,6 +283,7 @@ export default function ManageArticleSubModal(
                   id={String(manageSelectedArticle.id)}
                   label="Precio MobilePay/Revolut"
                   // inputRef={lastInputRef}
+                  type='number'
                   value={manageSelectedArticle.price_secondary || ""} 
                   onChange={handlePriceSecondary}
                   maxRows={1}

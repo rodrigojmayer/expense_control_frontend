@@ -116,6 +116,19 @@ export default function CartMenuModal(
             ))
           ))}
         </Box>
+        <Box className={`${classes.customBoxRow} ${classes.customBoxCartArticles} ${classes.customBoxCartTotal}`}>
+          <Box 
+            className={classes.customBoxCartArticle}
+          >
+            <Box> 
+              Total
+            </Box>
+            <Box className={classes.underscore}></Box>
+            <Box> 
+              {articlesCart.reduce((acu: number, obj: ArticleCartData) => (obj.selectedArticle.price_primary ? obj.selectedArticle.price_primary + acu : 0), 0)} 
+            </Box>
+          </Box>
+        </Box>
       </div>
     )
 }

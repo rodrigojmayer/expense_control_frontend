@@ -256,6 +256,7 @@ export default function ArticlesMenuModal(
           selectedArticle={selectedArticle}
           setOpenOptionSubModal={setOpenOptionSubModal}
           setArticlesCart={setArticlesCart}
+          optionSelected={optionSelected}
         />
         <ManageArticleSubModal
           hiddenPanel={openOptionSubModal.manageArticleSubModal}

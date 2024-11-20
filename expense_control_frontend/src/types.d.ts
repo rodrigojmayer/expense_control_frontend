@@ -29,14 +29,15 @@ export interface ProductData {
   product: string;
   id_group: number;
   [key?: string]: any;
-  price_primary?: number | string;
-  price_secondary?: number | string;
+  price_primary: number;
+  price_secondary?: number;
   description?: string;
   deleted?: boolean;
   multiplier?: number;
 }
 export interface ArticleCartData {
-  multiplier?: number;
+  multiplier: number;
+  price: number;
   selectedArticle: ProductData;
 }
 export interface GroupData {
