@@ -125,7 +125,7 @@ export default function CartMenuModal(
             </Box>
             <Box className={classes.underscore}></Box>
             <Box> 
-              {articlesCart.reduce((acu: number, obj: ArticleCartData) => (obj.price ? obj.price + acu : 0), 0)} 
+              {articlesCart.reduce((acu: number, obj: ArticleCartData) => (obj.price ? (obj.price * obj.multiplier) + acu : 0), 0)} 
             </Box>
           </Box>
         </Box>
