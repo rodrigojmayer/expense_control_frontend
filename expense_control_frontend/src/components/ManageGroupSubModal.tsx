@@ -1,36 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import dayjs, { Dayjs } from 'dayjs';// Import dayjs
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Box,
-        //  Grid,
-        //  TextField,
-         Typography,
-        //  InputAdornment,
-         Button,
          Modal,
          TextField,
-         MenuItem, 
-        //  Modal 
         } from "@mui/material";
-// import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
 import { GroupData, ProductData } from '../types';
-import { AddButton, CancelButton, DeleteButton, EditButton, OkButton } from './Buttons';
+import { CancelButton, DeleteButton, OkButton } from './Buttons';
 import SaveChanges from './SaveChanges';
 import ErrorModal from './ErrorModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { IsLoadingContext } from '../context/IsLoadingContext';
-// import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import useMediaQuery from '@mui/material/useMediaQuery'
-// import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-// import Switch from '@mui/material/Switch';
-// import { UserContext } from '../context/UserContext';
-// import { LanguageLabelsContext } from '../context/LanguageLabelsContext';
 
 interface GroupSelectedType {
   _id?:string
@@ -42,26 +24,21 @@ interface ChildProps {
     hiddenPanel:  boolean
     close: any
     optionSelected: any
-    // selectedGroup?: ProductData
     groupSelected: GroupSelectedType
     setGroupSelected: (newData: any) => void
-    groupsByBusiness: GroupData[]
     openOptionSubModal: any
 }
-
 
 export default function ManageGroupSubModal(
     {   
         hiddenPanel, 
         close,
         optionSelected,
-        // selectedGroup,
         groupSelected,
         setGroupSelected,
-        groupsByBusiness,
         openOptionSubModal
     }: ChildProps )  {
-    // const breakpointLG = useMediaQuery('(min-width:1024px)')
+
     const { classes } = useStylesGlobal();
     const { setIsLoading } = useContext<any>(IsLoadingContext) 
     const [manageGroup, setManageGroup] = useState<any>({})
@@ -69,10 +46,8 @@ export default function ManageGroupSubModal(
     const [openErrorModal, setOpenErrorModal] = useState(false);  
     const [messageBeforeSave, setMessageBeforeSave] = useState("");  
     const [errorData, setErrorData] = useState("");  
-    const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);  
-    // console.log("optionSelectedoptionSelected: ", optionSelected)
-    // console.log("selectedGroup: ", selectedGroup)
-    // console.log("groupSelected: ", groupSelected)
+    const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false); 
+
     const handleCloseSaveChanges = (ans?:boolean, deletion?:boolean) => {
       if(ans){
         const bodyUpdate: ProductData|any = {}
@@ -85,15 +60,11 @@ export default function ManageGroupSubModal(
           if(!groupSelected?._id || groupSelected?.name != manageGroup.name)
             bodyUpdate.name = manageGroup.name
         }
-        console.log("groupSelected: ", groupSelected)
-        console.log("manageGroup: ", manageGroup)
         const fetchManageArticle = async () => {
             
           let loadingSuccess: boolean = false
           try {
-            // const manage_group = (manageGroup._id ? manageGroup._id : "")
             const manage_group = manageGroup._id
-            // const manage_group = ("")
             const manage_method = (manageGroup._id ? 'PATCH' : 'POST')
             // const manage_method = ('POST')
             const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/groups/${manage_group}`, {
@@ -130,20 +101,14 @@ export default function ManageGroupSubModal(
               groups: loadingSuccess,
             }));
             
-            // setCheckListStock([])
           }
         } 
         const changeDetected = (obj:object) => Object.keys(obj).length > 0
-        console.log("changeDetected(bodyUpdate: ", changeDetected(bodyUpdate))
         if(changeDetected(bodyUpdate))
           fetchManageArticle()
         close()
       }
       setOpenSaveChanges(false);
-/////// setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
-///////   ...prevOpenOptionSubModal,
-///////   addArticleSubModal: true,
-/////// }))
     }
 
     const handleCloseErrorModal = () => {
@@ -151,7 +116,6 @@ export default function ManageGroupSubModal(
     }
 
     const handleOpenSaveChanges = () => {
-      // console.log("handleOpenSaveChanges manageGroup.name: ", manageGroup.name)
       if(manageGroup.name===""){
         setOpenErrorModal(true)
         setErrorData("missing_data")
@@ -162,7 +126,6 @@ export default function ManageGroupSubModal(
     }
     
     const handleCloseConfirmDeleteModal = (ans?:boolean) => {
-      // console.log("handleCloseConfirmDeleteModal ans: ", ans)
       if(ans){
         setManageGroup((prev: ProductData) => ({
           ...prev,
@@ -176,19 +139,13 @@ export default function ManageGroupSubModal(
 
     useEffect(() => {
       if(openOptionSubModal.manageArticleSubModal){
-        // console.log("edit")
         setManageGroup(groupSelected)
       } else {
-        // console.log("create")
         setManageGroup({_id: "", id:0, name: ""})
       }
     }, [hiddenPanel])
     
     return (
-      // <div
-      //   hidden= {hiddenPanel}
-      //   className={classes.subModalExternal}
-      // >
       <Modal
         className={classes.subModalExternal}
         open={!hiddenPanel} 
@@ -207,10 +164,7 @@ export default function ManageGroupSubModal(
           />
           <ConfirmDeleteModal
               openConfirmDeleteModal={openConfirmDeleteModal}
-              closeConfirmDeleteModal={handleCloseConfirmDeleteModal}
-              // source={"stock"}
-              // data={stockNameTemp} 
-              // confirmDelete={handleConfirmDelete} 
+              closeConfirmDeleteModal={handleCloseConfirmDeleteModal} 
           />
           <Box className={classes.customBoxRow}>
             <h3>
@@ -221,9 +175,7 @@ export default function ManageGroupSubModal(
           <Box className={classes.customBoxColumn}>
             <Box className={classes.customBoxRow}>
             <TextField
-                // id={String(manageSelectedArticle.id)}
                 label="Nombre"
-                // inputRef={lastInputRef}
                 value={manageGroup.name}
                 onChange={(event) => setManageGroup((prev: any) => ({
                                     ...prev,
@@ -235,8 +187,6 @@ export default function ManageGroupSubModal(
               />
             </Box>
           </Box>
-          
-         
           <Box className={classes.customBoxRow}>
             {
               (manageGroup._id) &&
@@ -245,18 +195,13 @@ export default function ManageGroupSubModal(
                 />
             }
             <CancelButton
-              // clicked={() => handleOpenEditStock()}
               clicked={close}
             />
             <OkButton
-              // clicked={() => handleOpenEditStock()}
-              // clicked={() => console.log("nuevo grupo: ", manageGroup.name)}
               clicked={() => handleOpenSaveChanges()}
             />
           </Box>
-
         </Box>
       </Modal>
-      // </div>
     )
 }

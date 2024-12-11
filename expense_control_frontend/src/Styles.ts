@@ -107,8 +107,10 @@ export const useStylesGlobal = makeStyles()({
         // margin: "20px",
         padding: "24px !important",
     },
-    arrowHome: {
+    arrowBack: {
         color: firstColor,
+        fontSize:50,
+        marginTop: 10,
     },
     customBoxColumn: { 
         margin: "0 auto",
@@ -154,9 +156,16 @@ export const useStylesGlobal = makeStyles()({
         textAlign: "center",
         gap: 8,
     },
+    customBoxRowArrow: {
+        // gap: 50,
+        // justifyContent: "center",
+        justifyContent:  "space-between",
+        height: 70, 
+    },
     customBoxRowArticlesHeader: {
-        gap: 38,
-        marginBottom: 20
+        gap: 20,
+        marginBottom: 20,
+        marginLeft: 30
     },
     customBoxRowButtons: {
         margin: 10
@@ -167,24 +176,26 @@ export const useStylesGlobal = makeStyles()({
     },
     customShoppingCartIcon: {
         fontSize: 45, 
-        marginTop: 24,
+        marginTop: 15,
         color: firstColor,
     },
     cartNumberArticles: {
         position: "relative",
         color: firstColor,
-        top: 15,
+        top: 7,
         height: 12, 
     },
     buttonRemoveCartArticle: {
         backgroundColor: "red",
         color: neutralMain,
         borderRadius: "25px",
-        minWidth: "25px",
-        height: "25px",
-        lineHeight: "27px",
+        minWidth: "15px",
+        height: "15px",
         margin: "auto 5px auto 0",
-        textAlign: "center",
+        fontSize: 18, 
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     customBoxGroup: {
         display: "flex",
@@ -230,6 +241,8 @@ export const useStylesGlobal = makeStyles()({
         borderRadius: "10px",
         color: firstColor,
         padding: "6px 12px",
+        // marginTop: 12,
+        margin: "12px 0px",
         // minHeight: "330px",
     },
     customBoxCartTotal: {
@@ -493,7 +506,7 @@ export const useStylesGlobal = makeStyles()({
     },
     btn_business: {
       backgroundColor: neutralMain,
-        height:"112px",
+        height:"100px",
         // width:"288px",
         width:"288px",
         margin: "8px",
@@ -511,9 +524,19 @@ export const useStylesGlobal = makeStyles()({
         }
       },
     },
+    btn_logout: {
+        height:"36px",
+        width:"130px",
+
+    },
     font_business: {
         fontSize: "32px",
         fontWeight: "bold",
+    },
+    font_logout: {
+        fontSize: "18px",
+        fontWeight: "bold",
+
     },
     route: {
         display: "block",

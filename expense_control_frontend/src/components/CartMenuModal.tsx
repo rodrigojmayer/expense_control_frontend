@@ -1,30 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import dayjs, { Dayjs } from 'dayjs';// Import dayjs
-import { useContext, useEffect, useRef, useState } from 'react';
 import { Box,
-        //  Grid,
-        //  TextField,
-         Typography,
-        //  InputAdornment,
          Button, 
-        //  Modal 
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
 import { ArticleCartData } from '../types';
-// import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import useMediaQuery from '@mui/material/useMediaQuery'
-// import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-// import Switch from '@mui/material/Switch';
-// import { UserContext } from '../context/UserContext';
-// import { LanguageLabelsContext } from '../context/LanguageLabelsContext';
 
 interface ChildProps {
     hiddenPanel:  boolean
+    optionSelected: any 
     articlesCart: ArticleCartData[]
     setArticlesCart: React.Dispatch<React.SetStateAction<ArticleCartData[]>>
 }
@@ -32,47 +18,12 @@ interface ChildProps {
 export default function CartMenuModal(
     {   
         hiddenPanel, 
+        optionSelected,
         articlesCart,
         setArticlesCart
     }: ChildProps )  {
-    // const breakpointLG = useMediaQuery('(min-width:1024px)')
     const { classes } = useStylesGlobal();
-    // const firstInputRef = useRef<HTMLInputElement>(null)
-    // const { user } = useContext<any>(UserContext); 
-    // const { labelsManageStock } = useContext<any>(LanguageLabelsContext)
-
-      console.log("articlesCart: ", articlesCart)
-    // const close = () => {}
-    // const DatePickerComponent = breakpointLG ? DatePicker : MobileDatePicker;
-    // const [openDatePicker, setOpenDatePicker] = useState(false);  
-    // const [openSaveChanges, setOpenSaveChanges] = useState(false);  
-    // const handleCloseSaveChanges = (ans?:boolean) => {
-    //     if(ans){
-    //         close()
-    //     }
-    //     setOpenSaveChanges(false);
-    // }
-    // const handleOpenSaveChanges = () => setOpenSaveChanges(true);
-    
-    // const writeStockAlertAmount = (e:any) => {
-    //     let newValue = parseInt(e.target.value.replace(/[+\-e]/g, ''), 10);
-    //     const topValue = 999 
-    //     if (isNaN(newValue)) {
-    //         newValue = 0;
-    //     } else if (newValue > topValue) {
-    //         newValue = topValue;
-    //     }
-    //     onStockAlertAmountChange(newValue);
-    // }
-    // const handleDatePickerChange = (newDate:any) => { 
-    //     const adjustedDate = newDate.add(2, 'hour').toISOString(); // Adding 2 hours because the GMT comes in +0200 and returns the day before
-    //     onStockAlertDateChange(adjustedDate);
-    //   };
-    // const handleHiddenOptions = (changeTo:string) =>  {
-    //     openOptionsCreate(changeTo)
-    // }
     const handleRemoveArticleFromCart = (artIndex: number) => {
-      // const newArticlesCart = articlesCart.filter((articleCart: ArticleCartData, index: number) => (index !== artIndex))
       const newArticlesCart = articlesCart.map((articleCart: ArticleCartData, index: number) => {
         if(index === artIndex){
           return {
@@ -85,9 +36,31 @@ export default function CartMenuModal(
 
       setArticlesCart(newArticlesCart)
     }
+
+    const fetchCart = async (article:ArticleCartData) => {
+      try {
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbwry3r8kKfFy3Z7EjkOnjqBwBX5jha248ubwmDoiFzusptKVGzlNbY5N89uoy7rDOrHDw/exec?sheetCustomName=${optionSelected.businessMenuSelected}&Monto=${article.price}&Servicio-Producto=${article.selectedArticle.product}&Formato%20de%20Pago=${optionSelected.paymentMethodMenuSelected}`, {
+          redirect: "follow",
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        });
+      } catch (error) {
+        console.error("Error sending data:", error);
+      }
+    }
+    const handleSubmit = () => {
+      articlesCart.forEach((article) => {
+        for(let i = 0; i < article.multiplier; i++){
+          fetchCart(article)
+        }
+      })
+    }
+    
     return (
       <div  hidden= {hiddenPanel}>
-        <Box className={`${classes.customBoxRow} ${classes.customBoxRowArticlesHeader}`}>
+        <Box className={`${classes.customBoxRow}`}>
           <h2>
             Carrito
           </h2>
@@ -97,7 +70,6 @@ export default function CartMenuModal(
             Array.from({ length: articleCart.multiplier ?? 0 }).map((_, i) => (
               
               <Box 
-                // key={articleCart.selectedArticle._id}
                 key={`${articleCart.selectedArticle._id}-${i}`}
                 className={classes.customBoxCartArticle}
               >
@@ -105,7 +77,7 @@ export default function CartMenuModal(
                   className={classes.buttonRemoveCartArticle}
                   onClick={() => handleRemoveArticleFromCart(index)}
                 > 
-                  X 
+                  x 
                 </Box>
                 <Box> 
                   { articleCart.selectedArticle.product.length > 17 ? articleCart.selectedArticle.product.slice(0, 17) + "..." : articleCart.selectedArticle.product } 
@@ -129,6 +101,16 @@ export default function CartMenuModal(
             </Box>
           </Box>
         </Box>
+        <Button  
+        variant="outlined"
+        className={` ${classes.btn_ok}`}
+        sx={{  
+          border: 0, 
+          borderRadius: 2, 
+          margin: 1,
+          height: 45,
+        }}
+        onClick={()=>handleSubmit()}>Exportar</Button>
       </div>
     )
 }

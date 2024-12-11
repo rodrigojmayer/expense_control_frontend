@@ -14,6 +14,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ProductsContext } from '../context/ProductsContext';
 import { GroupsContext } from "../context/GroupsContext";
 import CartMenuModal from "../components/CartMenuModal";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const business = [
   "Agustin", "Belen", "Cande", "Facha Gaucha"
@@ -45,10 +46,12 @@ function Home() {
   const navigate = useNavigate();
   const [openOptionModal, setOpenOptionModal] = useState<any>(INITIAL_MODAL_OPTIONS);
   const [optionSelected, setOptionSelected] = useState<any>(INITIAL_SELECTED_OPTIONS);
-  const [routeSelected, setRouteSelected] = useState<any>(<a>Home</a>);
+  const [routeSelected, setRouteSelected] = useState<any>(<><Typography variant="body2"><a>Inicio</a></Typography></>);
+  const [routeArrowBack, setRouteArrowBack] = useState<any>(<></>);
   const [productsBusiness, setProductsBusiness] = useState<ProductData[]>([]);
   const [groupsByBusiness, setGroupsByBusiness] = useState<GroupData[]>([]);
   const [articlesCart, setArticlesCart] = useState<ArticleCartData[]>([]);
+  const [articlesCartNumber, setArticlesCartNumber] = useState<string>("");
   
   const signOut = async() => {
 
@@ -65,7 +68,12 @@ function Home() {
   const selectHome:any = (() => {
     setOpenOptionModal(INITIAL_MODAL_OPTIONS)
     setOptionSelected(INITIAL_SELECTED_OPTIONS)
-    setRouteSelected(<a>Home</a>)
+    setRouteSelected(<><Typography variant="body2"><a>Inicio</a></Typography></>)
+    setRouteArrowBack(
+      <>
+        {/* <ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowBack}/> */}
+      </>
+    )
   })
 
 
@@ -84,7 +92,13 @@ function Home() {
       idBusinessMenuSelected: option,
       businessMenuSelected:business[option],
     }))
-    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()} className={classes.arrowHome}/></>)
+    // setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a>{`${business[option]}`} </Typography><ArrowBackIcon onClick={() =>selectHome()} className={classes.arrowBack}/></>)
+    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a>{`${business[option]}`} </Typography></>)
+    setRouteArrowBack(
+      <>
+        <ArrowBackIcon onClick={() =>selectHome()} className={classes.arrowBack}/>
+      </>
+    )
     const productsFiltered = products.filter((product: ProductData) => {
       if(product.id_client === option) 
         return product
@@ -96,6 +110,7 @@ function Home() {
         return group
     }).sort((a: GroupData,b: GroupData) => a.name.localeCompare(b.name))
     setGroupsByBusiness(groupsFiltered)
+    setArticlesCart([])
   })
   const selectPayment:any = ((option:number) => {
     
@@ -110,7 +125,13 @@ function Home() {
       ...prevState,
       paymentMethodMenuSelected:paymentMethods[option],
     }))
-    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowHome}/></>)
+    // setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography><ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowBack}/></>)
+    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography></>)
+    setRouteArrowBack(
+      <>
+        <ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowBack}/>
+      </>
+    )
   })
 
   const selectCart:any = (() => {
@@ -123,7 +144,13 @@ function Home() {
         businessMenuModal:true,    
         cartMenuModal: false,
       }))
-      setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a><a onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))}>{optionSelected.paymentMethodMenuSelected}/</a> </Typography><ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowHome}/></>)
+      // setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a><a onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))}>{optionSelected.paymentMethodMenuSelected}/</a> </Typography><ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowBack}/></>)
+      setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a><a onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))}>{optionSelected.paymentMethodMenuSelected}/</a> </Typography></>)
+      setRouteArrowBack(
+        <>
+          <ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowBack}/>
+        </>
+      )
     }
   })
 
@@ -181,6 +208,8 @@ function Home() {
   }, [groups])
 
   useEffect(() => {
+    const updatedArticlesCartNumber = articlesCart.reduce((acu: number, obj: ArticleCartData) => (obj.multiplier? obj.multiplier + acu: 0 ), 0).toString() 
+    setArticlesCartNumber(updatedArticlesCartNumber !== "0" ? updatedArticlesCartNumber : "")
 
     if(articlesCart.length === 0 && !openOptionModal.cartMenuModal){
       setOpenOptionModal((prevState:any) => ({
@@ -190,7 +219,13 @@ function Home() {
         businessMenuModal:true,    
         cartMenuModal: true,
       }))
-    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{optionSelected.paymentMethodMenuSelected} </Typography><ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowHome}/></>)
+      // setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Home/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{optionSelected.paymentMethodMenuSelected} </Typography><ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowBack}/></>)
+      setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{optionSelected.paymentMethodMenuSelected} </Typography></>)
+      setRouteArrowBack(
+        <>
+          <ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowBack}/>  
+        </>
+      )
     }
   }, [articlesCart])
   
@@ -200,38 +235,45 @@ function Home() {
 
   return (
           <div className={classes.AppDiv}>
-              {routeSelected}
+            {routeSelected}
+            <Box className={`${classes.customBoxRow} ${classes.customBoxRowArrow}`}>
+              {routeArrowBack}
+              <Box 
+                className={classes.customShoppingCar} 
+                hidden={openOptionModal.articlesMenuModal}
+                onClick={() => selectCart()}
+              >
+                <Box  className={classes.cartNumberArticles}>
+                  {articlesCartNumber}
+                </Box>
+                <ShoppingCartIcon
+                  className={classes.customShoppingCartIcon}
+                />
+              </Box>  
+            </Box>
             <BusinessMenuModal
               hiddenPanel={openOptionModal.businessMenuModal}
               selectBusiness={selectBusiness}
+              signOut={signOut}
             />
             <PaymentMethodMenuModal
               hiddenPanel={openOptionModal.paymentMethodMenuModal}
-
               selectPayment={selectPayment}
             />
             <ArticlesMenuModal
               hiddenPanel={openOptionModal.articlesMenuModal}
               optionSelected={optionSelected}
-              articlesCart={articlesCart}
               setArticlesCart={setArticlesCart}
               productsBusiness={productsBusiness}
               groupsByBusiness={groupsByBusiness}
-              selectCart={selectCart}
             />
             <CartMenuModal
               hiddenPanel={openOptionModal.cartMenuModal}
-              // optionSelected={optionSelected}
+              optionSelected={optionSelected}
               articlesCart={articlesCart}
               setArticlesCart={setArticlesCart}
-              // setArticlesCart={setArticlesCart}
-              // productsBusiness={productsBusiness}
-              // groupsByBusiness={groupsByBusiness}
             />
             
-            <Box className={classes.customBoxRow}>
-              <input type="button" value="Log out" onClick={signOut}/>
-            </Box>
           </div>
   )
 }

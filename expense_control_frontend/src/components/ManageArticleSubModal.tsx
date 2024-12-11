@@ -161,7 +161,6 @@ export default function ManageArticleSubModal(
     }
     
     const handleCloseConfirmDeleteModal = (ans?:boolean) => {
-      console.log("handleCloseConfirmDeleteModal ans: ", ans)
       if(ans){
         setManageSelectedArticle((prev: ProductData) => ({
           ...prev,
