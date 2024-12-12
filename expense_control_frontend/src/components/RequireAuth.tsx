@@ -4,7 +4,6 @@ import useAuth from "../hooks/useAuth";
 import { useContext, useEffect, useState } from "react";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { IsLoadingContext } from "../context/IsLoadingContext";
-// import Administrator from "../pages/Administrator";
 
 const RequireAuth = () => {
     const { auth } = useAuth();
@@ -13,7 +12,6 @@ const RequireAuth = () => {
     const [render, setRender] = useState("loading");
     const [countAuthRenders, setCountAuthRenders] = useState(0);
     const navigate = useNavigate();
-    // console.log("location: ", location.pathname)
 
     useEffect(() => {
             setCountAuthRenders(0)
@@ -21,8 +19,6 @@ const RequireAuth = () => {
 
     useEffect(() => {
         if(Object.keys(auth).length !== 0 || countAuthRenders>0){
-            // console.log("auth._id: ", auth)
-            // console.log("countAuthRenders: ", countAuthRenders)
             if (auth._id){
                 if(auth._id === "65ec59db81901b6dd1f45a13" && location.pathname === "/administrator") {
                     setRender("administrator")
@@ -31,7 +27,6 @@ const RequireAuth = () => {
                     setRender("home")
                 }
             } else if(countAuthRenders === 30) {
-            // } else if(countAuthRenders === 50) {
                 setRender("login")
             } else {
                 setCountAuthRenders(countAuthRenders+1)
@@ -52,10 +47,6 @@ const RequireAuth = () => {
     
     if(!isLoading.user || render ==="login"){
         switch (render) {
-            // case "administrator":
-            //     // FinalComponent = (<Navigate to="/administrator" state={{ from: location }} replace />);
-            //     FinalComponent = (<Administrator />);
-            // break;
             case "home":
                 FinalComponent = (<Outlet />);
             break;
