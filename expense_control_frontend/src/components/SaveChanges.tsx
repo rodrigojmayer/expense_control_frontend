@@ -7,9 +7,6 @@ import { OkButton,
          CancelButton, 
         } from './Buttons';
 import { useStylesGlobal } from '../Styles'
-// import { UserContext } from '../context/UserContext';
-// import { LanguageLabelsContext } from '../context/LanguageLabelsContext';
-
 
 type SaveChangesProps = {
     openSaveChanges: boolean;
@@ -19,13 +16,9 @@ type SaveChangesProps = {
 export default function SaveChanges( props: SaveChangesProps) {
     const { openSaveChanges, closeSaveChanges, messageBeforeSave } = props;
     const { classes } = useStylesGlobal();
-    // const { user } = useContext<any>(UserContext);
-    // const { labelsSaveChanges } = useContext<any>(LanguageLabelsContext);
-    // console.log("props: ", props)
 
     return (
         <Modal
-        // className={classes.modal_external_background}
         className={classes.subModalExternal}
         open={openSaveChanges} 
         onClose={() => closeSaveChanges()}
@@ -33,7 +26,6 @@ export default function SaveChanges( props: SaveChangesProps) {
             <form
                 onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                        
                         e.preventDefault();
                         closeSaveChanges(true); // Call your save function
                         e.stopPropagation()
@@ -41,27 +33,20 @@ export default function SaveChanges( props: SaveChangesProps) {
                 }}
             >
                 <Box className={classes.subModalInternal}>
-                {/* <Box sx={modalStyleSaveExternal}> */}
-                    {/* <Box 
-                        sx={{ ...modalStyleSaveInternal }}
-                        // className={`${classes[`_${user.background_color}main_background_color` as keyof typeof classes]} ${classes[`_${user.background_color}modal_color` as keyof typeof classes]}`}
-                    > */}
-                        <Typography align="center" variant="h6" className={classes.title}>
-                            {/* {labelsSaveChanges.save_changes}? */}
-                            Guardar cambios?
-                        </Typography>
-                        <Typography align="center" >
-                            {messageBeforeSave}
-                        </Typography>
-                        <Box className={classes.finishButtons}>
-                            <CancelButton
-                            clicked={() => closeSaveChanges(false)}
-                            />
-                            <OkButton
-                            clicked={() => closeSaveChanges(true)}
-                            />
-                        </Box> 
-                    {/* </Box> */}
+                    <Typography align="center" variant="h6" className={classes.title}>
+                        Guardar cambios?
+                    </Typography>
+                    <Typography align="center" >
+                        {messageBeforeSave}
+                    </Typography>
+                    <Box className={classes.finishButtons}>
+                        <CancelButton
+                        clicked={() => closeSaveChanges(false)}
+                        />
+                        <OkButton
+                        clicked={() => closeSaveChanges(true)}
+                        />
+                    </Box> 
                 </Box>
             </form>
         </Modal>
