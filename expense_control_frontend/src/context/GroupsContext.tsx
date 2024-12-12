@@ -4,7 +4,6 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { GroupData } from '../types';
 import { IsLoadingContext } from './IsLoadingContext';
-import { UserContext } from './UserContext';
 
 export const GroupsContext = createContext<object | undefined>(undefined);
 
@@ -14,8 +13,6 @@ type GroupsProviderProps = {
 
 export const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
   const { isLoading, setIsLoading } = useContext<any>(IsLoadingContext);
-  const { user } = useContext<any>(UserContext);
-  
   const [groups, setGroups] = useState<GroupData[]>([])
 
   const fetchGroups = async () => {
@@ -44,7 +41,6 @@ export const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
       }));
     }
   }
-
   
   useEffect(() => {
     fetchGroups();
@@ -52,7 +48,6 @@ export const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (isLoading.groups) {
-      console.log("refetching groups")
       fetchGroups();
       setIsLoading((prevLoading: any) => ({
           ...prevLoading,
@@ -60,7 +55,6 @@ export const GroupsProvider: React.FC<GroupsProviderProps> = ({ children }) => {
       }));
     }
   }, [isLoading.groups ])
-  
 
   return (
     <GroupsContext.Provider value={{ groups }}>

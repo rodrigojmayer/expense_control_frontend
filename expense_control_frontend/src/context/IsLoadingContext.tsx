@@ -13,13 +13,8 @@ export const IsLoadingProvider: React.FC<IsLoadingProviderProps> = ({ children }
     groups: true
   }); // New state for loading status
   
-  // console.log("realoading isLoadingContext???")
   const [openBackdrop, setOpenBackdrop] = useState(true)
-  // console.log("openBackdrop", openBackdrop)
-  // useEffect(() => {
-  //   // console.log("isLoading.openFirstTimeValidateUser: ", isLoading.openFirstTimeValidateUser)
-  // }, [isLoading])
-
+  
   return  (
     <IsLoadingContext.Provider value={{ isLoading, setIsLoading, openBackdrop, setOpenBackdrop }}>
       {children}
