@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // import RequireAuth from './components/RequireAuth';
 // import PersistLogin from './components/PersistLogin';
 // import Redirect from './components/Redirect';

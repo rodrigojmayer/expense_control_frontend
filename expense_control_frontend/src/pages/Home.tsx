@@ -185,8 +185,7 @@ function Home() {
       {routeSelected}
       <Box className={`${classes.customBoxRow} ${classes.customBoxRowArrow}`}>
         {routeArrowBack}
-        <Box 
-          className={classes.customShoppingCar} 
+        <Box  
           hidden={openOptionModal.articlesMenuModal}
           onClick={() => selectCart()}
         >
