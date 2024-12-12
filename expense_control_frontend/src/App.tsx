@@ -2,12 +2,10 @@
 // import RequireAuth from './components/RequireAuth';
 // import PersistLogin from './components/PersistLogin';
 // import Redirect from './components/Redirect';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-// import RequireAuth from './components/RequireAuth';
 import PersistLogin from './components/PersistLogin';
 import Redirect from './components/Redirect';// Import your AuthProvider
 import Layout from './components/Layout';
@@ -18,22 +16,20 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      {/* <Router> */}
-        <Routes>
-          <Route path="/" element={<Layout />} >
-            <Route path="" element={<PersistLogin />} >
-              <Route element={<RequireAuth />} >
-                <Route path="" element={<Home />} />
-                <Route path="*" element={<Home />} />
-                <Route path="/*" element={<Home />} />
-              </Route>
-              <Route element={<Redirect />} >
-                <Route path="login" element={<Login />} />
-              </Route>
+      <Routes>
+        <Route path="/" element={<Layout />} >
+          <Route path="" element={<PersistLogin />} >
+            <Route element={<RequireAuth />} >
+              <Route path="" element={<Home />} />
+              <Route path="*" element={<Home />} />
+              <Route path="/*" element={<Home />} />
+            </Route>
+            <Route element={<Redirect />} >
+              <Route path="login" element={<Login />} />
             </Route>
           </Route>
-        </Routes>
-      {/* </Router> */}
+        </Route>
+      </Routes>
      </GoogleOAuthProvider> 
   )
 }
