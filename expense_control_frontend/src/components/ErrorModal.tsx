@@ -6,7 +6,6 @@ import {
          CancelButton, 
         } from './Buttons';
 import { useStylesGlobal } from '../Styles'
-// import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 type ErrorModalProps = {
@@ -18,12 +17,9 @@ type ErrorModalProps = {
 export default function ErrorModal( props: ErrorModalProps) {
     const { openErrorModal, closeErrorModal, errorData } = props;
     const { classes } = useStylesGlobal();
-    // const { user } = useContext<any>(UserContext);
     let title = ""
     let subTitle = ""
     const navigate = useNavigate()
-    // Mising, invalid format, duplicated
-    // console.log("user: ", user._id==="")
     
     if(errorData === 'missing_data'){
         title='Faltan datos requeridos'
@@ -87,7 +83,6 @@ export default function ErrorModal( props: ErrorModalProps) {
         subTitle='Confirmación de nueva contraseña*'
     } else if (errorData === 'not_confirmed_pass'){
         title='No hay coincidencia'
-        // title='Not confirmed password'
         subTitle='Confirmación de contraseña debe coincidir'
     }  else if (errorData === 'invalid_password'){
         title=''
@@ -109,12 +104,9 @@ export default function ErrorModal( props: ErrorModalProps) {
         subTitle='Código de verificación*'
     } else if (errorData === 'expired_code_validation'){
         title='Código vencido'
-        // subTitle='You can sign up again'
     } else if (errorData === 'invalid_code'){
         title='Código inválido'
-        // subTitle='You can sign up again'
     }
-
     
     const handleCloseErrorModal = () => {
 
@@ -126,11 +118,9 @@ export default function ErrorModal( props: ErrorModalProps) {
 
     return (
         <Modal
-        // className={classes.modal_external_background}
-        className={classes.subModalExternal}
-
-        open={openErrorModal} 
-        onClose={() => handleCloseErrorModal()}
+            className={classes.subModalExternal}
+            open={openErrorModal} 
+            onClose={() => handleCloseErrorModal()}
         > 
             <form
                 onKeyDown={(e) => {
@@ -142,23 +132,17 @@ export default function ErrorModal( props: ErrorModalProps) {
                 }}
             >
                 <Box className={classes.subModalInternal}>
-                {/* <Box sx={modalStyleSaveExternal}>
-                    <Box 
-                        sx={{ ...modalStyleErrorInternal }}
-                        className={`${classes[`_${user.background_color}main_background_color` as keyof typeof classes]} ${classes[`_${user.background_color}modal_color` as keyof typeof classes]}`}
-                    > */}
-                        <Typography align="center" variant="h6" >
-                            {title}
-                        </Typography>
-                        <Typography align="center" >
-                            {subTitle}
-                        </Typography>
-                        <Box className={classes.finishButtons}>
-                            <CancelButton
-                            clicked={() => handleCloseErrorModal()}
-                            />
-                        </Box> 
-                    {/* </Box> */}
+                    <Typography align="center" variant="h6" >
+                        {title}
+                    </Typography>
+                    <Typography align="center" >
+                        {subTitle}
+                    </Typography>
+                    <Box className={classes.finishButtons}>
+                        <CancelButton
+                        clicked={() => handleCloseErrorModal()}
+                        />
+                    </Box> 
                 </Box>
             </form>
         </Modal>
