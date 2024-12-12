@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Logout } from "@mui/icons-material";
 import axios from "../api/axios";
 import useAuth from "./useAuth";
 
