@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useEffect, useState } from 'react';
-import { useStylesGlobal, modalStyleSaveExternal, modalStyleErrorInternal, modalLoginInternal  } from '../Styles'
+import { useStylesGlobal } from '../Styles'
 import { Box,
-    // Divider,
-    Modal, 
-    // IconButton,
-    // TextField,
-    Typography,
-    // Switch,
     Paper,
     } from '@mui/material';
 import { GoogleLogin } from '@react-oauth/google';
@@ -21,7 +15,7 @@ export default function Login () {
     
     const { classes } = useStylesGlobal();
     const { loginUser } = useUser()
-    const { setGmailUserLogged, user } = useContext<any>(UserContext);
+    const { setGmailUserLogged } = useContext<any>(UserContext);
     const [openErrorModal, setOpenErrorModal] = useState(false); 
     const [errorData, setErrorData] = useState("");
 
@@ -47,49 +41,20 @@ export default function Login () {
         if(!rta.loadingSuccess){
             setOpenErrorModal(true) // Open the modal for duplicate product error
             setErrorData(rta.errorCode)
-            // setErrorTextFields((prevErrorTextFields: any) => ({
-            //     ...prevErrorTextFields,
-            //     [rta.field]: true,
-            // }));
         }
         }
         login();
     };
     
     return (
-        // <Modal 
-        //     className={`${classes[`main_background_color`]} ${classes[`modal_color`]}`}
-        //     open={true} 
-        // >  
-            <Paper style={{ margin: 0 }}>
-                {/* <Box sx={modalStyleSaveExternal}> */}
-                    
-      {/* <Box 
-      className={`${classes[`main_background_color`]} ${classes[`modal_color`]}`}
-      sx={modalStyleSaveExternal}
-      > */}
-                    {/* <Box 
-                        sx={{ ...modalStyleErrorInternal, ...modalLoginInternal }}
-                        className={`${classes[`main_background_color` as keyof typeof classes]} ${classes[`modal_color` as keyof typeof classes]}`}
-                    > */}
-                        {/* <ErrorModal
-                        openErrorModal={openErrorModal}
-                        closeErrorModal={handleCloseErrorModal}
-                        errorData={errorData} 
-                        /> */}          
-                        {/* <Typography className={classes.finishButtons} align="center" variant='h5' >
-                            Login
-                        </Typography> */}
-                        <Box className={classes.customBoxRow}>
-                            <GoogleLogin
-                                onError={() => handleLoginGoogleFailure}
-                                onSuccess={handleLoginGoogleSuccess}
-                                locale= "es"
-                            />
-                        </Box>
-                    {/* </Box> */}
-                {/* </Box> */}
-            </Paper>
-        // </Modal> 
+        <Paper style={{ margin: 0 }}>
+            <Box className={classes.customBoxRow}>
+                <GoogleLogin
+                    onError={() => handleLoginGoogleFailure}
+                    onSuccess={handleLoginGoogleSuccess}
+                    locale= "es"
+                />
+            </Box>
+        </Paper>
     )
 }
