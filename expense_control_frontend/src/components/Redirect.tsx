@@ -3,8 +3,7 @@ import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 
 const Redirect = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { auth, persist } = useAuth();
+    const { auth } = useAuth();
     const location = useLocation();
     const [isLoading, setIsLoading] = useState(true);
     const [secondLoad, setSecondLoad] = useState(false);
@@ -26,10 +25,10 @@ const Redirect = () => {
         <>
         {
             isLoading
-                    ? <p></p>
-                    : auth?._id 
-                        ? <Navigate to="/" state={{ from: location }} replace />
-                        : <Outlet />
+                ? <p></p>
+                : auth?._id 
+                    ? <Navigate to="/" state={{ from: location }} replace />
+                    : <Outlet />
         }
         </>
     )
