@@ -21,14 +21,8 @@ const PersistLogin = () => {
         }
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    // useEffect(() => {
-    //     console.log(`isLoading: ${isLoading}`)
-    //     console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
-    // }, [isLoading])
 
     return (
         <>
