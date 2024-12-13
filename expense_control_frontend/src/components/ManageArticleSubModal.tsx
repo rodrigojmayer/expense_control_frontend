@@ -40,7 +40,7 @@ export default function ManageArticleSubModal(
   const [stateNewGroup, setStateNewGroup] = useState<boolean>(false)
   const [openSaveChanges, setOpenSaveChanges] = useState(false); 
   const [openErrorModal, setOpenErrorModal] = useState(false);  
-  const [messageBeforeSave, setMessageBeforeSave] = useState("");  
+  const [messageBeforeSave] = useState("");  
   const [errorData, setErrorData] = useState("");  
   const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false);  
   
@@ -79,7 +79,7 @@ export default function ManageArticleSubModal(
           })
           // Check if the response status is successful
           if (response.ok) {
-            const responseData = await response.json() // parse the response data
+            await response.json() // parse the response data
             loadingSuccess = true
           } else {
             // Handle non-successful responses
@@ -260,7 +260,7 @@ export default function ManageArticleSubModal(
               value={manageSelectedGroup?.name || "-"}
               onChange={ (event:any) => handleGroup(event.target.value) }
             >
-              {groupsByBusiness.map((group: GroupData, index: number) => (
+              {groupsByBusiness.map((group: GroupData, _index: number) => (
                   <MenuItem 
                     key={group.id} 
                     value={group.name}

@@ -16,8 +16,8 @@ export default function Login () {
     const { classes } = useStylesGlobal();
     const { loginUser } = useUser()
     const { setGmailUserLogged } = useContext<any>(UserContext);
-    const [openErrorModal, setOpenErrorModal] = useState(false); 
-    const [errorData, setErrorData] = useState("");
+    const [, setOpenErrorModal] = useState(false); 
+    const [, setErrorData] = useState("");
 
     
     useEffect(() => {

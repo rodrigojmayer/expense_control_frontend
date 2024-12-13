@@ -44,7 +44,7 @@ export default function ManageGroupSubModal(
   const [manageGroup, setManageGroup] = useState<any>({})
   const [openSaveChanges, setOpenSaveChanges] = useState(false); 
   const [openErrorModal, setOpenErrorModal] = useState(false);  
-  const [messageBeforeSave, setMessageBeforeSave] = useState("");  
+  const [messageBeforeSave] = useState("");  
   const [errorData, setErrorData] = useState("");  
   const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false); 
 
@@ -75,7 +75,7 @@ export default function ManageGroupSubModal(
           })
           // Check if the response status is successful
           if (response.ok) {
-            const responseData = await response.json() // parse the response data
+            await response.json() // parse the response data
             loadingSuccess = true
           } else {
             // Handle non-successful responses

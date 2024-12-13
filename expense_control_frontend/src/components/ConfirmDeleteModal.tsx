@@ -48,7 +48,7 @@ export default function ConfirmDeleteModal( props: ConfirmDeleteModalProps) {
         setIsThumbPressed(false);
     };
   
-    const handleSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
+    const handleSliderChange = (_event: Event, newValue: number | number[], activeThumb: number) => {
         const value = typeof newValue === 'number' ? newValue : newValue[activeThumb];
          if (isThumbPressed) {
             if(valueSlider-20 <= value && value <= valueSlider+35){
