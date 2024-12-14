@@ -32,7 +32,7 @@ type UserProviderProps = {
 };
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const { auth, setAuth } = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
   const [user, setUser] = useState<UserData>(INITIAL_USER)
   const { isLoading,  setIsLoading } = useContext<any>(IsLoadingContext);
   const [_IdUserLogged, set_IdUserLogged] = useState<string|number>(INITIAL_USER._id);
