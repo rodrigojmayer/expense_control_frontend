@@ -44,7 +44,7 @@ export default function CartMenuModal(
 
     const fetchCart = async (article:ArticleCartData): Promise<void> => {
       try {
-        const response = await fetch(`https://script.google.com/macros/s/AKfycbwry3r8kKfFy3Z7EjkOnjqBwBX5jha248ubwmDoiFzusptKVGzlNbY5N89uoy7rDOrHDw/exec?sheetCustomName=${optionSelected.businessMenuSelected}&Monto=${article.price}&Servicio-Producto=${article.selectedArticle.product}&Formato%20de%20Pago=${optionSelected.paymentMethodMenuSelected}`, {
+        await fetch(`https://script.google.com/macros/s/AKfycbwry3r8kKfFy3Z7EjkOnjqBwBX5jha248ubwmDoiFzusptKVGzlNbY5N89uoy7rDOrHDw/exec?sheetCustomName=${optionSelected.businessMenuSelected}&Monto=${article.price}&Servicio-Producto=${article.selectedArticle.product}&Formato%20de%20Pago=${optionSelected.paymentMethodMenuSelected}`, {
           redirect: "follow",
           method: "POST",
           headers: {
