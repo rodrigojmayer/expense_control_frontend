@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // import dayjs, { Dayjs } from 'dayjs';// Import dayjs
 import { Box,
-         Button, 
+         Button,
         } from "@mui/material";
 // import { UpButton } from './Buttons';
 import { useStylesGlobal } from '../Styles'
 import { ArticleCartData } from '../types';
+import SuccessExportModal from "./SuccessExportModal";
+import LoadingModal from "./LoadingModal";
+import { useState } from "react";
 
 interface ChildProps {
     hiddenPanel:  boolean
@@ -23,6 +25,9 @@ export default function CartMenuModal(
         setArticlesCart
     }: ChildProps )  {
     const { classes } = useStylesGlobal();
+    
+    const [openSuccessExportModal, setOpenSuccessExportModal] = useState(false); 
+    const [openLoadingModal, setOpenLoadingModal] = useState(false); 
     const handleRemoveArticleFromCart = (artIndex: number) => {
       const newArticlesCart = articlesCart.map((articleCart: ArticleCartData, index: number) => {
         if(index === artIndex){
@@ -37,29 +42,52 @@ export default function CartMenuModal(
       setArticlesCart(newArticlesCart)
     }
 
-    const fetchCart = async (article:ArticleCartData) => {
+    const fetchCart = async (article:ArticleCartData): Promise<void> => {
       try {
-        await fetch(`https://script.google.com/macros/s/AKfycbwry3r8kKfFy3Z7EjkOnjqBwBX5jha248ubwmDoiFzusptKVGzlNbY5N89uoy7rDOrHDw/exec?sheetCustomName=${optionSelected.businessMenuSelected}&Monto=${article.price}&Servicio-Producto=${article.selectedArticle.product}&Formato%20de%20Pago=${optionSelected.paymentMethodMenuSelected}`, {
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbwry3r8kKfFy3Z7EjkOnjqBwBX5jha248ubwmDoiFzusptKVGzlNbY5N89uoy7rDOrHDw/exec?sheetCustomName=${optionSelected.businessMenuSelected}&Monto=${article.price}&Servicio-Producto=${article.selectedArticle.product}&Formato%20de%20Pago=${optionSelected.paymentMethodMenuSelected}`, {
           redirect: "follow",
           method: "POST",
           headers: {
             "Content-Type": "text/plain;charset=utf-8",
           },
         });
+        // console.log("response: ", response)
+        console.log("response.ok: ", response.ok)
       } catch (error) {
         console.error("Error sending data:", error);
       }
     }
-    const handleSubmit = () => {
-      articlesCart.forEach((article) => {
-        for(let i = 0; i < article.multiplier; i++){
-          fetchCart(article)
-        }
-      })
-    }
+    const handleSubmit = async (): Promise<void> => {
+      setOpenLoadingModal(true)
+      try {
+        // Create an array of promises for all fetchCart calls
+        const fetchPromises = articlesCart.flatMap((article) => Array.from({ length: article.multiplier }, () => fetchCart(article)));
+
+        // Wait for all fetch requests to complete
+        await Promise.all(fetchPromises);
+
+        // Set the success modal open after all fetches are done
+        setOpenSuccessExportModal(true);
+        setOpenLoadingModal(false)
+      } catch (error) {
+        console.error("Error in handleSubmit: ", error);
+      }
+    };
     
+    const handleCloseSuccessExportModal = () => {
+      setOpenSuccessExportModal(false)
+    };
+
     return (
       <div  hidden= {hiddenPanel}>
+        <LoadingModal 
+          openLoadingModal={openLoadingModal}
+          />
+        <SuccessExportModal
+          openSuccessExportModal={openSuccessExportModal}
+          closeSuccessExportModal={handleCloseSuccessExportModal}
+          businessSelected={optionSelected.businessMenuSelected} 
+        />
         <Box className={`${classes.customBoxRow}`}>
           <h2>
             Carrito

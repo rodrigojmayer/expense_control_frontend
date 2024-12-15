@@ -324,6 +324,12 @@ export const useStylesGlobal = makeStyles()({
         marginTop: "5px",
         marginBottom: "10px",
     },
+    center : {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+    },
 })
 
 export const modalStyleSaveExternal = {
