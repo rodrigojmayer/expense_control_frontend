@@ -46,7 +46,8 @@ export const useStylesGlobal = makeStyles()({
     AppDiv: {
         height:"100vh",
         width: "100vw !important",
-        padding: "24px !important",
+        // padding: "24px !important",
+        padding: "30px 24px",
     },
     arrowBack: {
         color: firstColor,
