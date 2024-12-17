@@ -26,7 +26,8 @@ export const themeGlobal = createTheme({
     },
 });
 
-export const useStylesGlobal = makeStyles()({
+// export const useStylesGlobal = makeStyles()({
+export const useStylesGlobal = makeStyles()((theme) => ({
     finishButtons: {
         display: "flex",
         justifyContent:  "center",
@@ -45,9 +46,21 @@ export const useStylesGlobal = makeStyles()({
     },
     AppDiv: {
         height:"100vh",
-        width: "100vw !important",
+        // width: "100vw !important",
+        width: "100vw",
         // padding: "24px !important",
         padding: "30px 24px",
+        // width: '100%',
+        [theme.breakpoints.up('sm')]: {
+        width: "100vw",
+        },
+        [theme.breakpoints.up('md')]: {
+        width: "35vw",
+        },
+        // [theme.breakpoints.up('lg')]: {
+        // width: "30vw",
+        // },
+
     },
     arrowBack: {
         color: firstColor,
@@ -331,7 +344,8 @@ export const useStylesGlobal = makeStyles()({
         alignItems: "center",
         height: "100%",
     },
-})
+// })
+}));
 
 export const modalStyleSaveExternal = {
     position: 'absolute',
