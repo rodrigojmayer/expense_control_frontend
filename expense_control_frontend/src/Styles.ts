@@ -47,18 +47,20 @@ export const useStylesGlobal = makeStyles()((theme) => ({
     AppDiv: {
         height:"100vh",
         // width: "100vw !important",
-        width: "100vw",
+        // width: "100vw",
+        width: "100%",
         // padding: "24px !important",
         padding: "30px 24px",
-        [theme.breakpoints.up('sm')]: {
-            width: "80vw",
-            },
-        [theme.breakpoints.up('md')]: {
-        width: "55vw",
-        },
-        [theme.breakpoints.up('lg')]: {
-        width: "45vw",
-        },
+        // [theme.breakpoints.up('sm')]: {
+        //     width: "80vw",
+        //     },
+        // [theme.breakpoints.up('md')]: {
+        // width: "65vw",
+        // },
+        // [theme.breakpoints.up('lg')]: {
+        //     // width: "55vw",
+        //     width: "100%",
+        // },
     },
     arrowBack: {
         color: firstColor,
