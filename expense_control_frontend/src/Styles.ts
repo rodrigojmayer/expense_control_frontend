@@ -50,17 +50,15 @@ export const useStylesGlobal = makeStyles()((theme) => ({
         width: "100vw",
         // padding: "24px !important",
         padding: "30px 24px",
-        // width: '100%',
         [theme.breakpoints.up('sm')]: {
-        width: "100vw",
-        },
+            width: "80vw",
+            },
         [theme.breakpoints.up('md')]: {
-        width: "35vw",
+        width: "55vw",
         },
-        // [theme.breakpoints.up('lg')]: {
-        // width: "30vw",
-        // },
-
+        [theme.breakpoints.up('lg')]: {
+        width: "45vw",
+        },
     },
     arrowBack: {
         color: firstColor,
@@ -148,6 +146,21 @@ export const useStylesGlobal = makeStyles()((theme) => ({
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         marginBottom: 12,
+    },
+    customBoxArticles: {
+        display: "grid",
+        gap: 16, // Equal gap horizontally and vertically
+        width: "100%",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        [theme.breakpoints.up('sm')]: {
+            gridTemplateColumns: "repeat(4, 1fr)", // 3 equal columns
+        },
+        [theme.breakpoints.up('md')]: {
+            gridTemplateColumns: "repeat(5, 1fr)", // 3 equal columns
+        },
+        [theme.breakpoints.up('lg')]: {
+            gridTemplateColumns: "repeat(6, 1fr)", // 3 equal columns
+        },
     },
     customBoxCartArticles: {
         display: "flex",

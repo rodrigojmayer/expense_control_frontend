@@ -159,12 +159,7 @@ export default function ArticlesMenuModal(
             />
           </Typography>
         </Box>
-        <Box sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)", // 3 equal columns
-          gap: 2, // Equal gap horizontally and vertically
-          width: "100%",
-        }}>
+        <Box className={classes.customBoxArticles} >
           { groupSelected?.id === 0 && 
             groupsByBusiness
             .filter((group: GroupData) => group.name !== "-")
