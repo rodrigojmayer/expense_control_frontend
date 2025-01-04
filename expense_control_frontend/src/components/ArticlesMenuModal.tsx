@@ -135,6 +135,7 @@ export default function ArticlesMenuModal(
           }} 
         >
           <ArrowBackIcon 
+          className={` ${classes.buttonHoverPointer}`}
             onClick={() =>selectGroup("", 0, "")}
             sx={{display: "block" }}
           />
@@ -164,8 +165,9 @@ export default function ArticlesMenuModal(
             groupsByBusiness
             .filter((group: GroupData) => group.name !== "-")
             .map((group: GroupData) => (
-                <Box className={classes.customBoxGroup}
-                  key={group._id}
+                <Box 
+                className={`${classes.customBoxGroup}  ${classes.buttonHoverPointer}`}
+                key={group._id}
                   onClick={() =>selectGroup(group._id || "", group.id || 0, group.name || "")}
                   sx={{
                     fontSize: (group.name && group.name.length > 8) ? "16px" : "22px",   
@@ -179,7 +181,7 @@ export default function ArticlesMenuModal(
           {
             productsBusinessShow.map((product: ProductData) => (
                 <Box 
-                  className={classes.customBoxProduct}
+                  className={`${classes.customBoxProduct} ${classes.buttonHoverPointer} ${classes.buttonHoverPointerFontSize}`}
                   key={product._id}
                   onClick={() =>selectArticle(product)}
                   sx={{

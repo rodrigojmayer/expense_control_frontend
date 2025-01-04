@@ -46,26 +46,41 @@ export const useStylesGlobal = makeStyles()((theme) => ({
     },
     AppDiv: {
         height:"100vh",
-        // width: "100vw !important",
-        // width: "100vw",
-        width: "100%",
-        // padding: "24px !important",
+        width: "380px",
         padding: "30px 24px",
-        // [theme.breakpoints.up('sm')]: {
-        //     width: "80vw",
-        //     },
-        // [theme.breakpoints.up('md')]: {
-        // width: "65vw",
-        // },
-        // [theme.breakpoints.up('lg')]: {
-        //     // width: "55vw",
-        //     width: "100%",
-        // },
+        [theme.breakpoints.up('sm')]: {
+            width: "496px",
+        },
+        [theme.breakpoints.up('md')]: {
+            width: "612px",
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: "728px",
+        },
     },
     arrowBack: {
         color: firstColor,
         fontSize:50,
         marginTop: 10,
+    },
+    buttonHoverPointer: {
+        transition: 'color 0.2s ease', 
+        '&:hover': {
+            cursor: "pointer",
+            color: `${neutralDark}`,
+            fill: `${neutralDark}`,
+            // stroke: neutralDark,
+        },
+        '&:hover > *': {
+            // color: neutralDark, // Apply hover color to all children
+            color: `${neutralDark}`,
+            fill: `${neutralDark}`,
+        },
+    },
+    buttonHoverPointerFontSize: {
+        '&:hover': {
+            fontSize: '75%',
+        },
     },
     customBoxColumn: { 
         margin: "0 auto",
@@ -96,10 +111,12 @@ export const useStylesGlobal = makeStyles()((theme) => ({
     customShoppingCartIcon: {
         fontSize: 45, 
         marginTop: 15,
+        transition: 'color 0.2s ease', 
         color: firstColor,
     },
     cartNumberArticles: {
         position: "relative",
+        transition: 'color 0.2s ease', 
         color: firstColor,
         top: 7,
         height: 12, 
@@ -226,7 +243,7 @@ export const useStylesGlobal = makeStyles()((theme) => ({
     subModalDelete: {
         width: "calc(100% - 50px)",
         maxWidth: "250px",
-        height: "30vh",
+        // height: "30vh",
         maxHeight: "30vh",
     },
     buttonMultiplier: {
@@ -250,14 +267,14 @@ export const useStylesGlobal = makeStyles()((theme) => ({
     },
     btnCommonStyle: {
         borderRadius: "10px",
-        transition: ".5s",
+        transition: ".2s ease",
         "& > *": {
-            transition: ".5s",
+            transition: ".2s ease",
         },
         '&:hover': {
             borderWidth: "5px",
             "& > *": {
-                transition: ".5s",
+                transition: ".2s ease",
             }
         }
     },
@@ -266,9 +283,11 @@ export const useStylesGlobal = makeStyles()((theme) => ({
       borderColor: warningMain,
       color: neutralMain,
       stroke: neutralMain,
+      transition: 'stroke 0.2s ease', 
       '&:hover': {
         borderColor: warningMain,
         backgroundColor: warningMain,
+        stroke: neutralDark,
         "& > *": {
         //   stroke: warningDark
         }
@@ -279,9 +298,11 @@ export const useStylesGlobal = makeStyles()((theme) => ({
       borderColor: succesMain,
       color: neutralMain,
       stroke: neutralMain,
+      transition: 'stroke 0.2s ease', 
       '&:hover': {
         borderColor: succesMain,
         backgroundColor: succesMain,
+        stroke: neutralDark,
         "& > *": {
     //   color: succesDark,
         }
@@ -291,6 +312,7 @@ export const useStylesGlobal = makeStyles()((theme) => ({
       backgroundColor: firstAlphaColor,
       borderColor: firstAlphaColor,
       color: neutralMain,
+      transition: 'color 0.2s ease',
       '&:hover': {
         borderColor: firstAlphaColor,
         backgroundColor: firstAlphaColor,
@@ -300,16 +322,17 @@ export const useStylesGlobal = makeStyles()((theme) => ({
       },
     },
     btn_delete: {
+        transition: 'color 0.2s ease', 
         backgroundColor: thirdColor,
         borderColor: thirdColor,
         color: firstColor,
-        '&:hover': {
-            borderColor: thirdColor,
-            backgroundColor: thirdColor,
-            "& > *": {
-            //   color: neutralDark,
-            }
-        },
+        // '&:hover': {
+        //     borderColor: thirdColor,
+        //     backgroundColor: thirdColor,
+        //     "& > *": {
+        //     //   color: neutralDark,
+        //     }
+        // },
     },
     btn_business: {
         backgroundColor: neutralMain,
@@ -340,11 +363,11 @@ export const useStylesGlobal = makeStyles()((theme) => ({
     },
     btn_add: {
         color: firstColor,
-        '&:hover': {
-            "& > *": {
-            //   color: neutralDark,
-            }
-        },
+        // '&:hover': {
+        //     "& > *": {
+        //     //   color: neutralDark,
+        //     }
+        // },
     },
     show: {
         display: "block",

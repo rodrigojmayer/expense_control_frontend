@@ -41,6 +41,9 @@ export default function Login () {
         if(!rta.loadingSuccess){
             setOpenErrorModal(true) // Open the modal for duplicate product error
             setErrorData(rta.errorCode)
+        }else {
+            // If login is successful, reload the page
+            window.location.reload();
         }
         }
         login();

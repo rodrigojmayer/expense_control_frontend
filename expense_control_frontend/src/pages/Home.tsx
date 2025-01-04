@@ -82,10 +82,10 @@ function Home() {
       idBusinessMenuSelected: option,
       businessMenuSelected:business[option],
     }))
-    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a>{`${business[option]}`} </Typography></>)
+    setRouteSelected(<><Typography variant="body2"><a className={classes.buttonHoverPointer} onClick={() =>selectHome()}>Inicio/</a>{`${business[option]}`} </Typography></>)
     setRouteArrowBack(
       <>
-        <ArrowBackIcon onClick={() =>selectHome()} className={classes.arrowBack}/>
+        <ArrowBackIcon onClick={() =>selectHome()} className={`${classes.arrowBack} ${classes.buttonHoverPointer}`}/>
       </>
     )
     const productsFiltered = products.filter((product: ProductData) => {
@@ -112,10 +112,10 @@ function Home() {
       ...prevState,
       paymentMethodMenuSelected:paymentMethods[option],
     }))
-    setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography></>)
+    setRouteSelected(<><Typography variant="body2"><a className={classes.buttonHoverPointer} onClick={() =>selectHome()}>Inicio/</a><a className={classes.buttonHoverPointer} onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{`${paymentMethods[option]}`} </Typography></>)
     setRouteArrowBack(
       <>
-        <ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowBack}/>
+        <ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={`${classes.arrowBack} ${classes.buttonHoverPointer}`}/>
       </>
     )
   })
@@ -129,10 +129,10 @@ function Home() {
         businessMenuModal:true,    
         cartMenuModal: false,
       }))
-      setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a><a onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))}>{optionSelected.paymentMethodMenuSelected}/</a> </Typography></>)
+      setRouteSelected(<><Typography variant="body2"><a className={classes.buttonHoverPointer} onClick={() =>selectHome()}>Inicio/</a><a className={classes.buttonHoverPointer} onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a><a className={classes.buttonHoverPointer} onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))}>{optionSelected.paymentMethodMenuSelected}/</a> </Typography></>)
       setRouteArrowBack(
         <>
-          <ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={classes.arrowBack}/>
+          <ArrowBackIcon onClick={() =>selectPayment(paymentMethods.indexOf(optionSelected.paymentMethodMenuSelected))} className={`${classes.arrowBack} ${classes.buttonHoverPointer}`}/>
         </>
       )
     }
@@ -171,10 +171,10 @@ function Home() {
         businessMenuModal:true,    
         cartMenuModal: true,
       }))
-      setRouteSelected(<><Typography variant="body2"><a onClick={() =>selectHome()}>Inicio/</a><a onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{optionSelected.paymentMethodMenuSelected} </Typography></>)
+      setRouteSelected(<><Typography variant="body2"><a className={classes.buttonHoverPointer} onClick={() =>selectHome()}>Inicio/</a><a className={classes.buttonHoverPointer} onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))}>{`${optionSelected.businessMenuSelected}`}/</a>{optionSelected.paymentMethodMenuSelected} </Typography></>)
       setRouteArrowBack(
         <>
-          <ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={classes.arrowBack}/>  
+          <ArrowBackIcon onClick={() =>selectBusiness(business.indexOf(optionSelected.businessMenuSelected))} className={`${classes.arrowBack} ${classes.buttonHoverPointer}`}/>  
         </>
       )
     }
@@ -186,10 +186,13 @@ function Home() {
       <Box className={`${classes.customBoxRow} ${classes.customBoxRowArrow}`}>
         {routeArrowBack}
         <Box  
+          className={`${articlesCartNumber && classes.buttonHoverPointer}`}
           hidden={openOptionModal.articlesMenuModal}
           onClick={() => selectCart()}
         >
-          <Box  className={classes.cartNumberArticles}>
+          <Box  
+            className={classes.cartNumberArticles}
+          >
             {articlesCartNumber}
           </Box>
           <ShoppingCartIcon

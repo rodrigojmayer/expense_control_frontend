@@ -59,7 +59,7 @@ export default function AddArticleSubModal(
         <Box className={classes.customBoxRow}>
           {selectedArticle.product}
           <Button 
-            className={classes.buttonMultiplier}
+            className={`${classes.buttonMultiplier} ${classes.buttonHoverPointer}`}
             onClick={() => setMultiplier(multiplier < 99 ? multiplier+1 : 1)}  
           >
             x{multiplier}

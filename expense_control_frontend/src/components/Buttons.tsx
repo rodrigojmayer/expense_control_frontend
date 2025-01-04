@@ -157,7 +157,7 @@ export function EditButton({ sizeIco, roundedIco, cusField, clicked, cusBorder, 
     <Button 
       variant="outlined"
       color="neutral"
-      className={`${classes.btn_edit}`}
+      className={`${classes.btn_edit} ${classes.buttonHoverPointer}`}
       sx={{  
         border: bor,
         margin: 1, 
@@ -202,7 +202,7 @@ export function DeleteButton({ sizeIco, cusField, clicked, widthIco }: ButtonPro
     <Button 
       variant="outlined"
       color="neutral"
-      className={`${classes.btnCommonStyle} ${classes.btn_delete}`}
+      className={`${classes.btnCommonStyle} ${classes.btn_delete} ${classes.buttonHoverPointer}`}
       sx={{  
         border: bor, 
         margin: 1,
@@ -242,7 +242,7 @@ export function AddButton({ sizeIco, cusMarginTop, cusField, clicked }: ButtonPr
   return (
     <Button 
       variant="outlined"
-      className={`${classes.btnCommonStyle} ${classes.btn_add}`}
+      className={`${classes.btnCommonStyle} ${classes.btn_add} ${classes.buttonHoverPointer}`}
       sx={{  
         border: bor, 
         marginTop:cusMarginTop || 0,  

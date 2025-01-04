@@ -19,9 +19,9 @@ export default function SaveChanges( props: SaveChangesProps) {
 
     return (
         <Modal
-        className={classes.subModalExternal}
-        open={openSaveChanges} 
-        onClose={() => closeSaveChanges()}
+            className={classes.subModalExternal}
+            open={openSaveChanges} 
+            onClose={() => closeSaveChanges()}
         > 
             <form
                 onKeyDown={(e) => {

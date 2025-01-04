@@ -102,7 +102,7 @@ export default function CartMenuModal(
                 className={classes.customBoxCartArticle}
               >
                 <Box
-                  className={classes.buttonRemoveCartArticle}
+                  className={`${classes.buttonRemoveCartArticle} ${classes.buttonHoverPointer}`}
                   onClick={() => handleRemoveArticleFromCart(index)}
                 > 
                   x 
