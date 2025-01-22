@@ -6,7 +6,7 @@ import { Box,
          Typography,
         } from "@mui/material";
 import { useStylesGlobal } from '../Styles'
-import { ProductData, GroupData, ArticleCartData } from '../types';
+import { ProductData, GroupData, ArticleCartData, GroupSelectedType } from '../types';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddArticleSubModal from "./AddArticleSubModal";
@@ -20,11 +20,6 @@ interface ChildProps {
   setArticlesCart: React.Dispatch<React.SetStateAction<ArticleCartData[]>>
   productsBusiness: ProductData[]
   groupsByBusiness: GroupData[]
-}
-interface GroupSelectedType {
-    _id?:string
-    id:  number
-    name: string
 }
 
 export default function ArticlesMenuModal(
@@ -95,6 +90,13 @@ export default function ArticlesMenuModal(
     if(openOptionSubModal.addArticleSubModal)
       setSelectedArticle({})
   }, [openOptionSubModal.addArticleSubModal])
+
+  // useEffect(() => {
+  //   console.log("Testing productsBusinessShow useEffect in ArticlesMenuModal", productsBusinessShow)
+  //   console.log("Testing productsBusinessShow.filter useEffect in ArticlesMenuModal", productsBusinessShow.filter((val) => val._id=="67631a6f0b2adf6421dfa7d6"))
+  //   console.log("Testing selectedArticle useEffect in ArticlesMenuModal", selectedArticle)
+  //   console.log("Testing openOptionSubModal.manageArticleSubModal useEffect in ArticlesMenuModal", openOptionSubModal.manageArticleSubModal)
+  // }, [openOptionSubModal.manageArticleSubModal])
 
   const shortName = ((name: string, maxChar: number) => {
     const parts = name.split(/[/\s]+/)
@@ -209,7 +211,9 @@ export default function ArticlesMenuModal(
         hiddenPanel={openOptionSubModal.manageArticleSubModal}
         close={closeManageArticleSubModal}
         optionSelected={optionSelected}
+        groupSelected={groupSelected}
         selectedArticle={selectedArticle}
+        setSelectedArticle={setSelectedArticle}
         setOpenOptionSubModal={setOpenOptionSubModal}
         groupsByBusiness={groupsByBusiness}
       />

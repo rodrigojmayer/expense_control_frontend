@@ -47,3 +47,8 @@ export interface GroupData {
   name: string;
   deleted?: boolean;
 }
+export interface GroupSelectedType {
+  _id?:string
+  id:  number
+  name: string
+}

@@ -42,7 +42,8 @@ export default function AddArticleSubModal(
       setPrice(selectedArticle.price_secondary)
     else 
       setPrice(selectedArticle.price_primary)
-  }, [hiddenPanel])
+  // }, [hiddenPanel])
+  }, [selectedArticle])
 
   return (
     <Modal

@@ -37,14 +37,19 @@ export default function Login () {
         const userEmailData = googleDecodedToken
         setGmailUserLogged(userEmailData)     //////////// check for what is this
         const login = async() => {
-        const rta = await loginUser(googleDecodedToken.email, "", false, googleDecodedToken)
-        if(!rta.loadingSuccess){
-            setOpenErrorModal(true) // Open the modal for duplicate product error
-            setErrorData(rta.errorCode)
-        }else {
-            // If login is successful, reload the page
-            window.location.reload();
-        }
+            const rta = await loginUser(googleDecodedToken.email, "", false, googleDecodedToken)
+            if(!rta.loadingSuccess){
+                setOpenErrorModal(true) // Open the modal for duplicate product error
+                setErrorData(rta.errorCode)
+            }else {
+                // If login is successful, reload the page
+                window.location.reload();
+                window.onerror = function (message) {
+                    if (typeof message === "string" && message.includes("FedCM was disabled")) {
+                      return true; // Suppresses only the FedCM error
+                    }
+                };
+            }
         }
         login();
     };
@@ -56,6 +61,8 @@ export default function Login () {
                     onError={() => handleLoginGoogleFailure}
                     onSuccess={handleLoginGoogleSuccess}
                     locale= "es"
+                    useOneTap
+                    auto_select
                 />
             </Box>
         </Paper>

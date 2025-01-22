@@ -8,7 +8,7 @@ import { Box,
          MenuItem, 
         } from "@mui/material";
 import { useStylesGlobal } from '../Styles'
-import { GroupData, ProductData } from '../types';
+import { GroupData, ProductData, GroupSelectedType } from '../types';
 import { AddButton, CancelButton, DeleteButton, OkButton } from './Buttons';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import ErrorModal from './ErrorModal';
@@ -20,6 +20,8 @@ interface ChildProps {
     close: any
     optionSelected: any
     selectedArticle: ProductData
+    setSelectedArticle: (newData: any) => void
+    groupSelected: GroupSelectedType 
     setOpenOptionSubModal: (newData: any) => void
     groupsByBusiness: GroupData[]
 }
@@ -30,6 +32,8 @@ export default function ManageArticleSubModal(
       close,
       optionSelected,
       selectedArticle,
+      setSelectedArticle,
+      groupSelected,
       setOpenOptionSubModal,
       groupsByBusiness
   }: ChildProps )  {
@@ -98,6 +102,7 @@ export default function ManageArticleSubModal(
             // Handle other cases as needed
           }
         } finally {
+          setSelectedArticle(manageSelectedArticle)
           setIsLoading((prevLoading: any) => ({
             ...prevLoading,
             products: loadingSuccess,
@@ -110,10 +115,10 @@ export default function ManageArticleSubModal(
       close()
     }
     setOpenSaveChanges(false);
-    setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
-      ...prevOpenOptionSubModal,
-      addArticleSubModal: true,
-    }))
+    // setOpenOptionSubModal((prevOpenOptionSubModal: any) => ({
+    //   ...prevOpenOptionSubModal,
+    //   addArticleSubModal: true,
+    // }))
   }
   const handleCloseErrorModal = () => {
     setOpenErrorModal(false)
@@ -170,7 +175,8 @@ export default function ManageArticleSubModal(
     setManageSelectedArticle(selectedArticle)
     const filteredGroupInitial = groupsByBusiness.filter((val) => {
       if(val.id === selectedArticle.id_group) return val
-    })[0] || {id:0}
+    })[0] || groupSelected
+    
     setManageSelectedGroup(filteredGroupInitial)
   }, [selectedArticle, hiddenPanel])
 
