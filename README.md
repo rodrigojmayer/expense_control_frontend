@@ -1,7 +1,5 @@
 # 📱 ExpenseControl - Frontend
 
-Select your language / Selecciona tu idioma:
-
 ---
 
 <details>
