@@ -1,7 +1,5 @@
 # 📱 ExpenseControl - Frontend
 
----
-
 <details>
 <summary>🇺🇸 <b>English Version</b></summary>
 
