@@ -5,7 +5,9 @@ Select your language / Selecciona tu idioma:
 ---
 
 <details>
-<summary>🇺🇸 <b>Click to expand English Version</b></summary>
+<summary>🇺🇸 <b>English Version</b></summary>
+
+## 🇺🇸 English Version
 
 This repository contains the user interface for **ExpenseControl**, a high-performance web application designed for corporate expense management and control. Built with **React 18**, **TypeScript**, and **Vite** to ensure an ultra-fast development and user experience.
 ## 🚀 Tech Stack
@@ -65,7 +67,7 @@ npm install
 
 
 <details>
-<summary>🇪🇸 <b>Haz clic para expandir la Versión en Español</b></summary>
+<summary>🇪🇸 <b>Versión en Español</b></summary>
 
 ## 🇪🇸 Versión en Español
 
