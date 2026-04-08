@@ -28,12 +28,11 @@ Este repositorio contiene la interfaz de usuario de **ExpenseControl**, una apli
 
 | 🏠 Página de Inicio | 💳 Método de Pago | 🛒 Selección de Artículos |
 | :---: | :---: | :---: |
-| ![Start Page](ruta/a/tu/01-Start-page.png) | ![Payment](ruta/a/tu/02-Payment-method-page.png) | ![Articles](ruta/a/tu/03-Articles-page.png) |
-| *Elección de cliente* | *Definición de pago* | *Gestión de inventario* |
+| ![Start Page](/expense_control_frontend/public/01-Start-page.png) | ![Payment](/expense_control_frontend/public/02-Payment-method-page.png) | ![Articles](/expense_control_frontend/public/03-Articles-page.png) |
 
 | ✍️ Edición de Artículos | 🧺 Vista Previa Carrito | 📊 Exportación Final |
 | :---: | :---: | :---: |
-| ![Edit](ruta/a/tu/06-Edit-article.png) | ![Cart](ruta/a/tu/11-Cart-page.png) | ![Export](ruta/a/tu/12-Export-transaction.png) |
+| ![Edit](/expense_control_frontend/public/04-Edit-article.png) | ![Cart](/expense_control_frontend/public/05-Cart-page.png) | ![Export](/expense_control_frontend/public/06-Export-transaction.png) |
 | *Modales de gestión* | *Cálculo de gastos* | *Google Sheets Sync* |
 
 ---
