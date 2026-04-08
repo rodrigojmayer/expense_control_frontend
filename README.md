@@ -60,7 +60,9 @@ The application features native **Full Responsiveness**, leveraging Material UI 
 git clone [https://github.com/your-user/expense_control_frontend.git](https://github.com/your-user/expense_control_frontend.git)
 cd expense_control_frontend
 npm install
+```
 </details>
+
 
 <details>
 <summary>🇪🇸 <b>Haz clic para expandir la Versión en Español</b></summary>
@@ -121,4 +123,5 @@ La aplicación cuenta con un **Full Responsiveness** nativo, adaptando los grids
 git clone [https://github.com/tu-usuario/expense_control_frontend.git](https://github.com/tu-usuario/expense_control_frontend.git)
 cd expense_control_frontend
 npm install
+```
 </details>
