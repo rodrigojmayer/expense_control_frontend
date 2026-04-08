@@ -65,6 +65,7 @@ npm install
 ```
 </details>
 
+---
 
 <details>
 <summary>🇪🇸 <b>Versión en Español</b></summary>
