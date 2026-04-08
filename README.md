@@ -29,6 +29,7 @@ Este repositorio contiene la interfaz de usuario de **ExpenseControl**, una apli
 | 🏠 Página de Inicio | 💳 Método de Pago | 🛒 Selección de Artículos |
 | :---: | :---: | :---: |
 | ![Start Page](/expense_control_frontend/public/01-Start-page.png) | ![Payment](/expense_control_frontend/public/02-Payment-method-page.png) | ![Articles](/expense_control_frontend/public/03-Articles-page.png) |
+| *Elección de cliente* | *Definición de pago* | *Gestión de inventario* |
 
 | ✍️ Edición de Artículos | 🧺 Vista Previa Carrito | 📊 Exportación Final |
 | :---: | :---: | :---: |
